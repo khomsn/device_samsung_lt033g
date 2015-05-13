@@ -62,7 +62,7 @@
 #define PCM_DEVICE 0
 #define PCM_DEVICE_VOICE 1
 #define PCM_DEVICE_SCO 2
-#define PCM_DEVICE_IN 0
+#define PCM_DEVICE_DEEP 0
 
 #define MIXER_CARD 0
 
@@ -783,7 +783,7 @@ static int start_input_stream(struct stream_in *in)
 {
     struct audio_device *adev = in->dev;
 
-    in->pcm = pcm_open(PCM_CARD, PCM_DEVICE_IN, PCM_IN, in->config);
+    in->pcm = pcm_open(PCM_CARD, PCM_DEVICE, PCM_IN, in->config);
 
     if (in->pcm && !pcm_is_ready(in->pcm)) {
         ALOGE("pcm_open() failed: %s", pcm_get_error(in->pcm));
@@ -1626,7 +1626,7 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
         type = OUTPUT_HDMI;
     } else if (flags & AUDIO_OUTPUT_FLAG_DEEP_BUFFER) {
         out->config = pcm_config_deep;
-        out->pcm_device = PCM_DEVICE;
+        out->pcm_device = PCM_DEVICE_DEEP;
         type = OUTPUT_DEEP_BUF;
     } else {
         out->config = pcm_config_fast;
