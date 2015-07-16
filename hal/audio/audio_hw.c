@@ -102,7 +102,7 @@
  */
 #define HDMI_MAX_SUPPORTED_CHANNEL_MASKS 2
 
-struct pcm_config pcm_config_fast = {
+struct pcm_config pcm_config = {
     .channels = 2,
     .rate = 48000,
     .period_size = LOW_LATENCY_OUTPUT_PERIOD_SIZE,
@@ -1654,7 +1654,7 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
         out->pcm_device = PCM_DEVICE_DEEP;
         type = OUTPUT_DEEP_BUF;
     } else {
-        out->config = pcm_config_fast;
+        out->config = pcm_config;
         out->pcm_device = PCM_DEVICE;
         type = OUTPUT_LOW_LATENCY;
     }
@@ -2096,8 +2096,8 @@ static int adev_open(const hw_module_t* module, const char* name,
 
     char value[PROPERTY_VALUE_MAX];
     if (property_get("audio_hal.period_size", value, NULL) > 0) {
-        pcm_config_fast.period_size = atoi(value);
-        pcm_config_in.period_size = pcm_config_fast.period_size;
+        pcm_config.period_size = atoi(value);
+        pcm_config_in.period_size = pcm_config.period_size;
     }
     if (property_get("audio_hal.in_period_size", value, NULL) > 0)
         pcm_config_in.period_size = atoi(value);
