@@ -1394,10 +1394,12 @@ static void do_in_standby(struct stream_in *in)
         if (in->device & AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET)
             end_bt_sco(adev);
 
-        in->dev->input_source = AUDIO_SOURCE_DEFAULT;
-        in->dev->in_device = AUDIO_DEVICE_NONE;
-        in->dev->in_channel_mask = 0;
-        select_devices(adev);
+        if (adev->mode != AUDIO_MODE_IN_CALL) {
+            in->dev->input_source = AUDIO_SOURCE_DEFAULT;
+            in->dev->in_device = AUDIO_DEVICE_NONE;
+            in->dev->in_channel_mask = 0;
+            select_devices(adev);
+        }
         in->standby = true;
     }
 
