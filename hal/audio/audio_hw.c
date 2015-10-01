@@ -117,14 +117,6 @@ struct pcm_config pcm_config_sco = {
     .format = PCM_FORMAT_S16_LE,
 };
 
-struct pcm_config pcm_config_sco_wide = {
-    .channels = 1,
-    .rate = 16000,
-    .period_size = 128,
-    .period_count = 2,
-    .format = PCM_FORMAT_S16_LE,
-};
-
 struct pcm_config pcm_config_voice = {
     .channels = 2,
     .rate = 8000,
@@ -522,8 +514,6 @@ static void select_devices(struct audio_device *adev)
 /* must be called with hw device mutex locked, OK to hold other mutexes */
 static void start_bt_sco(struct audio_device *adev)
 {
-    struct pcm_config *sco_config;
-
     if (adev->pcm_sco_rx || adev->pcm_sco_tx) {
         ALOGW("%s: SCO PCMs already open!\n", __func__);
         return;
@@ -531,13 +521,8 @@ static void start_bt_sco(struct audio_device *adev)
 
     ALOGV("%s: Opening SCO PCMs", __func__);
 
-    if (adev->wb_amr)
-        sco_config = &pcm_config_sco_wide;
-    else
-        sco_config = &pcm_config_sco;
-
-    adev->pcm_sco_rx = pcm_open(PCM_CARD, PCM_DEVICE_SCO,
-            PCM_OUT | PCM_MONOTONIC, sco_config);
+    adev->pcm_sco_rx = pcm_open(PCM_CARD, PCM_DEVICE_SCO, PCM_OUT,
+            &pcm_config_sco);
     if (adev->pcm_sco_rx && !pcm_is_ready(adev->pcm_sco_rx)) {
         ALOGE("%s: cannot open PCM SCO RX stream: %s",
               __func__, pcm_get_error(adev->pcm_sco_rx));
@@ -545,7 +530,7 @@ static void start_bt_sco(struct audio_device *adev)
     }
 
     adev->pcm_sco_tx = pcm_open(PCM_CARD, PCM_DEVICE_SCO, PCM_IN,
-            sco_config);
+            &pcm_config_sco);
     if (adev->pcm_sco_tx && !pcm_is_ready(adev->pcm_sco_tx)) {
         ALOGE("%s: cannot open PCM SCO TX stream: %s",
               __func__, pcm_get_error(adev->pcm_sco_tx));
@@ -744,7 +729,7 @@ static int start_output_stream(struct stream_out *out)
 
     if (out->device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET) {
         out->pcm[PCM_CARD_SPDIF] = pcm_open(PCM_CARD_SPDIF, out->pcm_device,
-                                            PCM_OUT, &out->config);
+                                            PCM_OUT | PCM_MONOTONIC, &out->config);
         if (out->pcm[PCM_CARD_SPDIF] &&
                 !pcm_is_ready(out->pcm[PCM_CARD_SPDIF])) {
             ALOGE("pcm_open(PCM_CARD_SPDIF) failed: %s",
