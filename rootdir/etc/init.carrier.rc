@@ -1,8 +1,13 @@
-on fs
+# Parse hardware revision (needs to happen before cbd starts)
+service modemloader /system/bin/modemloader
+    class core
+    oneshot
+
 service cpboot-daemon /sbin/cbd -d -txmm626x -bh -mh -p13
     class main
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
+    seclabel u:r:cpboot-daemon:s0
 
 on property:ro.cbd.disable=1
     stop cpboot-daemon

@@ -182,6 +182,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libsecril-client \
     libsecril-client-sap \
+    modemloader \
     cbd
 
 PRODUCT_PACKAGES += \
