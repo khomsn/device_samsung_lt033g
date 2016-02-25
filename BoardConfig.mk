@@ -71,11 +71,8 @@ TARGET_BOOTLOADER_BOARD_NAME := universal5420
 
 # FIMG2D
 BOARD_USES_SKIA_FIMGAPI := true
-BOARD_USES_NEON_BLITANTIH := true
-BOARD_USES_FIMGAPI_V4L2 := false
 
 # Graphics
-OVERRIDE_RS_DRIVER := libRSDriverArm.so
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
@@ -88,6 +85,7 @@ BOARD_USES_HWC_SERVICES := true
 # SCALER
 BOARD_USES_SCALER := true
 
+# HDMI
 BOARD_USES_GSC_VIDEO := true
 
 # Include path
@@ -114,23 +112,20 @@ BOARD_USE_S3D_SUPPORT := true
 BOARD_USE_VP8ENC_SUPPORT := true
 
 # HEVC support in libvideocodec
-#BOARD_USE_HEVC_HWIP := true
-#BOARD_USE_HEVCDEC_SUPPORT := true
+BOARD_USE_HEVC_HWIP := true
+BOARD_USE_HEVCDEC_SUPPORT := true
 
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
-# MP3/WMA support
-#BOARD_USE_ALP_AUDIO := true
-#BOARD_USE_SEIREN_AUDIO := true
-#BOARD_USE_WMA_CODEC := true
-
-# Samsung Gralloc
-TARGET_SAMSUNG_GRALLOC_EXTERNAL_USECASES := true
+# Samsung Seiren audio
+BOARD_USE_ALP_AUDIO := true
+BOARD_USE_SEIREN_AUDIO := true
 
 # Modem
 BOARD_MODEM_TYPE := xmm7260
 BOARD_PROVIDES_LIBRIL := true
+# RIL java overwrite
 BOARD_RIL_CLASS := ../../../device/samsung/lt033g/ril
 
 # Partitions
@@ -163,8 +158,6 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5420
-
-#BOARD_HAS_NO_SELECT_BUTTON := true
 
 # Webkit
 ENABLE_WEBGL := true
