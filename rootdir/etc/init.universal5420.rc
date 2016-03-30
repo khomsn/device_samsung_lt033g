@@ -60,9 +60,6 @@ on post-fs-data
     mkdir /efs/drm 0774 drm system
     mkdir /efs/drm/playready 0775 drm system
 
-    #Create directory for hostapd
-    mkdir /data/hostapd 0770 system wifi
-
 # Bluetooth dhcpcd config
 service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main
@@ -75,7 +72,6 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     oneshot
 
 on boot
-
     setprop ro.radio.noril no
     start ril-daemon
 
@@ -85,9 +81,6 @@ on boot
     # Set up kernel tracing, but disable it by default
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
-
-    setprop ro.build.product universal_5420
-    setprop ro.product.device universal_5420
 
     chmod 0644 /proc/cmdline
 
