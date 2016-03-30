@@ -220,7 +220,8 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     wpa_supplicant \
     libnetcmdiface \
-    macloader
+    macloader \
+    wifiloader
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
