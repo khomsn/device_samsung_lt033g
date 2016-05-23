@@ -82,6 +82,7 @@ on boot
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
 
+    chown root radio /proc/cmdline
     chmod 0644 /proc/cmdline
 
 # mobicore
