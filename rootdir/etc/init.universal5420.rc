@@ -589,3 +589,10 @@ service camera_id /system/bin/sh /system/etc/init.exynos.cam.sh
 
 on property:init.svc.bootanim=stopped
     start camera_id
+
+# ITP mode enter/exit
+on property:ril.cbd.modechan=0
+    restart ril-daemon
+
+on property:ril.cbd.modechan=2
+    restart ril-daemon
