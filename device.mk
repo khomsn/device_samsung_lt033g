@@ -82,6 +82,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     camera.qcom.misc.disable=1
 
+# Themes
+PRODUCT_PACKAGES += \
+    HexoLibre
+
 # hardware/samsung/AdvancedDisplay (MDNIE)
 PRODUCT_PACKAGES += \
     AdvancedDisplay
