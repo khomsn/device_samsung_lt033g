@@ -185,6 +185,9 @@ BOARD_ANT_WIRELESS_POWER := "bluedroid"
 # Keymaster
 BOARD_USES_TRUST_KEYMASTER := true
 
+# Enable Minikin text layout engine (will be the default soon)
+USE_MINIKIN := true
+
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
 BOARD_WLAN_DEVICE                := bcmdhd
