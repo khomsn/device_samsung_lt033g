@@ -78,6 +78,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
+# Snap camera. Disabe QCOM-related features
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera.qcom.misc.disable=1
+
 # hardware/samsung/AdvancedDisplay (MDNIE)
 PRODUCT_PACKAGES += \
     AdvancedDisplay
