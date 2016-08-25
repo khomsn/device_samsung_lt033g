@@ -49,7 +49,6 @@ TARGET_OTA_ASSERT_DEVICE := lt033g,lt03wifi,lt03wifiue
 
 # Camera
 BOARD_NEEDS_MEMORYHEAPION := true
-#BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
 COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
 COMMON_GLOBAL_CFLAGS += -DSAMSUNG_DVFS
@@ -89,17 +88,33 @@ BOARD_USES_FIMGAPI_V4L2 := true
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
+# Mixer
+BOARD_USE_BGRA_8888 := true
+
+# Shader cache config options
+# Maximum size of the  GLES Shaders that can be cached for reuse.
+# Increase the size if shaders of size greater than 12KB are used.
+MAX_EGL_CACHE_KEY_SIZE := 12*1024
+
+# Maximum GLES shader cache size for each app to store the compiled shader
+# binaries. Decrease the size if RAM or Flash Storage size is a limitation
+# of the device.
+MAX_EGL_CACHE_SIZE := 2048*1024
+
 # Exynos display
 BOARD_USES_VIRTUAL_DISPLAY := true
 
 # HWCServices
 BOARD_USES_HWC_SERVICES := true
 
+# HDMI
+# hardware/samsung_slsi/exynos/libhdmi_legacy
+TARGET_LINUX_KERNEL_VERSION := 3.4
+BOARD_USES_CEC := true
+BOARD_USES_GSC_VIDEO := true
+
 # SCALER
 BOARD_USES_SCALER := true
-
-# HDMI
-BOARD_USES_GSC_VIDEO := true
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
@@ -120,7 +135,6 @@ BOARD_USE_NON_CACHED_GRAPHICBUFFER := true
 BOARD_USE_GSC_RGB_ENCODER := true
 BOARD_USE_CSC_HW := false
 BOARD_USE_QOS_CTRL := false
-BOARD_USE_S3D_SUPPORT := true
 BOARD_USE_VP8ENC_SUPPORT := true
 
 # HEVC support in libvideocodec
