@@ -16,8 +16,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),lt033g)
-
+ifneq ($(filter lt033g, $(TARGET_DEVICE)),)
 include $(call all-makefiles-under,$(LOCAL_PATH))
-
 endif
