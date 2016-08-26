@@ -30,7 +30,7 @@ public class VibratorHW {
     }
 
     public static int getMaxIntensity()  {
-        return 10000;
+        return 100;
     }
 
     public static int getMinIntensity()  {
@@ -38,8 +38,8 @@ public class VibratorHW {
     }
 
     public static int getWarningThreshold()  {
-        /* 10000 is the default value on stock */
-        return 10000;
+        /* 100 is the default value on stock */
+        return 100;
     }
 
     public static int getCurIntensity()  {
@@ -56,7 +56,7 @@ public class VibratorHW {
     }
 
     public static int getDefaultIntensity()  {
-        return 9000;
+        return 50;
     }
 
     public static boolean setIntensity(int intensity)  {
