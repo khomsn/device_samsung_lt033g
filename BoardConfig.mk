@@ -147,6 +147,7 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 # Modem
 BOARD_MODEM_TYPE := xmm7260
 BOARD_PROVIDES_LIBRIL := true
+BOARD_MODEM_NEEDS_VIDEO_CALL_FIELD := true
 # RIL java overwrite
 BOARD_RIL_CLASS := ../../../device/samsung/lt033g/ril
 
