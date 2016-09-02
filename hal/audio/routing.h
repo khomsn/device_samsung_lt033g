@@ -27,6 +27,7 @@ enum {
     OUT_DEVICE_BT_SCO,
     OUT_DEVICE_SPEAKER_AND_HEADSET,
     OUT_DEVICE_SPEAKER_AND_EARPIECE,
+    OUT_DEVICE_AUX_DIGITAL,
     OUT_DEVICE_TAB_SIZE,           /* number of rows in route_configs[][] */
     OUT_DEVICE_NONE,
     OUT_DEVICE_CNT
@@ -38,7 +39,6 @@ enum {
     IN_SOURCE_VOICE_RECOGNITION,
     IN_SOURCE_VOICE_COMMUNICATION,
     IN_SOURCE_VOICE_CALL,
-    IN_SOURCE_VOICE_CALL_WB,
     IN_SOURCE_TAB_SIZE,            /* number of lines in route_configs[][] */
     IN_SOURCE_NONE,
     IN_SOURCE_CNT
@@ -57,163 +57,129 @@ struct route_config {
                                        // -1 means es325 bypass
 };
 
+/* TODO: Figure out whether voice routes need to set ES325 presets */
 const struct route_config voice_speaker = {
     "voice-speaker",
-    "voice-speaker-mic",
-    { ES325_PRESET_VOIP_DESKTOP,
-      ES325_PRESET_VOIP_DESKTOP }
-};
-
-const struct route_config voice_speaker_wb = {
-    "voice-speaker-wb",
-    "voice-speaker-mic-wb",
-    { ES325_PRESET_VOIP_DESKTOP,
-      ES325_PRESET_VOIP_DESKTOP }
+    "voice-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
 };
 
 const struct route_config voice_earpiece = {
     "voice-earpiece",
-    "voice-earpiece-mic",
-    { ES325_PRESET_VOIP_HANDHELD,
-      ES325_PRESET_VOIP_HANDHELD }
-};
-
-const struct route_config voice_earpiece_wb = {
-    "voice-earpiece-wb",
-    "voice-earpiece-mic-wb",
-    { ES325_PRESET_VOIP_HANDHELD,
-      ES325_PRESET_VOIP_HANDHELD }
+    "voice-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
 };
 
 const struct route_config voice_headphones = {
     "voice-headphones",
-    "voice-earpiece-mic",
-    { ES325_PRESET_VOIP_HEADPHONES,
-      ES325_PRESET_VOIP_HEADPHONES }
-};
-
-const struct route_config voice_headphones_wb = {
-    "voice-headphones-wb",
-    "voice-earpiece-mic-wb",
-    { ES325_PRESET_VOIP_HEADPHONES,
-      ES325_PRESET_VOIP_HEADPHONES }
+    "voice-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
 };
 
 const struct route_config voice_headset = {
     "voice-headphones",
     "voice-headset-mic",
-    { ES325_PRESET_VOIP_HEADSET,
-      ES325_PRESET_VOIP_HEADSET }
-};
-
-const struct route_config voice_headset_wb = {
-    "voice-headphones-wb",
-    "voice-headset-mic-wb",
-    { ES325_PRESET_VOIP_HEADSET,
-      ES325_PRESET_VOIP_HEADSET }
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
 };
 
 const struct route_config media_speaker = {
     "media-speaker",
-    "media-speaker-mic",
-    { ES325_PRESET_ASRA_HANDHELD,
-      ES325_PRESET_ASRA_DESKTOP }
-};
-
-const struct route_config bluetooth_sco_wb = {
-    "bt-sco-headset-wb",
-    "bt-sco-mic",
+    "media-main-mic",
     { ES325_PRESET_OFF,
       ES325_PRESET_OFF }
 };
 
 const struct route_config media_earpiece = {
     "media-earpiece",
-    "media-earpiece-mic",
-    { ES325_PRESET_VOIP_HANDHELD,
-      ES325_PRESET_VOIP_HANDHELD }
+    "media-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
 };
 
 const struct route_config media_headphones = {
     "media-headphones",
-    "media-earpiece-mic",
-    { ES325_PRESET_VOIP_HEADPHONES,
-      ES325_PRESET_VOIP_HEADPHONES }
+    "media-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
 };
 
 const struct route_config media_headset = {
     "media-headphones",
     "media-headset-mic",
-    { ES325_PRESET_VOIP_HEADSET,
-      ES325_PRESET_ASRA_HEADSET }
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
 };
 
 const struct route_config camcorder_speaker = {
     "media-speaker",
-    "media-speaker-mic",
+    "media-second-mic",
     { ES325_PRESET_CAMCORDER,
       ES325_PRESET_CAMCORDER }
 };
 
 const struct route_config camcorder_headphones = {
     "media-headphones",
-    "media-earpiece-mic",
+    "media-second-mic",
     { ES325_PRESET_CAMCORDER,
       ES325_PRESET_CAMCORDER }
 };
 
 const struct route_config voice_rec_speaker = {
-    "media-speaker",
-    "media-speaker-mic",
+    "voice-rec-speaker",
+    "voice-rec-main-mic",
     { ES325_PRESET_ASRA_HANDHELD,
       ES325_PRESET_ASRA_DESKTOP }
 };
 
 const struct route_config voice_rec_headphones = {
-    "media-headphones",
-    "media-earpiece-mic",
+    "voice-rec-headphones",
+    "voice-rec-main-mic",
     { ES325_PRESET_ASRA_HANDHELD,
       ES325_PRESET_ASRA_DESKTOP }
 };
 
 const struct route_config voice_rec_headset = {
-    "media-headphones",
-    "media-headset-mic",
+    "voice-rec-headphones",
+    "voice-rec-headset-mic",
     { ES325_PRESET_ASRA_HEADSET,
       ES325_PRESET_ASRA_HEADSET }
 };
 
 const struct route_config communication_speaker = {
-    "voice-speaker",
-    "voice-speaker-mic",
-    { ES325_PRESET_VOIP_DESKTOP,
+    "communication-speaker",
+    "communication-main-mic",
+    { ES325_PRESET_VOIP_HANDHELD,
       ES325_PRESET_VOIP_DESKTOP }
 };
 
 const struct route_config communication_earpiece = {
-    "voice-earpiece",
-    "voice-earpiece-mic",
-    { ES325_PRESET_VOIP_HANDHELD,
-      ES325_PRESET_VOIP_HANDHELD }
+    "communication-earpiece",
+    "communication-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
 };
 
 const struct route_config communication_headphones = {
-    "voice-headphones",
-    "voice-earpiece-mic",
+    "communication-headphones",
+    "communication-main-mic",
     { ES325_PRESET_VOIP_HEADPHONES,
       ES325_PRESET_VOIP_HP_DESKTOP}
 };
 
 const struct route_config communication_headset = {
-    "voice-headphones",
-    "voice-headset-mic",
+    "communication-headphones",
+    "communication-headset-mic",
     { ES325_PRESET_VOIP_HEADSET,
       ES325_PRESET_VOIP_HEADSET }
 };
 
 const struct route_config speaker_and_headphones = {
     "speaker-and-headphones",
-    "media-speaker-mic",
+    "main-mic",
     { ES325_PRESET_CURRENT,
       ES325_PRESET_CURRENT }
 };
@@ -221,6 +187,13 @@ const struct route_config speaker_and_headphones = {
 const struct route_config bluetooth_sco = {
     "bt-sco-headset",
     "bt-sco-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
+};
+
+const struct route_config hdmi = {
+    "aux-digital",
+    "main-mic",
     { ES325_PRESET_OFF,
       ES325_PRESET_OFF }
 };
@@ -241,7 +214,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &media_headphones,          /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
         &speaker_and_headphones,    /* OUT_DEVICE_SPEAKER_AND_HEADSET */
-        &media_speaker              /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &media_speaker,             /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &hdmi                       /* OUT_DEVICE_AUX_DIGITAL */
     },
     {   /* IN_SOURCE_CAMCORDER */
         &camcorder_speaker,         /* OUT_DEVICE_SPEAKER */
@@ -250,7 +224,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &camcorder_headphones,      /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
         &speaker_and_headphones,    /* OUT_DEVICE_SPEAKER_AND_HEADSET */
-        &camcorder_speaker          /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &camcorder_speaker,         /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &hdmi                       /* OUT_DEVICE_AUX_DIGITAL */
     },
     {   /* IN_SOURCE_VOICE_RECOGNITION */
         &voice_rec_speaker,         /* OUT_DEVICE_SPEAKER */
@@ -259,7 +234,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &voice_rec_headphones,      /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
         &speaker_and_headphones,    /* OUT_DEVICE_SPEAKER_AND_HEADSET */
-        &voice_rec_speaker          /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &voice_rec_speaker,         /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &hdmi                       /* OUT_DEVICE_AUX_DIGITAL */
     },
     {   /* IN_SOURCE_VOICE_COMMUNICATION */
         &communication_speaker,     /* OUT_DEVICE_SPEAKER */
@@ -268,7 +244,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &communication_headphones,  /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
         &speaker_and_headphones,    /* OUT_DEVICE_SPEAKER_AND_HEADSET */
-        &communication_earpiece     /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &communication_earpiece,    /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &hdmi                       /* OUT_DEVICE_AUX_DIGITAL */
     },
     {   /* IN_SOURCE_VOICE_CALL */
         &voice_speaker,             /* OUT_DEVICE_SPEAKER */
@@ -277,16 +254,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &voice_headphones,          /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
         &voice_headphones,          /* OUT_DEVICE_SPEAKER_AND_HEADSET */
-        &voice_earpiece             /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
-    },
-    {   /* IN_SOURCE_VOICE_CALL_WB */
-        &voice_speaker_wb,          /* OUT_DEVICE_SPEAKER */
-        &voice_earpiece_wb,         /* OUT_DEVICE_EARPIECE */
-        &voice_headset_wb,          /* OUT_DEVICE_HEADSET */
-        &voice_headphones_wb,       /* OUT_DEVICE_HEADPHONES */
-        &bluetooth_sco_wb,          /* OUT_DEVICE_BT_SCO */
-        &voice_headphones_wb,       /* OUT_DEVICE_SPEAKER_AND_HEADSET */
-        &voice_earpiece_wb          /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &voice_earpiece,            /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
+        &hdmi                       /* OUT_DEVICE_AUX_DIGITAL */
     },
 };
 
