@@ -115,8 +115,7 @@ PRODUCT_COPY_FILES += \
 # Utilities
 PRODUCT_PACKAGES += \
     remount \
-    optimizedb \
-    optimizestorage
+    optimizedb
 
 # IR
 PRODUCT_PACKAGES += \
