@@ -19,9 +19,6 @@ LOCAL_PATH := device/samsung/lt033g
 # inherit from the proprietary version
 -include vendor/samsung/lt033g/BoardConfigVendor.mk
 
-# Use OpenJDK-8
-EXPERIMENTAL_USE_JAVA8 := true
-
 # Platform
 BOARD_VENDOR := samsung
 TARGET_BOARD_PLATFORM := exynos5
