@@ -41,7 +41,7 @@
 #define IO_IS_BUSY_PATH "/sys/devices/system/cpu/cpufreq/interactive/io_is_busy"
 
 #define CPU0_HISPEED_FREQ_PATH "/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq"
-#define CPU0_MAX_FREQ_PATH "/sys/devices/system/cpu/cpufreq/scaling_max_freq"
+#define CPU0_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
 
 #define PANEL_BRIGHTNESS "/sys/class/backlight/panel/brightness"
 
