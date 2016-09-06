@@ -16,9 +16,6 @@
 
 LOCAL_PATH := device/samsung/lt033g
 
-# inherit from the proprietary version
--include vendor/samsung/lt033g/BoardConfigVendor.mk
-
 # Platform
 BOARD_VENDOR := samsung
 TARGET_BOARD_PLATFORM := exynos5
@@ -46,9 +43,6 @@ TARGET_OTA_ASSERT_DEVICE := lt033g,lt03wifi,lt03wifiue
 
 # Camera
 BOARD_NEEDS_MEMORYHEAPION := true
-COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_DVFS
 
 # Force the screenshot path to CPU consumer
 COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
@@ -105,8 +99,6 @@ BOARD_USES_VIRTUAL_DISPLAY := true
 BOARD_USES_HWC_SERVICES := true
 
 # HDMI
-# hardware/samsung_slsi/exynos/libhdmi_legacy
-TARGET_LINUX_KERNEL_VERSION := 3.4
 BOARD_USES_CEC := true
 BOARD_USES_GSC_VIDEO := true
 
