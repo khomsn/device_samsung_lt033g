@@ -252,10 +252,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 ADDITIONAL_BUILD_PROPERTIES += \
     persist.sys.root_access=3
 
-# Fast mass storage
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vold.umsdirtyratio=50
-
 # DALVIK/ART
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapstartsize=16m \
