@@ -25,10 +25,6 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_AAPT_PREBUILT_DPI := xhdpi hdpi
 
 PRODUCT_PACKAGES += \
-    libion \
-    libfimg
-
-PRODUCT_PACKAGES += \
     libstlport
 
 PRODUCT_PACKAGES += \
