@@ -1,4 +1,3 @@
-
 # Modem
 rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/ttyS0
@@ -7,3 +6,6 @@ ro.telephony.default_network=3
 ro.data.large_tcp_window_size=true
 ro.telephony.ril_class=SlteRIL
 ro.ril.telephony.mqanelements=5
+
+# GPS
+ro.gps.agps_provider=1
