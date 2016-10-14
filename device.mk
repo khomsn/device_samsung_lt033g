@@ -276,6 +276,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.text_large_cache_height=4096 \
     ro.hwui.fbo_cache_size=16
 
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.allow.mock.location=1
+
 # Call Samsung LSI board support packages
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5420/exynos5420.mk)
