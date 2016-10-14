@@ -168,6 +168,9 @@ TARGET_KERNEL_HAVE_NTFS := true
 # Disable journaling on system.img to save space
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 
+# Enable dex-preoptimization to speed up first boot sequence
+WITH_DEXPREOPT := true
+
 # UMS
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
 
