@@ -67,15 +67,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Camera
 PRODUCT_PACKAGES += \
     camera.universal5420 \
-    libhwjpeg \
-    Snap
+    libhwjpeg
 
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
-
-# Snap camera. Disabe QCOM-related features
-PRODUCT_PROPERTY_OVERRIDES += \
-    camera.qcom.misc.disable=1
 
 # Themes
 PRODUCT_PACKAGES += \
@@ -99,8 +94,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Gello
 
+# GPS
 PRODUCT_PACKAGES += \
     libdmitry
+
+# Samsung symbols
+PRODUCT_PACKAGES += \
+    libsamsung_symbols
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
