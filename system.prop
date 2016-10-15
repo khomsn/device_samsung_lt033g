@@ -13,3 +13,7 @@ ro.gps.agps_provider=1
 # Media
 ro.sapa.jack.master=alsa
 ro.hdcp2.rx=tz
+
+# Randomly from stock
+ro.secwvk=220
+ro.securestorage.support=true
