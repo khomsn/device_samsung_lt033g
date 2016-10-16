@@ -394,7 +394,11 @@ on fs
     chmod 0666 /sys/class/leds/torch-sec1/brightness
 
 # Permissions for LCD
+    chown system radio /sys/class/lcd/panel/contrast
+    chown system radio /sys/class/lcd/panel/lcd_power
     chown system radio /sys/class/lcd/panel/lcd_type
+    chown system radio /sys/class/lcd/panel/max_contrast
+    chown system radio /sys/class/lcd/panel/window_type
 
 # Permissions for MDNIE
     chown system media_rw /sys/class/mdnie/mdnie/mode
