@@ -401,11 +401,13 @@ on fs
     chown system radio /sys/class/lcd/panel/window_type
 
 # Permissions for MDNIE
+    chown system system /sys/class/mdnie/mdnie/accessibility
+    chown system system  /sys/class/mdnie/mdnie/bypass
+    chown system system  /sys/class/mdnie/mdnie/cabc
+    chown system system  /sys/class/mdnie/mdnie/color_correct
     chown system media_rw /sys/class/mdnie/mdnie/mode
     chown system media_rw /sys/class/mdnie/mdnie/scenario
-    chown system system /sys/class/mdnie/mdnie/accessibility
-    chown system system  /sys/class/mdnie/mdnie/cabc
-    chown system system  /sys/class/mdnie/mdnie/bypass
+    chown system system  /sys/class/mdnie/mdnie/tuning
 
  # Permissions for TCON
     chown system system /sys/class/tcon/tcon/lux
