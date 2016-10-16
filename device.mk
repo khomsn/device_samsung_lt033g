@@ -228,13 +228,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
+# Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
     ro.com.android.dataroaming=false
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.usb.config=mtp \
-    ro.allow.mock.location=1 \
     ro.debug_level=0x4948 \
     ro.secure=0
 
@@ -246,6 +246,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.debuggable=1 \
     persist.service.adb.enable=1
 
+# adb and apps
 ADDITIONAL_BUILD_PROPERTIES += \
     persist.sys.root_access=3
 
@@ -261,6 +262,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.sys.fw.dex2oat_thread_count=4
 
+# Enable mock location
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.allow.mock.location=1
+
+# Enable multi-window by default
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.debug.multi_window=true
+
 # HWUI CACHES
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.texture_cache_size=96 \
@@ -275,13 +284,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.text_large_cache_width=4096 \
     ro.hwui.text_large_cache_height=4096 \
     ro.hwui.fbo_cache_size=16
-
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.allow.mock.location=1
-
-# Enable multi-window by default
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.debug.multi_window=true
 
 # Call Samsung LSI board support packages
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
