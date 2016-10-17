@@ -31,7 +31,7 @@
     },
     {
         "remote": "github",
-        "repository": "ShevT/hardware_samsung_slsi-cm_exynos5420",
+        "repository": "exynos5420/hardware_samsung_slsi-cm_exynos5420",
         "revision": "cm-13.0",
         "target_path": "hardware/samsung_slsi-cm/exynos5420"
     },
