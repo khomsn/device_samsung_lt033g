@@ -22,7 +22,7 @@
 *
 */
 
-#define LOG_PARAMETERS 0
+#define LOG_PARAMETERS 1
 
 #define LOG_TAG "CameraWrapper"
 #include <cutils/log.h>
@@ -112,11 +112,6 @@ static char *camera_fixup_getparams(int __attribute__((unused)) id,
     ALOGV("%s: original parameters:", __FUNCTION__);
     params.dump();
 #endif
-
-	const char *videoSizesStr = params.get(android::CameraParameters::KEY_SUPPORTED_VIDEO_SIZES);
-	char tmpsz[strlen(videoSizesStr) + 10 + 1];
-	sprintf(tmpsz, "3840x2160,%s", videoSizesStr);
-	params.set(android::CameraParameters::KEY_SUPPORTED_VIDEO_SIZES, tmpsz);
 
     /* Preview format is YUV420SP already */
     //params.setPreviewFormat("yuv420sp");
