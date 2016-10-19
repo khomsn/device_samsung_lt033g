@@ -1799,27 +1799,34 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
     if (adev->mode == AUDIO_MODE_IN_CALL) {
         ALOGV("%s: Entering IN_CALL mode", __func__);
         if (!adev->in_call) {
+            adev->in_call = true;
             if (adev->out_device == AUDIO_DEVICE_NONE ||
                 adev->out_device == AUDIO_DEVICE_OUT_SPEAKER) {
+                ALOGV("%s: No device selected, use earpiece as the default",
+                      __func__);
                 adev->out_device = AUDIO_DEVICE_OUT_EARPIECE;
             }
             adev->input_source = AUDIO_SOURCE_VOICE_CALL;
             select_devices(adev);
             start_voice_call(adev);
-            ril_set_call_clock_sync(&adev->ril, SOUND_CLOCK_START);
+            adev_set_call_audio_path(adev);
             adev_set_voice_volume(&adev->hw_device, adev->voice_volume);
-            adev->in_call = true;
+            ril_set_call_clock_sync(&adev->ril, SOUND_CLOCK_START);
         }
     } else {
         ALOGV("%s: Leaving IN_CALL mode", __func__);
         if (adev->in_call) {
-            adev->in_call = false;
-            end_voice_call(adev);
             ril_set_call_clock_sync(&adev->ril, SOUND_CLOCK_STOP);
+            end_voice_call(adev);
             if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
                 end_bt_sco(adev);
             adev->input_source = AUDIO_SOURCE_DEFAULT;
+            ALOGV("*** %s: Reset route to out devices=%#x, input src=%#x",
+                  __func__,
+                  adev->out_device,
+                  adev->input_source);
             select_devices(adev);
+            adev->in_call = false;
         }
     }
     pthread_mutex_unlock(&adev->lock);
