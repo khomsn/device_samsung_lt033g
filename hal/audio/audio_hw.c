@@ -1003,9 +1003,6 @@ static void do_out_standby(struct stream_out *out)
             force_non_hdmi_out_standby(adev);
         }
 
-        if (out->device & AUDIO_DEVICE_OUT_ALL_SCO)
-            end_bt_sco(adev);
-
         /* re-calculate the set of active devices from other streams */
         adev->out_device = output_devices(out);
 
