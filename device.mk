@@ -73,6 +73,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     AdvancedDisplay
 
+# Remove packages that do not work well
+PRODUCT_PACKAGES += \
+    RemovePackages
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
