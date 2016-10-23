@@ -58,6 +58,8 @@ BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_CONFIG := cyanogenmod_lt033g_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/lt033g
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-eabi-5.2/bin
+KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Charger/Healthd
