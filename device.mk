@@ -138,7 +138,8 @@ PRODUCT_PACKAGES += \
 
 # Video codecs
 PRODUCT_PACKAGES += \
-    libOMX.Exynos.WMV.Decoder
+    libOMX.Exynos.WMV.Decoder \
+    libOMX.Exynos.MPEG2.Decoder
 
 # Permissions
 PRODUCT_COPY_FILES += \
