@@ -288,6 +288,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.text_large_cache_height=4096 \
     ro.hwui.fbo_cache_size=16
 
+# Hwc - not used on cm/aosp
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.hwc.winupdate=1 \
+    debug.hwc.otf=1
+
 # Call Samsung LSI board support packages
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5420/exynos5420.mk)
