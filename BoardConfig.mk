@@ -208,6 +208,9 @@ BOARD_USES_TRUST_KEYMASTER := true
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
 
+# Advanced Low Power audio support
+BOARD_USE_ALP_AUDIO := true
+
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
 BOARD_WLAN_DEVICE                := bcmdhd
