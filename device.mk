@@ -63,7 +63,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.exynos5 \
     libhwjpeg
 
 PRODUCT_PROPERTY_OVERRIDES += \
