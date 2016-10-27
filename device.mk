@@ -65,9 +65,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     libhwjpeg
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
-
 # Themes
 PRODUCT_PACKAGES += \
     HexoLibre
