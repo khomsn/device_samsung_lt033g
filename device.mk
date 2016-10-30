@@ -251,12 +251,9 @@ ADDITIONAL_BUILD_PROPERTIES += \
 
 # DALVIK/ART
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapstartsize=16m \
-    dalvik.vm.heapgrowthlimit=192m \
-    dalvik.vm.heapsize=512m \
-    dalvik.vm.heaptargetutilization=0.75 \
-    dalvik.vm.heapminfree=2m \
-    dalvik.vm.heapmaxfree=8m \
+    dalvik.vm.image-dex2oat-filter=speed \
+    dalvik.vm.dex2oat-filter=speed \
+    dalvik.vm.dex2oat-swap=false
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.sys.fw.dex2oat_thread_count=4
@@ -294,3 +291,5 @@ $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5420/exynos5420.mk)
 # Call the proprietary setup
 $(call inherit-product, vendor/samsung/lt033g/lt033g-vendor.mk)
+# Configure the Dalvik heap
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
