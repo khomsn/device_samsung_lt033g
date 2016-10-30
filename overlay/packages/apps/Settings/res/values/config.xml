@@ -29,4 +29,7 @@
     <!-- Whether the power control widget is enabled for this device. -->
     <bool name="has_powercontrol_widget">true</bool>
 
+    <!-- Does the device allow updating the recovery. -->
+    <bool name="config_enableRecoveryUpdater">false</bool>
+
 </resources>
