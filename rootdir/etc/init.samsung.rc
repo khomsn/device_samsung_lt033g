@@ -50,13 +50,13 @@ on init
     # this ensures that the cpusets are present and usable, but the device's
     # init.rc must actually set the correct cpus
     mkdir /dev/cpuset/real_fg
-    write /dev/cpuset/real_fg/cpus "0-7"
+    write /dev/cpuset/real_fg/cpus "0-3"
     write /dev/cpuset/real_fg/mems 0
     mkdir /dev/cpuset/foreground
-    write /dev/cpuset/foreground/cpus "0-4,6-7"
+    write /dev/cpuset/foreground/cpus "0-3"
     write /dev/cpuset/foreground/mems 0
     mkdir /dev/cpuset/background
-    write /dev/cpuset/background/cpus "1-3"
+    write /dev/cpuset/background/cpus "2-3"
     write /dev/cpuset/background/mems 0
     mkdir /dev/cpuset/cached
     write /dev/cpuset/cached/cpus "1-3"
@@ -65,7 +65,7 @@ on init
     write /dev/cpuset/abnormal/cpus "1-3"
     write /dev/cpuset/abnormal/mems 0
     mkdir /dev/cpuset/dex2oat
-    write /dev/cpuset/dex2oat/cpus "1-7"
+    write /dev/cpuset/dex2oat/cpus "0-3"
     write /dev/cpuset/dex2oat/mems 0
 
     # change permissions for cpusets we'll touch at runtime
