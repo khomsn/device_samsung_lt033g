@@ -333,6 +333,11 @@ on boot
     chown system radio /sys/devices/system/cpu/cpu0/cpuidle/state2/disable
     chown system radio /sys/module/cpuidle/parameters/enable_mask
 
+# C-STATE
+    chown system system /sys/module/cpuidle/parameters/off
+    chmod 0660 /sys/module/cpuidle/parameters/off
+
+# ASV Group
     chown system radio /sys/module/asv_exynos/parameters/asv_group
 
 # MTP permission
