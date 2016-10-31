@@ -12,14 +12,20 @@ on init
     # Vibetonz
     export VIBE_PIPE_PATH /dev/pipes
     mkdir /dev/pipes 0771 vibe vibe
+    chmod 0771 /dev/pipes
+    chown vibe vibe /dev/pipes
     restorecon /dev/pipes
 
 on post-fs-data
     # sec_efs_file
     mkdir /efs/sec_efs 0775 radio system
+    chmod 0775 /efs/sec_efs
+    chown radio system /efs/sec_efs
 
     # Latin SSMS feature
     mkdir /efs/SMS 0775 radio system
+    chmod 0775 /efs/SMS
+    chown radio system /efs/SMS
 
     # PMK permission
     mkdir /efs/mc 0770 radio system
@@ -31,37 +37,32 @@ on post-fs-data
     # SA, System SW, SAMSUNG
     # create log directory
     mkdir /data/log 0775 system log
+    chmod 0775 /data/log
     chown system log /data/log
     mkdir /data/anr 0775 system system
-    chown system system /data/anr
-    chmod 0775 /data/log
     chmod 0775 /data/anr
+    chown system system /data/anr
     restorecon /data/log
     restorecon /data/anr
 
     #create uibc dir
-    mkdir /dev/socket/uibc 0777 media system
-    chown media system /dev/socket/uibc
+    mkdir /dev/socket/uibc 0775 media system
     chmod 0775 /dev/socket/uibc
+    chown media system /dev/socket/uibc
 
 # [ SEC_MM_DRM
     # OMA DB directory creation
-    mkdir /data/system/databases 0775
-    chown system system /data/system/databases
+    mkdir /data/system/databases 0775 system system
     chmod 0775 /data/system/databases
+    chown system system /data/system/databases
 
     # Added for Playready DRM Support
-    mkdir /data/data/.drm 0775
-    chown drm system /data/data/.drm
+    mkdir /data/data/.drm 0775 drm system
     chmod 0775 /data/data/.drm
-    mkdir /data/data/.drm/.playready 0775
-    chown drm system /data/data/.drm/.playready
+    chown drm system /data/data/.drm
+    mkdir /data/data/.drm/.playready 0775 drm system
     chmod 0775 /data/data/.drm/.playready
-
-    # Added drm folder to copy drm plugins
-    mkdir /system/lib/drm 0775
-    chown root root /system/lib/drm
-    chmod 0775 /system/lib/drm
+    chown drm system /data/data/.drm/.playready
 
     restorecon_recursive /efs
     restorecon_recursive /carrier

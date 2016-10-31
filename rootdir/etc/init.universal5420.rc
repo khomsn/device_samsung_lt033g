@@ -73,7 +73,11 @@ on post-fs-data
 
 # Added for TZ Playready DRM Support
     mkdir /efs/drm 0774 drm system
+    chmod 0774 /efs/drm
+    chown drm system /efs/drm
     mkdir /efs/drm/playready 0775 drm system
+    chmod 0775 /efs/drm/playready
+    chown drm system /efs/drm/playready
 
 on boot
     setprop ro.radio.noril no
@@ -91,8 +95,14 @@ on boot
 
 # mobicore
     mkdir /data/app/mcRegistry 0775 system system
+    chmod 0775 /data/app/mcRegistry
+    chown system system /data/app/mcRegistry
     mkdir /system/app/mcRegistry/TbStorage 0775 system system
+    chmod 0775 /system/app/mcRegistry/TbStorage
+    chown system system /system/app/mcRegistry/TbStorage
     mkdir /efs/TEE 0770 radio system
+    chmod 0770 /efs/TEE
+    chown radio system /efs/TEE
     chmod 0700 /dev/mobicore
     chmod 0666 /dev/mobicore-user
     chown system system /dev/mobicore
@@ -100,11 +110,14 @@ on boot
 
 # DRK permission
     mkdir /efs/prov 0770 radio system
+    chmod 0770 /efs/prov
+    chown radio system /efs/prov
     mkdir /efs/prov_data 0770 radio system
+    chmod 0770 /efs/prov_data
+    chown radio system /efs/prov_data
+    mkdir /efs/prov_data/dev_root 0770 radio system
     chown radio system /efs/prov_data/dev_root
     chmod 0770 /efs/prov_data/dev_root
-    chown radio system /efs/prov_data/knox
-    chmod 0770 /efs/prov_data/knox
     chown radio system /efs/prov_data/dev_root/dev_root.dat
     chmod 0640 /efs/prov_data/dev_root/dev_root.dat
     chown radio system /efs/prov/libdevkm.lock
@@ -369,9 +382,8 @@ on fs
 
 #For Absolute Persistence Partition 
     mkdir /persdata 0755 system system 
-    mkdir /persdata/absolute 0750 system system 
-
-    wait /dev/block/platform/dw_mmc.0/by-name/PERSDATA 
+    mkdir /persdata/absolute 0750 system system
+    wait /dev/block/platform/dw_mmc.0/by-name/PERSDATA
     check_fs /dev/block/platform/dw_mmc.0/by-name/PERSDATA ext4
     mount ext4 /dev/block/platform/dw_mmc.0/by-name/PERSDATA /persdata/absolute nosuid nodev barrier=1
 
@@ -421,6 +433,8 @@ on fs
 
 # create camera directory
     mkdir /data/camera 0700 media media
+    chmod 0700 /data/camera
+    chown media media /data/camera
 
 # GPS
     chown root system /dev/ttySAC1
@@ -430,6 +444,7 @@ on fs
     mkdir /data/system 0771 system system
     chown system system /data/system
     mkdir /data/system/gps 0771 system system
+    chmod 0771 /data/system/gps
     chown system system /data/system/gps
     rm /data/system/gps/gps_started
     rm /data/system/gps/glonass_started
@@ -504,7 +519,7 @@ service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF0000000000000
     oneshot
 
 on property:ro.securestorage.support=true
-    mkdir /dev/.secure_storage
+    mkdir /dev/.secure_storage 0771 system system
     chmod 0711 /dev/.secure_storage
     chown system system /dev/.secure_storage
     restorecon_recursive /dev/.secure_storage
