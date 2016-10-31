@@ -16,6 +16,98 @@ on init
     chown vibe vibe /dev/pipes
     restorecon /dev/pipes
 
+    mkdir /dev/cpuctl/foreground
+    chown system system /dev/cpuctl/foreground/tasks
+    chmod 0666 /dev/cpuctl/foreground/tasks
+    write /dev/cpuctl/foreground/cpu.shares 1024
+    write /dev/cpuctl/foreground/cpu.rt_runtime_us 800000
+    write /dev/cpuctl/foreground/cpu.rt_period_us 1000000
+
+    mkdir /dev/cpuctl/bg_cached
+    chown system system /dev/cpuctl/bg_cached/tasks
+    chmod 0666 /dev/cpuctl/bg_cached/tasks
+    # 5.0 %
+    write /dev/cpuctl/bg_cached/cpu.shares 52
+    write /dev/cpuctl/bg_cached/cpu.rt_runtime_us 700000
+    write /dev/cpuctl/bg_cached/cpu.rt_period_us 1000000
+
+    mkdir /dev/cpuctl/bg_abnormal
+    chown system system /dev/cpuctl/bg_abnormal/tasks
+    chmod 0666 /dev/cpuctl/bg_abnormal/tasks
+    # 5.0 %
+    write /dev/cpuctl/bg_abnormal/cpu.shares 52
+    write /dev/cpuctl/bg_abnormal/cpu.rt_runtime_us 700000
+    write /dev/cpuctl/bg_abnormal/cpu.rt_period_us 1000000
+
+    mkdir /dev/cpuctl/dex2oat
+    chown system system /dev/cpuctl/dex2oat/tasks
+    chmod 0666 /dev/cpuctl/dex2oat/tasks
+    # 5.0 %
+    write /dev/cpuctl/dex2oat/cpu.shares 52
+    write /dev/cpuctl/dex2oat/cpu.rt_runtime_us 700000
+    write /dev/cpuctl/dex2oat/cpu.rt_period_us 1000000
+
+    # this ensures that the cpusets are present and usable, but the device's
+    # init.rc must actually set the correct cpus
+    mkdir /dev/cpuset/real_fg
+    write /dev/cpuset/real_fg/cpus "0-7"
+    write /dev/cpuset/real_fg/mems 0
+    mkdir /dev/cpuset/foreground
+    write /dev/cpuset/foreground/cpus "0-4,6-7"
+    write /dev/cpuset/foreground/mems 0
+    mkdir /dev/cpuset/background
+    write /dev/cpuset/background/cpus "1-3"
+    write /dev/cpuset/background/mems 0
+    mkdir /dev/cpuset/cached
+    write /dev/cpuset/cached/cpus "1-3"
+    write /dev/cpuset/cached/mems 0
+    mkdir /dev/cpuset/abnormal
+    write /dev/cpuset/abnormal/cpus "1-3"
+    write /dev/cpuset/abnormal/mems 0
+    mkdir /dev/cpuset/dex2oat
+    write /dev/cpuset/dex2oat/cpus "1-7"
+    write /dev/cpuset/dex2oat/mems 0
+
+    # change permissions for cpusets we'll touch at runtime
+    chown system system /dev/cpuset/real_fg
+    chown system system /dev/cpuset/cached
+    chown system system /dev/cpuset/abnormal
+    chown system system /dev/cpuset/dex2oat
+    chown system system /dev/cpuset/real_fg/tasks
+    chown system system /dev/cpuset/cached/tasks
+    chown system system /dev/cpuset/abnormal/tasks
+    chown system system /dev/cpuset/dex2oat/tasks
+    chown system system /dev/cpuset/cpus
+    chown system system /dev/cpuset/real_fg/cpus
+    chown system system /dev/cpuset/foreground/cpus
+    chown system system /dev/cpuset/background/cpus
+    chown system system /dev/cpuset/cached/cpus
+    chown system system /dev/cpuset/abnormal/cpus
+    chown system system /dev/cpuset/dex2oat/cpus
+    chmod 0666 /dev/cpuset/real_fg/tasks
+    chmod 0666 /dev/cpuset/foreground/tasks
+    chmod 0666 /dev/cpuset/background/tasks
+    chmod 0666 /dev/cpuset/cached/tasks
+    chmod 0666 /dev/cpuset/abnormal/tasks
+    chmod 0666 /dev/cpuset/dex2oat/tasks
+    chmod 0666 /dev/cpuset/tasks
+    chmod 0666 /dev/cpuset/real_fg/cpus
+    chmod 0666 /dev/cpuset/foreground/cpus
+    chmod 0666 /dev/cpuset/background/cpus
+    chmod 0666 /dev/cpuset/cached/cpus
+    chmod 0666 /dev/cpuset/abnormal/cpus
+    chmod 0666 /dev/cpuset/dex2oat/cpus
+    chmod 0666 /dev/cpuset/cpus
+
+    # reset_reason
+    chown system system /proc/reset_reason
+    chmod 0600 /proc/reset_reason
+    chown system system /proc/reset_reason_extra_info
+    chmod 0600 /proc/reset_reason_extra_info
+
+on post-fs
+    chown system log /proc/sec_log
+
 on post-fs-data
     # sec_efs_file
     mkdir /efs/sec_efs 0775 radio system
@@ -33,6 +125,14 @@ on post-fs-data
     chmod 0770 /efs/mc
     chown radio system /efs/mc/mc.dat
     chmod 0640 /efs/mc/mc.dat
+
+    mkdir /data/misc/bluedroiddump 0770 system system
+
+    chown system system /dev/tzic
+
+    #SideSync
+    chown system system /dev/android_ssusbcon
+    chmod 0660 /dev/android_ssusbcon
 
     # SA, System SW, SAMSUNG
     # create log directory
@@ -63,6 +163,14 @@ on post-fs-data
     mkdir /data/data/.drm/.playready 0775 drm system
     chmod 0775 /data/data/.drm/.playready
     chown drm system /data/data/.drm/.playready
+
+    # Added for Playready DCM DRM Support
+    mkdir /data/.dcmdrm 0775 drm system
+    chown drm system /data/.dcmdrm
+    chmod 0775 /data/.dcmdrm
+    mkdir /data/.dcmdrm/.playready 0775 drm system
+    chown drm system /data/.dcmdrm/.playready
+    chmod 0775 /data/.dcmdrm/.playready
 
     restorecon_recursive /efs
     restorecon_recursive /carrier

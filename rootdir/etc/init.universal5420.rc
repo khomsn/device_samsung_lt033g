@@ -261,17 +261,11 @@ on boot
 
 # OTG_TEST
     chown system radio /sys/class/host_notify/usb_otg/booster
-    chmod 0660 /sys/class/host_notify/usb_otg/booster
+    chmod 0664 /sys/class/host_notify/usb_otg/booster
 
     write /proc/sys/vm/swappiness 130
 
 # PMS DVFS
-    chown radio system /sys/power/cpufreq_table
-    chown radio system /sys/power/cpufreq_max_limit
-    chown radio system /sys/power/cpufreq_min_limit
-    chmod 0660 /sys/power/cpufreq_table
-    chmod 0660 /sys/power/cpufreq_max_limit
-    chmod 0660 /sys/power/cpufreq_min_limit
     chown radio system /sys/class/devfreq/exynos5-busfreq-mif/en_monitoring
     chown radio system /sys/class/devfreq/exynos5-busfreq-int/en_monitoring
     chmod 0664 /sys/class/devfreq/exynos5-busfreq-mif/en_monitoring
