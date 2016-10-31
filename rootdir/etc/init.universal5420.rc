@@ -12,12 +12,6 @@ on init
 
     symlink /data/app /factory
 
-    # Modem stuff
-    mkdir /efs 0771 radio system
-    symlink /dev/block/mmcblk0p13 /dev/mbin0
-    restorecon /dev/mbin0
-    symlink /sys/devices/platform/s5p-ehci/ehci_power /dev/ehci_power
-
     # Make param link
     symlink /dev/block/mmcblk0p8 /dev/block/param
 
@@ -80,17 +74,6 @@ on post-fs-data
 # Added for TZ Playready DRM Support
     mkdir /efs/drm 0774 drm system
     mkdir /efs/drm/playready 0775 drm system
-
-# Bluetooth dhcpcd config
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
 
 on boot
     setprop ro.radio.noril no
@@ -186,8 +169,6 @@ on boot
     chown system radio /sys/class/sec/sec_epen/epen_saving_mode
     chown system radio /sys/class/sec/sec_epen/epen_connection
     chown system radio /sys/class/sec/sec_epen/boost_level
-    chown system system /sys/class/input/input10/enabled
-    chmod 0660 /sys/class/input/input10/enabled
 
 # SENSORS
 # Accelerometer_sensor
@@ -361,10 +342,6 @@ on boot
     chown radio system /sys/class/secgpio_check/secgpio_check_all/gpiosleep_check
     chown radio system /sys/class/secgpio_check/secgpio_check_all/checked_sleepGPIO
 
-# IR_LED
-    chown system radio /sys/class/sec/sec_ir/ir_send
-    chown system radio /sys/class/sec/sec_ir/ir_send_result
-
 # Permissions for Barcode Emul
     chown system radio /sys/class/sec/sec_barcode_emul/barcode_send
     chown system radio /sys/class/sec/sec_barcode_emul/barcode_ver_check
@@ -389,14 +366,6 @@ on fs
     mkdir /preload 0771 system system
     setprop ro.crypto.fuse_sdcard true
     mount_all /fstab.universal5420
-
-# Modem stuff
-    chown radio system /efs
-    chmod 0771 /efs
-    chown radio radio /sys/devices/virtual/misc/multipdp/waketime
-    chmod 0660 /sys/devices/virtual/misc/umts_dm0/dm_state
-    chown radio system /sys/devices/virtual/misc/umts_dm0/dm_state
-    chown radio radio /sys/devices/platform/s5p-ehci/ehci_cpu_core
 
 #For Absolute Persistence Partition 
     mkdir /persdata 0755 system system 
@@ -479,9 +448,6 @@ on fs
     chmod 0644 /sys/class/timed_output/vibrator/pwm_threshold
     chown system system /sys/class/timed_output/vibrator/pwm_threshold
 
-on property:ro.fuse_sdcard=true
-    start sdcard
-
 service charger /charger
     class charger
 
@@ -490,24 +456,6 @@ service watchdogd /sbin/watchdogd 10 20
     class core
     seclabel u:r:watchdogd:s0
     disabled
-
-# Bluetooth LE 2 wired Test
-service LE_dut_cmd_on /system/bin/bttestintf enable
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-service LE_dut_cmd_off /system/bin/bttestintf disable
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-service bttestdaemon /system/bin/bttestd
-    class main
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
 
 service dhcpcd_eth0 /system/bin/dhcpcd -aABDKL
     class late_start
@@ -519,22 +467,26 @@ service iprenew_eth0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
+# for SmartSwitch
+service dhcpcd_usb0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+# Bluetooth dhcpcd config
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_bt-pan /system/bin/dhcpcd -n
+    class late_start
+    disabled
+    oneshot
+
 # Kick watchdogd if debug_level is low
 on property:ro.debug_level=0x4f4c
     start watchdogd
-
-# on userdebug and eng builds, enable kgdb on the serial console
-on property:ro.debuggable=1
-    write /sys/module/kgdboc/parameters/kgdboc ttyFIQ1
-    write /sys/module/fiq_debugger/parameters/kgdb_enable 1
-
-# SecEDS
-service TvoutService_C /system/bin/bintvoutservice
-     class main
-     user system
-     group graphics
-on property:ro.SecEDS.enable=false
-    stop TvoutService_C
 
 # GPS
 service gpsd /system/bin/gpsd -c /system/etc/gps.xml
@@ -550,26 +502,12 @@ service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF0000000000000
     group system
     oneshot
 
-# Secure Storage startup
-service secure_storage /system/bin/secure_storage_daemon
-    class core
-    user system
-    group system
-    disabled
-
 on property:ro.securestorage.support=true
     mkdir /dev/.secure_storage
     chmod 0711 /dev/.secure_storage
     chown system system /dev/.secure_storage
     restorecon_recursive /dev/.secure_storage
     start secure_storage
-
-# CS service
-service cs_service /system/bin/cs
-    class main
-    user system
-    group system
-    disabled
 
 on property:sys.mobicoredaemon.enable=true
     start cs_service
@@ -587,16 +525,14 @@ on property:persist.sys.storage_preload=1
 on property:persist.sys.storage_preload=0
     start umount_service
 
+# IR LED
+on property:ril.cbd.boot_done=1
+    chown system radio /sys/class/sec/sec_ir/ir_send_result
+    chown system radio /sys/class/sec/sec_ir/ir_send
+
 # SSWAP
 service swapon /sbin/sswap -s
     class core
     user root
     group root
     oneshot
-
-# ITP mode enter/exit
-on property:ril.cbd.modechan=0
-    restart ril-daemon
-
-on property:ril.cbd.modechan=2
-    restart ril-daemon

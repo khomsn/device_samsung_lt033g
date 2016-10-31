@@ -62,22 +62,28 @@
 /dev/video48              0660   media      media
 /dev/media2               0660   media      media
 
-# MobiCore
-/dev/mobicore             0700   system     system
-/dev/mobicore-user        0666   radio      system
-
-# Secure MEM driver
-/dev/s5p-smem             0660   drm        drmrpc
-
 # vfs
 /dev/vfsspi               0660   system     system
-
-# USB Driver
-/dev/ttyUSB*              0660   system     usb
-/dev/usb/lp*              0660   system     usb
 
 /dev/block/mmcblk0p13     0660   system     radio
 /dev/umts*                0660   system     radio
 /dev/umts_csd             0660   system     loop_radio
 
+# USB Driver
+/dev/ttyUSB*              0660   system     usb
+/dev/usb/lp*              0660   system     usb
+
 /dev/block/mmcblk0p8      0660   system     system
+
+# MDM 9x25
+/dev/block/mmcblk0p4      0660   system     radio
+/dev/block/mmcblk0p5      0660   system     radio
+/dev/block/mmcblk0p6      0660   system     radio
+/dev/block/mmcblk0p14     0660   system     radio
+
+# MobiCore
+/dev/mobicore             0700   system     system
+/dev/mobicore-user        0666   radio      system
+
+# Reactivation Lock
+/dev/block/mmcblk0rpmb    0660   system     system

@@ -5,9 +5,10 @@
 
 on post-fs-data
     # give system access to wpa_supplicant.conf for backup and restore
-    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi 0770 wifi system
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wifi/log/ 0770 wifi system
     mkdir /data/misc/dhcp 0775 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
@@ -31,13 +32,10 @@ on post-fs-data
     chmod 0664 /data/.txbf.info
     # for WIFI MAC address
     mkdir /efs/wifi 0775 radio system
-    chown system wifi /efs/wifi/.mac.info
-    chmod 0660 /efs/wifi/.mac.info
+    chown system system /efs/wifi/.mac.info
+    chmod 0664 /efs/wifi/.mac.info
 
 on boot
-    # Pcie WiFi T-put setting
-    write /sys/class/net/wlan0/queues/rx-0/rps_cpus 00
-
     setprop wifi.interface wlan0
 
 # Run deferred initcalls of builtin kernel modules (bcmdhd)
