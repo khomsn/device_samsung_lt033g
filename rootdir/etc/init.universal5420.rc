@@ -356,19 +356,19 @@ on boot
 
 # Wolfson DAC Settings
     # Low Band
-    write /sys/class/misc/wolfson_control/eq_sp_gain_1 -8
+    write /sys/class/misc/wolfson_control/eq_sp_gain_1 7
     # Low-Mid Band
-    write /sys/class/misc/wolfson_control/eq_sp_gain_2 -4
+    write /sys/class/misc/wolfson_control/eq_sp_gain_2 6
     # Mid Band
-    write /sys/class/misc/wolfson_control/eq_sp_gain_3 1
+    write /sys/class/misc/wolfson_control/eq_sp_gain_3 0
     # Mid-High Band
     write /sys/class/misc/wolfson_control/eq_sp_gain_4 2
     # High Band
-    write /sys/class/misc/wolfson_control/eq_sp_gain_5 3
-    # Set Left Speaker Gain
-    write /sys/class/misc/wolfson_control/speaker_gain_left 6
-    # Set Right Speaker Gain
-    write /sys/class/misc/wolfson_control/speaker_gain_right 6
+    write /sys/class/misc/wolfson_control/eq_sp_gain_5 2
+    # Set Left Speaker Volume
+    write /sys/class/misc/wolfson_control/speaker_volume_left 6
+    # Set Right Speaker Volume
+    write /sys/class/misc/wolfson_control/speaker_volume_right 6
     # Toggle EQ
     write /sys/class/misc/wolfson_control/switch_eq_speaker 1
 
