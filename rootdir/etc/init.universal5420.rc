@@ -356,9 +356,9 @@ on boot
 
 # Wolfson DAC Settings
     # Low Band
-    write /sys/class/misc/wolfson_control/eq_sp_gain_1 7
+    write /sys/class/misc/wolfson_control/eq_sp_gain_1 5
     # Low-Mid Band
-    write /sys/class/misc/wolfson_control/eq_sp_gain_2 6
+    write /sys/class/misc/wolfson_control/eq_sp_gain_2 3
     # Mid Band
     write /sys/class/misc/wolfson_control/eq_sp_gain_3 0
     # Mid-High Band
