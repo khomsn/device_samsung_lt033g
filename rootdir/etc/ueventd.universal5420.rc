@@ -81,5 +81,9 @@
 /dev/block/mmcblk0p6      0660   system     radio
 /dev/block/mmcblk0p14     0660   system     radio
 
+# MobiCore
+/dev/mobicore             0700   system     system
+/dev/mobicore-user        0666   radio      system
+
 # Reactivation Lock
 /dev/block/mmcblk0rpmb    0660   system     system
