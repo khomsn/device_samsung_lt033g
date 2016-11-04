@@ -144,10 +144,6 @@ BOARD_USE_QOS_CTRL := false
 BOARD_USE_S3D_SUPPORT := true
 BOARD_USE_VP8ENC_SUPPORT := true
 
-# HEVC support in libvideocodec
-BOARD_USE_HEVC_HWIP := true
-BOARD_USE_HEVCDEC_SUPPORT := true
-
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
