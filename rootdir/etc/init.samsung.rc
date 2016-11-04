@@ -130,6 +130,13 @@ on post-fs-data
 
     chown system system /dev/tzic
 
+    # h2k
+    chmod 0644 /efs/redata.bin
+    chown radio radio /efs/redata.bin
+    chmod 0644 /efs/h2k.dat
+    chown radio radio /efs/h2k.dat
+    chown system system /efs/drm/h2k
+
     #SideSync
     chown system system /dev/android_ssusbcon
     chmod 0660 /dev/android_ssusbcon
@@ -277,7 +284,7 @@ on boot
 
     # mobicore
     chmod 0660 /dev/s5p-smem
-    chown drm drmrpc /dev/s5p-smem
+    chown system drmrpc /dev/s5p-smem
     export MC_AUTH_TOKEN_PATH /efs
 
 #permission for TSP, Touchkey and Wacom
