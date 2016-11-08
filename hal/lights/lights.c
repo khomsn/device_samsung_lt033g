@@ -36,6 +36,7 @@ static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
 char const*const PANEL_FILE = "/sys/class/backlight/panel/brightness";
 char const*const BUTTON_FILE = "/sys/class/sec/sec_touchkey/brightness";
+char const *const KEYS_ENABLED = "/sys/class/sec/sec_touchkey/tsp_keys_enabled";
 
 char const *const WAKE_LOCK_PATH   = "/sys/power/wake_lock";
 char const *const WAKE_UNLOCK_PATH = "/sys/power/wake_unlock";
@@ -54,6 +55,22 @@ static int g_flash_cmd;
 void init_g_lock(void)
 {
     pthread_mutex_init(&g_lock, NULL);
+}
+
+static int read_int(const char *path)
+{
+    int fd;
+    char buffer[2];
+
+    fd = open(path, O_RDONLY);
+    if (fd >= 0) {
+        read(fd, buffer, 1);
+    } else {
+        ALOGE("read_int failed to open %s\n", path);
+        return -1;
+    }
+    close(fd);
+    return atoi(buffer);
 }
 
 static int write_int(char const *path, int value)
@@ -95,6 +112,7 @@ static int rgb_to_brightness(struct light_state_t const *state)
 static void notifications_flash_callback(int signum)
 {
     int v = 0;
+    int ret = 0;
 
     pthread_mutex_lock(&g_lock);
     if (LIGHT_FLASH_TIMED == g_flash_mode) {
@@ -108,11 +126,14 @@ static void notifications_flash_callback(int signum)
             v = 0;
        }
         timer_settime(g_flash_timer_id, 0, &g_flash_timer, NULL);
-        ALOGD("notifications flash: v %u" , v);
         write_int(BUTTON_FILE, v);
     } else {
-        ALOGD("End flashing. Enable lights on buttons.");
-        write_int(BUTTON_FILE, 1);
+        ret = read_int(KEYS_ENABLED);
+        if (ret > -1) {
+            ALOGD("End flashing. %s", (ret == 1) ? "Buttons Enabled. Lights butoons ON" :
+                    "Buttons Disabled. Lights butoons OFF");
+            write_int(BUTTON_FILE, ret);
+        }
     }
     pthread_mutex_unlock(&g_lock);
 }
@@ -175,7 +196,6 @@ static int set_light_notifications(struct light_device_t* dev,
                 set_wakelock(false);
             }
         }
-        ALOGD("notifications: v %u", v);
         ret = write_int(BUTTON_FILE, 1);
     }
     g_flash_mode = state->flashMode;
