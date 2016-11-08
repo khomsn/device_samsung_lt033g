@@ -34,9 +34,9 @@
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
-char const*const PANEL_FILE = "/sys/class/backlight/panel/brightness";
-char const*const BUTTON_FILE = "/sys/class/sec/sec_touchkey/brightness";
-char const *const KEYS_ENABLED = "/sys/class/sec/sec_touchkey/tsp_keys_enabled";
+char const *const PANEL_FILE       = "/sys/class/backlight/panel/brightness";
+char const *const BUTTON_FILE      = "/sys/class/sec/sec_touchkey/brightness";
+char const *const KEYS_ENABLED     = "/sys/class/sec/sec_touchkey/tsp_keys_enabled";
 
 char const *const WAKE_LOCK_PATH   = "/sys/power/wake_lock";
 char const *const WAKE_UNLOCK_PATH = "/sys/power/wake_unlock";
@@ -70,6 +70,7 @@ static int read_int(const char *path)
         return -1;
     }
     close(fd);
+
     return atoi(buffer);
 }
 
@@ -143,6 +144,7 @@ static struct timespec to_timespec(int total_ms)
     struct timespec ts;
     ts.tv_sec = total_ms / 1000;
     ts.tv_nsec = 1000000 * (total_ms % 1000);
+
     return ts;
 }
 
@@ -200,6 +202,7 @@ static int set_light_notifications(struct light_device_t* dev,
     }
     g_flash_mode = state->flashMode;
     pthread_mutex_unlock(&g_lock);
+
     return ret;
 }
 
