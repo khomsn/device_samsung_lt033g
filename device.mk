@@ -291,6 +291,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwc.winupdate=1 \
     debug.hwc.otf=1
 
+# Adaptive backlight
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.cm.hardware.cabc=/sys/class/mdnie/mdnie/cabc
+
 # Call Samsung LSI board support packages
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5420/exynos5420.mk)
