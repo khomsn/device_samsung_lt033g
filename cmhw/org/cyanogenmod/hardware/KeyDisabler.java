@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The CyanogenMod Project
+ * Copyright (C) 2014-2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package org.cyanogenmod.hardware;
 
-import org.cyanogenmod.hardware.util.FileUtils;
+import org.cyanogenmod.internal.util.FileUtils;
 
 /*
  * Disable capacitive keys
@@ -29,9 +29,12 @@ import org.cyanogenmod.hardware.util.FileUtils;
 
 public class KeyDisabler {
 
-    private static String CONTROL_PATH = "/sys/class/sec/sec_touchkey/tsp_keys_enabled";
+    private static final String CONTROL_PATH = "/sys/class/sec/sec_touchkey/tsp_keys_enabled";
 
-    public static boolean isSupported() { return true; }
+    public static boolean isSupported() {
+        return FileUtils.isFileWritable(CONTROL_PATH) &&
+               FileUtils.isFileReadable(CONTROL_PATH);
+    }
 
     public static boolean isActive() {
         return (FileUtils.readOneLine(CONTROL_PATH).equals("0"));
