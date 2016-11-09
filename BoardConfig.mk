@@ -198,6 +198,9 @@ USE_MINIKIN := true
 # Advanced Low Power audio support
 BOARD_USE_ALP_AUDIO := true
 
+# Allow to use baseline profile for AVC recording
+TARGET_USE_AVC_BASELINE_PROFILE := true
+
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
 BOARD_WLAN_DEVICE                := bcmdhd
