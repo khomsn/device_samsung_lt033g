@@ -185,10 +185,6 @@ ENABLE_WEBGL := true
 # WFD
 BOARD_USES_WFD := true
 
-# ANT+
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
-BOARD_ANT_WIRELESS_POWER := "bluedroid"
-
 # Keymaster
 BOARD_USES_TRUST_KEYMASTER := true
 
