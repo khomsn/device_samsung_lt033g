@@ -66,7 +66,7 @@
 
 #define MIXER_CARD 0
 
-#define CAPTURE_START_RAMP_MS 8
+#define CAPTURE_START_RAMP_MS 100
 
 /* default sampling for HDMI multichannel output */
 #define HDMI_MULTI_DEFAULT_SAMPLING_RATE 48000
