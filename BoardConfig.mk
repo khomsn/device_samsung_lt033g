@@ -114,7 +114,7 @@ TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 IR_HAS_ONE_FREQ_RANGE := true
 
 # Hardware
-BOARD_HARDWARE_CLASS += device/samsung/lt033g/cmhw
+BOARD_HARDWARE_CLASS := device/samsung/lt033g/cmhw
 
 # Samsung LSI OpenMAX
 COMMON_GLOBAL_CFLAGS += -DUSE_NATIVE_SEC_NV12TILED # use format from fw/native
