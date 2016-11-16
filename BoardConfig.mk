@@ -105,7 +105,6 @@ BOARD_USES_GSC_VIDEO := true
 
 # SCALER
 BOARD_USES_SCALER := true
-BOARD_USES_CEC := true
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
