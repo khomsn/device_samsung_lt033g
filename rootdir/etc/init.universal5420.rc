@@ -529,9 +529,6 @@ service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF0000000000000
     group system
     oneshot
 
-on property:sys.mobicoredaemon.enable=true
-    start cs_service
-
 # umount service
 service umount_service /system/bin/umount /preload
     disabled
