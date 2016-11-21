@@ -556,10 +556,3 @@ on property:persist.sys.storage_preload=0
 on property:ril.cbd.boot_done=1
     chown system radio /sys/class/sec/sec_ir/ir_send_result
     chown system radio /sys/class/sec/sec_ir/ir_send
-
-# SSWAP
-service swapon /sbin/sswap -s
-    class core
-    user root
-    group root
-    oneshot
