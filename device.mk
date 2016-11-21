@@ -190,8 +190,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libsecril-client \
     libsecril-client-sap \
-    modemloader \
-    cbd
+    modemloader
 
 PRODUCT_PACKAGES += \
     CellBroadcastReceiver \
