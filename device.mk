@@ -25,9 +25,6 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_AAPT_PREBUILT_DPI := xhdpi hdpi
 
 PRODUCT_PACKAGES += \
-    libstlport
-
-PRODUCT_PACKAGES += \
     gralloc.exynos5
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -177,6 +174,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     power.universal5420
 
+# Init
 PRODUCT_PACKAGES += \
     fstab.universal5420 \
     init.samsung.rc \
@@ -195,6 +193,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     CellBroadcastReceiver \
     SamsungServiceMode
+
+# Misc libraries
+PRODUCT_PACKAGES += \
+    libxml2 \
+    libprotobuf-cpp-full \
+    libstlport
 
 # Weather
 PRODUCT_PACKAGES += \
