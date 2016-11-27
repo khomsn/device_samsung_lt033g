@@ -195,6 +195,8 @@ on boot
     chown system radio /sys/class/sec/sec_epen/epen_saving_mode
     chown system radio /sys/class/sec/sec_epen/epen_connection
     chown system radio /sys/class/sec/sec_epen/boost_level
+    # EPEN saving mode
+    write /sys/devices/virtual/sec/sec_epen/epen_saving_mode 1
 
 # SENSORS
 # Accelerometer_sensor
