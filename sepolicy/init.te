@@ -24,3 +24,7 @@ allow init socket_device:sock_file { write create setattr };
 allow init wifi_efs_file:file getattr;
 
 allow init serial_device:chr_file { write ioctl };
+
+# .mac.info .mac.cob
+allow init wifi_efs_file:dir relabelto;
+allow init wifi_efs_file:file relabelto;
