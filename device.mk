@@ -290,6 +290,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.cm.hardware.cabc=/sys/class/mdnie/mdnie/cabc
 
+# Call Prebuilding Apps packages
+$(call inherit-product, vendor/samsung/prebuilding_apps/prebuilding_apps.mk)
 # Call Samsung LSI board support packages
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5420/exynos5420.mk)
