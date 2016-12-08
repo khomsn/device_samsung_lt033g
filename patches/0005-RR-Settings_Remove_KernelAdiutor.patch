@@ -1,0 +1,43 @@
+
+project packages/apps/Settings/
+diff --git a/packages/apps/Settings/res/xml/dashboard_categories.xml b/packages/apps/Settings/res/xml/dashboard_categories.xml
+index faf965c71..07cccbff8 100644
+--- a/packages/apps/Settings/res/xml/dashboard_categories.xml
++++ b/packages/apps/Settings/res/xml/dashboard_categories.xml
+@@ -325,15 +325,7 @@
+                 android:targetPackage="eu.chainfire.supersu"
+                 android:targetClass="eu.chainfire.supersu.MainActivity" />
+         </dashboard-tile>
+-    <dashboard-tile
+-		android:id="@+id/kernel_adiutor"
+-                android:title="@string/kernel_aduitor"
+-		android:icon="@drawable/rr_performance_icon">
+- 	<intent
+-                    android:action="android.intent.action.MAIN"
+-                    android:targetPackage="com.grarak.kerneladiutor"
+-                    android:targetClass="com.grarak.kerneladiutor.activities.MainActivity" />
+-	</dashboard-tile>
++
+         <!-- About Device -->
+         <dashboard-tile
+                 android:id="@+id/about_settings"
+diff --git a/packages/apps/Settings/src/com/android/settings/SettingsActivity.java b/packages/apps/Settings/src/com/android/settings/SettingsActivity.java
+index e96ce3aae..7525c2e3c 100644
+--- a/packages/apps/Settings/src/com/android/settings/SettingsActivity.java
++++ b/packages/apps/Settings/src/com/android/settings/SettingsActivity.java
+@@ -1369,15 +1369,6 @@ public class SettingsActivity extends Activity
+                     if (!supported) {
+                         removeTile = true;
+                     }
+-		 }else if (id == R.id.kernel_adiutor) {
+-                    boolean supported = false;
+-                    try {
+-                        supported = (getPackageManager().getPackageInfo("com.grarak.kerneladiutor", 0).versionCode > 0);
+-                    } catch (PackageManager.NameNotFoundException e) {
+-                    }
+-                    if (!supported) {
+-                        removeTile = true;
+-                   }
+                 } else if (id == R.id.weather_settings) {
+                     final boolean showWeatherMenu = getResources()
+                             .getBoolean(R.bool.config_showWeatherMenu);

@@ -1,0 +1,17 @@
+
+project vendor/cm/
+diff --git a/vendor/cm/config/common.mk b/vendor/cm/config/common.mk
+index 03bce618..c337f526 100644
+--- a/vendor/cm/config/common.mk
++++ b/vendor/cm/config/common.mk
+@@ -82,10 +82,6 @@ PRODUCT_COPY_FILES += \
+ PRODUCT_COPY_FILES += \
+     vendor/cm/prebuilt/Adaway/Adaway.apk:system/app/Adaway/Adaway.apk
+ 
+-# KernelAdiutor
+-PRODUCT_COPY_FILES += \
+-    vendor/cm/prebuilt/KernelAdiutor/KernelAdiutor.apk:system/app/KernelAdiutor/KernelAdiutor.apk
+-
+ # Backup Tool
+ ifneq ($(WITH_GMS),true)
+ PRODUCT_COPY_FILES += \
