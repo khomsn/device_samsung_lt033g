@@ -387,6 +387,11 @@ on boot
     # Toggle EQ
     write /sys/class/misc/wolfson_control/switch_eq_speaker 1
 
+# Disable Input Boosters
+    write /sys/module/mxts_n1/parameters/tsp_booster_enabled 0
+    write /sys/module/mxts_n1/parameters/touchkey_booster_enabled 0
+    write /sys/module/wacom_i2c_func/parameters/wacom_booster_enabled 0
+
 on charger
     # Set cpu governor to powersave while in charging mode
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
