@@ -80,3 +80,6 @@
 
 # For SpenCommand
 /dev/input/event1						u:object_r:input_device:s0
+
+# ALP
+/dev/srp							u:object_r:audio_device:s0
