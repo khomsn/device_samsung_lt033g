@@ -233,20 +233,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.usb.config=mtp \
-    ro.debug_level=0x4948 \
-    ro.secure=0
-
-# adb has root
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.adb.secure=0 \
-    persist.adb.notify=0 \
-    ro.secure=0 \
-    ro.debuggable=1 \
-    persist.service.adb.enable=1
-
-# adb and apps
-ADDITIONAL_BUILD_PROPERTIES += \
-    persist.sys.root_access=3
+    ro.debug_level=0x4948
 
 # DALVIK/ART
 PRODUCT_PROPERTY_OVERRIDES += \
