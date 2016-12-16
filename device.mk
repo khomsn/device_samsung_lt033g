@@ -282,6 +282,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.disable_hwc=1
 
+# Fixes game grashing (HeartStone)
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.egl.force_msaa=true
+
 # Enable SDCard fs
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sdcardfs.enable=true
