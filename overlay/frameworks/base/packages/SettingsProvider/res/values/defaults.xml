@@ -26,9 +26,6 @@
     <!-- Default for DTMF tones -->
     <bool name="def_dtmf_tones_enabled">false</bool>
 
-    <!-- Enable notification counters in statusbar -->
-    <integer name="def_notif_count">1</integer>
-
     <bool name="def_accelerometer_rotation">true</bool>
 
     <!-- Bitmask of allowed display rotation angles:
