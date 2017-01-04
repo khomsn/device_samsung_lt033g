@@ -38,6 +38,9 @@ TARGET_SCREEN_HEIGHT := 1600
 TARGET_SCREEN_WIDTH := 2560
 TARGET_BOOTANIMATION_HALF_RES := true
 
+PRODUCT_PACKAGES += \
+    bootanimation.zip
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.primary.universal5420 \
