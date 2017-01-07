@@ -16,6 +16,9 @@
 
 LOCAL_PATH := device/samsung/lt033g
 
+# Block builds
+BLOCK_BASED_OTA := true
+
 # Platform
 BOARD_VENDOR := samsung
 TARGET_BOARD_PLATFORM := exynos5
