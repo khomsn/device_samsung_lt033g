@@ -1,1 +1,1 @@
-SM-P601 device repo for CyangenMod.
+SM-P601 device repo for MoKee.

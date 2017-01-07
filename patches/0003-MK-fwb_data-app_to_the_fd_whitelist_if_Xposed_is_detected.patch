@@ -12,7 +12,7 @@ Original commit: https://github.com/ResurrectionRemix/android_frameworks_base/co
 
 project frameworks/base/
 diff --git a/frameworks/base/core/jni/fd_utils-inl.h b/frameworks/base/core/jni/fd_utils-inl.h
-index f245a7f..00c0d98 100644
+index 50ce4e4764e..82cf0c96ea4 100644
 --- a/frameworks/base/core/jni/fd_utils-inl.h
 +++ b/frameworks/base/core/jni/fd_utils-inl.h
 @@ -264,6 +264,17 @@ class FileDescriptorInfo {
