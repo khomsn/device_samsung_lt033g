@@ -8,7 +8,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_NAME := cm_lt033g
+PRODUCT_NAME := lineage_lt033g
 PRODUCT_DEVICE := lt033g
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
