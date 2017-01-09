@@ -1,0 +1,534 @@
+base: Network Traffic Indicator (3/3)
+
+Original patches:
+https://review.mfunz.com/#/c/13979/
+https://review.mfunz.com/#/c/14295/
+
+project frameworks/base/
+diff --git a/frameworks/base/packages/SystemUI/res/layout/status_bar.xml b/frameworks/base/packages/SystemUI/res/layout/status_bar.xml
+index d5e799afca6..1559a3abb6f 100644
+--- a/frameworks/base/packages/SystemUI/res/layout/status_bar.xml
++++ b/frameworks/base/packages/SystemUI/res/layout/status_bar.xml
+@@ -93,6 +93,13 @@
+             android:orientation="horizontal"
+             >
+ 
++            <com.android.systemui.statusbar.policy.NetworkTraffic
++                android:id="@+id/network_traffic"
++                android:textAppearance="@style/TextAppearance.StatusBar.NetworkTraffic"
++                android:layout_width="wrap_content"
++                android:layout_height="match_parent"
++                android:gravity="end|center_vertical"/>
++
+             <include layout="@layout/system_icons" />
+ 
+             <com.android.systemui.BatteryLevelTextView android:id="@+id/battery_level_text"
+diff --git a/frameworks/base/packages/SystemUI/res/values/dimens.xml b/frameworks/base/packages/SystemUI/res/values/dimens.xml
+index a7efccd214d..f9476597a8f 100644
+--- a/frameworks/base/packages/SystemUI/res/values/dimens.xml
++++ b/frameworks/base/packages/SystemUI/res/values/dimens.xml
+@@ -587,4 +587,9 @@
+ 
+     <!-- Thickness of the shadows of the assist disclosure beams -->
+     <dimen name="assist_disclosure_shadow_thickness">1.5dp</dimen>
++
++    <!-- Network traffic monitor single-line text size -->
++    <dimen name="net_traffic_single_text_size">12dp</dimen>
++    <!-- Network traffic monitor multi-line text size -->
++    <dimen name="net_traffic_multi_text_size">9dp</dimen>
+ </resources>
+diff --git a/frameworks/base/packages/SystemUI/res/values/styles.xml b/frameworks/base/packages/SystemUI/res/values/styles.xml
+index 8241ddf6a37..77729646990 100644
+--- a/frameworks/base/packages/SystemUI/res/values/styles.xml
++++ b/frameworks/base/packages/SystemUI/res/values/styles.xml
+@@ -300,4 +300,6 @@
+         <item name="android:background">@drawable/btn_borderless_rect</item>
+     </style>
+ 
++    <style name="TextAppearance.StatusBar.NetworkTraffic" parent="TextAppearance.StatusBar.Clock" />
++    <style name="TextAppearance.StatusBar.CarrierLabel" parent="TextAppearance.StatusBar.Clock" />
+ </resources>
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java
+index 7df83466afd..850ea0d48d6 100644
+--- a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java
++++ b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java
+@@ -172,6 +172,7 @@ import com.android.systemui.statusbar.policy.LiveLockScreenController;
+ import com.android.systemui.statusbar.policy.LocationControllerImpl;
+ import com.android.systemui.statusbar.policy.NetworkController;
+ import com.android.systemui.statusbar.policy.NetworkControllerImpl;
++import com.android.systemui.statusbar.policy.NetworkTraffic;
+ import com.android.systemui.statusbar.policy.NextAlarmController;
+ import com.android.systemui.statusbar.policy.PreviewInflater;
+ import com.android.systemui.statusbar.policy.RotationLockControllerImpl;
+@@ -374,6 +375,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
+ 
+     boolean mExpandedVisible;
+ 
++    // Status bar Network traffic;
++    private NetworkTraffic mNetworkTraffic;
++
+     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
+ 
+     private int mStatusBarHeaderHeight;
+@@ -1151,6 +1155,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
+             mNetworkController.addEmergencyListener(mHeader);
+         }
+ 
++        mNetworkTraffic = (NetworkTraffic)mStatusBarView.findViewById(R.id.network_traffic);
++
+         if (mFlashlightController == null) {
+             mFlashlightController = new FlashlightController(mContext);
+         }
+@@ -3713,6 +3719,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
+         animateCollapsePanels();
+         updatePublicMode();
+         updateNotifications();
++        mNetworkTraffic.updateSettings();
+         resetUserSetupObserver();
+         setControllerUsers();
+         mAssistManager.onUserSwitched(newUserId);
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBarTransitions.java b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBarTransitions.java
+index bb3095ed82c..c8e61c2a098 100644
+--- a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBarTransitions.java
++++ b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBarTransitions.java
+@@ -32,7 +32,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
+     private final PhoneStatusBarView mView;
+     private final float mIconAlphaWhenOpaque;
+ 
+-    private View mLeftSide, mStatusIcons, mSignalCluster, mBattery, mClock;
++    private View mLeftSide, mStatusIcons, mSignalCluster, mBattery, mClock, mNetworkTraffic;
+     private Animator mCurrentAnimation;
+ 
+     public PhoneStatusBarTransitions(PhoneStatusBarView view) {
+@@ -51,6 +51,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
+         mSignalCluster = mView.findViewById(R.id.signal_cluster);
+         mBattery = mView.findViewById(R.id.battery);
+         mClock = mView.findViewById(R.id.clock);
++        mNetworkTraffic = mView.findViewById(R.id.network_traffic);
+         applyModeBackground(-1, getMode(), false /*animate*/);
+         applyMode(getMode(), false /*animate*/);
+     }
+@@ -94,6 +95,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
+                     animateTransitionTo(mLeftSide, newAlpha),
+                     animateTransitionTo(mStatusIcons, newAlpha),
+                     animateTransitionTo(mSignalCluster, newAlpha),
++                    animateTransitionTo(mNetworkTraffic, newAlpha),
+                     animateTransitionTo(mBattery, newAlphaBC),
+                     animateTransitionTo(mClock, newAlphaBC)
+                     );
+@@ -106,6 +108,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
+             mLeftSide.setAlpha(newAlpha);
+             mStatusIcons.setAlpha(newAlpha);
+             mSignalCluster.setAlpha(newAlpha);
++            mNetworkTraffic.setAlpha(newAlpha);
+             mBattery.setAlpha(newAlphaBC);
+             mClock.setAlpha(newAlphaBC);
+         }
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBarIconController.java b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBarIconController.java
+index a7fa27da80a..06021be9d3a 100644
+--- a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBarIconController.java
++++ b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBarIconController.java
+@@ -45,6 +45,7 @@ import com.android.systemui.statusbar.NotificationData;
+ import com.android.systemui.statusbar.SignalClusterView;
+ import com.android.systemui.statusbar.StatusBarIconView;
+ import com.android.systemui.statusbar.policy.Clock;
++import com.android.systemui.statusbar.policy.NetworkTraffic;
+ import com.android.systemui.tuner.TunerService;
+ import com.android.systemui.tuner.TunerService.Tunable;
+ 
+@@ -79,6 +80,7 @@ public class StatusBarIconController implements Tunable {
+     private BatteryLevelTextView mBatteryLevelTextView;
+     private BatteryMeterView mBatteryMeterView;
+     private ClockController mClockController;
++    private NetworkTraffic mNetworkTraffic;
+     private View mCenterClockLayout;
+ 
+     private int mIconSize;
+@@ -133,6 +135,7 @@ public class StatusBarIconController implements Tunable {
+         mLightModeIconColorSingleTone = context.getColor(R.color.light_mode_icon_color_single_tone);
+         mHandler = new Handler();
+         mClockController = new ClockController(statusBar, mNotificationIcons, mHandler);
++        mNetworkTraffic = (NetworkTraffic) statusBar.findViewById(R.id.network_traffic);
+         mCenterClockLayout = statusBar.findViewById(R.id.center_clock_layout);
+         updateResources();
+ 
+@@ -407,6 +410,7 @@ public class StatusBarIconController implements Tunable {
+         mBatteryLevelTextView.setTextColor(mIconTint);
+         mBatteryMeterView.setDarkIntensity(mDarkIntensity);
+         mClockController.setTextColor(mIconTint);
++        mNetworkTraffic.setTextColor(mIconTint);
+         applyNotificationIconsTint();
+     }
+ 
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkTraffic.java b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkTraffic.java
+new file mode 100644
+index 00000000000..7a9ddf9535d
+--- /dev/null
++++ b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkTraffic.java
+@@ -0,0 +1,320 @@
++/*
++ * Copyright (C) 2014-2016 The MoKee Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++package com.android.systemui.statusbar.policy;
++
++import java.text.DecimalFormat;
++
++import android.content.BroadcastReceiver;
++import android.content.ContentResolver;
++import android.content.Context;
++import android.content.Intent;
++import android.content.IntentFilter;
++import android.content.res.Resources;
++import android.database.ContentObserver;
++import android.net.ConnectivityManager;
++import android.net.NetworkInfo;
++import android.net.TrafficStats;
++import android.net.Uri;
++import android.os.Handler;
++import android.os.Message;
++import android.os.SystemClock;
++import android.os.UserHandle;
++import android.text.Spannable;
++import android.text.SpannableString;
++import android.text.style.AbsoluteSizeSpan;
++import android.text.TextUtils;
++import android.util.AttributeSet;
++import android.util.TypedValue;
++import android.view.View;
++import android.widget.TextView;
++
++import cyanogenmod.providers.CMSettings;
++
++import com.android.systemui.R;
++import com.android.systemui.utils.NetworkTrafficSpan;
++
++/*
++ *
++ * Seeing how an Integer object in java requires at least 16 Bytes, it seemed awfully wasteful
++ * to only use it for a single boolean. 32-bits is plenty of room for what we need it to do.
++ *
++ */
++public class NetworkTraffic extends TextView {
++    public static final int MASK_UP = 0x00000001; // Least valuable bit
++    public static final int MASK_DOWN = 0x00000002; // Second least valuable bit
++    public static final int MASK_PERIOD = 0xFFFF0000; // Most valuable 16 bits
++
++    private static final int KILOBYTE = 1024;
++
++    private static DecimalFormat decimalFormat = new DecimalFormat("##0.#");
++    static {
++        decimalFormat.setMaximumIntegerDigits(4);
++        decimalFormat.setMaximumFractionDigits(1);
++    }
++
++    private int mState = 0;
++    private boolean mAttached;
++    private long totalRxBytes;
++    private long totalTxBytes;
++    private long lastUpdateTime;
++    private int txtSizeSingle;
++    private int txtSizeMulti;
++    private int KB = KILOBYTE;
++    private int MB = KB * KB;
++    private int GB = MB * KB;
++    private String mUp = " \u25B2";
++    private String mDown = " \u25BC";
++    private boolean shouldHide;
++
++    private Handler mTrafficHandler = new Handler() {
++        @Override
++        public void handleMessage(Message msg) {
++            long timeDelta = SystemClock.elapsedRealtime() - lastUpdateTime;
++
++            if (timeDelta < getInterval(mState) * .95) {
++                if (msg.what != 1) {
++                    // we just updated the view, nothing further to do
++                    return;
++                }
++                if (timeDelta < 1) {
++                    // Can't div by 0 so make sure the value displayed is minimal
++                    timeDelta = Long.MAX_VALUE;
++                }
++            }
++            lastUpdateTime = SystemClock.elapsedRealtime();
++
++            // Calculate the data rate from the change in total bytes and time
++            long newTotalRxBytes = TrafficStats.getTotalRxBytes();
++            long newTotalTxBytes = TrafficStats.getTotalTxBytes();
++            long rxData = newTotalRxBytes - totalRxBytes;
++            long txData = newTotalTxBytes - totalTxBytes;
++
++            // If bit/s convert from Bytes to bits
++            String symbol = "B/s";
++
++            // Get information for uplink ready so the line return can be added
++            String output = "";
++            if (isSet(mState, MASK_UP)) {
++                output = formatOutput(timeDelta, txData, symbol);
++                output += mUp;
++                shouldHide = txData == 0;
++            }
++
++            // Ensure text size is where it needs to be
++            int textSize;
++            if (isSet(mState, MASK_UP + MASK_DOWN)) {
++                output += "\n";
++                textSize = txtSizeMulti;
++                shouldHide = rxData == 0 && txData == 0;
++            } else {
++                textSize = txtSizeSingle;
++            }
++
++            // Add information for downlink if it's called for
++            if (isSet(mState, MASK_DOWN)) {
++                output += formatOutput(timeDelta, rxData, symbol);
++                output += mDown;
++                shouldHide = rxData == 0;
++            }
++
++            // Update view if there's anything new to show
++            if (!output.contentEquals(getText()) && !shouldHide) {
++                if (textSize == txtSizeMulti) {
++                    int upIndex = output.indexOf(mUp);
++                    int downIndex = output.indexOf(mDown);
++                    int lineIndex = output.indexOf("\n");
++                    Spannable spannable = new SpannableString(output);
++                    spannable.setSpan(new AbsoluteSizeSpan(txtSizeMulti), 0, upIndex,
++                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan((new NetworkTrafficSpan(-0.05)), 0, upIndex,
++                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan(new AbsoluteSizeSpan((int) (txtSizeMulti * 0.7)), upIndex,
++                            lineIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan(new NetworkTrafficSpan(-0.4), upIndex, lineIndex,
++                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan(new AbsoluteSizeSpan(txtSizeMulti), lineIndex, downIndex,
++                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan((new NetworkTrafficSpan(0.05)), lineIndex, downIndex,
++                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan(new AbsoluteSizeSpan((int) (txtSizeMulti * 0.7)), downIndex,
++                            output.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan(new NetworkTrafficSpan(0.4), downIndex,
++                            output.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    setText(spannable);
++                } else {
++                    int index = output.indexOf(isSet(mState, MASK_DOWN) ? mDown : mUp);
++                    Spannable spannable = new SpannableString(output);
++                    spannable.setSpan(new AbsoluteSizeSpan(txtSizeSingle), 0, index,
++                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan(new AbsoluteSizeSpan((int) (txtSizeMulti * 0.9)), index,
++                            output.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    spannable.setSpan(new NetworkTrafficSpan(0.25), index,
++                            output.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
++                    setText(spannable);
++                }
++            }
++            setVisibility(shouldHide || mState == 0 ? View.GONE : View.VISIBLE);
++            // Post delayed message to refresh in ~1000ms
++            totalRxBytes = newTotalRxBytes;
++            totalTxBytes = newTotalTxBytes;
++            clearHandlerCallbacks();
++            mTrafficHandler.postDelayed(mRunnable, getInterval(mState));
++        }
++
++        private String formatOutput(long timeDelta, long data, String symbol) {
++            long speed = (long) (data / (timeDelta / 1000F));
++            if (speed < KB) {
++                return decimalFormat.format(speed) + symbol;
++            } else if (speed < MB) {
++                return decimalFormat.format(speed / (float) KB) + 'K' + symbol;
++            } else if (speed < GB) {
++                return decimalFormat.format(speed / (float) MB) + 'M' + symbol;
++            }
++            return decimalFormat.format(speed / (float) GB) + 'G' + symbol;
++        }
++    };
++
++    private Runnable mRunnable = new Runnable() {
++        @Override
++        public void run() {
++            mTrafficHandler.sendEmptyMessage(0);
++        }
++    };
++
++    class SettingsObserver extends ContentObserver {
++        SettingsObserver(Handler handler) {
++            super(handler);
++        }
++
++        void observe() {
++            ContentResolver resolver = mContext.getContentResolver();
++            Uri uri = CMSettings.System.getUriFor(CMSettings.System.STATUS_BAR_NETWORK_TRAFFIC_STYLE);
++            resolver.registerContentObserver(uri, false, this, UserHandle.USER_ALL);
++        }
++
++        /*
++         * @hide
++         */
++        @Override
++        public void onChange(boolean selfChange) {
++            updateSettings();
++        }
++    }
++
++    /*
++     * @hide
++     */
++    public NetworkTraffic(Context context) {
++        this(context, null);
++    }
++
++    /*
++     * @hide
++     */
++    public NetworkTraffic(Context context, AttributeSet attrs) {
++        this(context, attrs, 0);
++    }
++
++    /*
++     * @hide
++     */
++    public NetworkTraffic(Context context, AttributeSet attrs, int defStyle) {
++        super(context, attrs, defStyle);
++        final Resources resources = getResources();
++        txtSizeSingle = resources.getDimensionPixelSize(R.dimen.net_traffic_single_text_size);
++        txtSizeMulti = resources.getDimensionPixelSize(R.dimen.net_traffic_multi_text_size);
++        Handler mHandler = new Handler();
++        SettingsObserver settingsObserver = new SettingsObserver(mHandler);
++        settingsObserver.observe();
++        updateSettings();
++    }
++
++    @Override
++    protected void onAttachedToWindow() {
++        super.onAttachedToWindow();
++        if (!mAttached) {
++            mAttached = true;
++            IntentFilter filter = new IntentFilter();
++            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
++            mContext.registerReceiver(mIntentReceiver, filter, null, getHandler());
++        }
++        updateSettings();
++    }
++
++    @Override
++    protected void onDetachedFromWindow() {
++        super.onDetachedFromWindow();
++        if (mAttached) {
++            mContext.unregisterReceiver(mIntentReceiver);
++            mAttached = false;
++        }
++    }
++
++    private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
++        @Override
++        public void onReceive(Context context, Intent intent) {
++            String action = intent.getAction();
++            if (action != null && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
++                updateSettings();
++            }
++        }
++    };
++
++    public static boolean isOnline(Context context) {
++        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
++        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
++        if (netInfo != null && netInfo.isConnected()) {
++            return true;
++        }
++        return false;
++    }
++
++    public void updateSettings() {
++        mState = CMSettings.System.getIntForUser(mContext.getContentResolver(),
++                CMSettings.System.STATUS_BAR_NETWORK_TRAFFIC_STYLE, 3 , UserHandle.USER_CURRENT);
++
++        if (isSet(mState, MASK_UP) || isSet(mState, MASK_DOWN)) {
++            if (isOnline(mContext)) {
++                if (mAttached) {
++                    totalRxBytes = TrafficStats.getTotalRxBytes();
++                    lastUpdateTime = SystemClock.elapsedRealtime();
++                    mTrafficHandler.sendEmptyMessage(1);
++                }
++                return;
++            }
++        } else {
++            setVisibility(View.GONE);
++            clearHandlerCallbacks();
++        }
++    }
++
++    private static boolean isSet(int intState, int intMask) {
++        return (intState & intMask) == intMask;
++    }
++
++    private static int getInterval(int intState) {
++        int intInterval = intState >>> 16;
++        return (intInterval >= 250 && intInterval <= 32750) ? intInterval : 1000;
++    }
++
++    private void clearHandlerCallbacks() {
++        mTrafficHandler.removeCallbacks(mRunnable);
++        mTrafficHandler.removeMessages(0);
++        mTrafficHandler.removeMessages(1);
++    }
++
++}
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/systemui/utils/NetworkTrafficSpan.java b/frameworks/base/packages/SystemUI/src/com/android/systemui/utils/NetworkTrafficSpan.java
+new file mode 100644
+index 00000000000..651bca2f90b
+--- /dev/null
++++ b/frameworks/base/packages/SystemUI/src/com/android/systemui/utils/NetworkTrafficSpan.java
+@@ -0,0 +1,40 @@
++/*
++ * Copyright (C) 2015-2016 The MoKee Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++package com.android.systemui.utils;
++
++import android.text.TextPaint;
++import android.text.style.MetricAffectingSpan;
++
++public class NetworkTrafficSpan extends MetricAffectingSpan {
++
++    double ratio = 0;
++
++    public NetworkTrafficSpan(double ratio) {
++        this.ratio = ratio;
++    }
++
++    @Override
++    public void updateDrawState(TextPaint paint) {
++        paint.baselineShift += (int) (paint.ascent() * ratio);
++    }
++
++    @Override
++    public void updateMeasureState(TextPaint paint) {
++        paint.baselineShift += (int) (paint.ascent() * ratio);
++    }
++
++}

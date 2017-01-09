@@ -1,0 +1,43 @@
+cmsdk: Network Traffic Indicator (1/3)
+
+Original patch: https://review.mfunz.com/#/c/13981/
+
+project vendor/cmsdk/
+diff --git a/vendor/cmsdk/sdk/src/java/cyanogenmod/providers/CMSettings.java b/vendor/cmsdk/sdk/src/java/cyanogenmod/providers/CMSettings.java
+index ea627ce..cbc2b86 100644
+--- a/vendor/cmsdk/sdk/src/java/cyanogenmod/providers/CMSettings.java
++++ b/vendor/cmsdk/sdk/src/java/cyanogenmod/providers/CMSettings.java
+@@ -834,6 +834,17 @@ public final class CMSettings {
+                 sBooleanValidator;
+ 
+         /**
++         * Whether to show the traffic in the status bar
++         * @hide
++         * The value is int (0: Hide  or 1: Only Outgoing 2: Only Incoming 3: both).
++         */
++        public static final String STATUS_BAR_NETWORK_TRAFFIC_STYLE = "status_bar_network_traffic_style";
++
++        /** @hide */
++        public static final Validator STATUS_BAR_NETWORK_TRAFFIC_STYLE_VALIDATOR =
++                new InclusiveIntegerRangeValidator(0, 3);
++
++        /**
+          * Whether to hide the clock, show it in the right or left
+          * position or show it in the center
+          * 0: don't show the clock
+@@ -1879,6 +1890,7 @@ public final class CMSettings {
+          * @hide
+          */
+         public static final String[] LEGACY_SYSTEM_SETTINGS = new String[]{
++                CMSettings.System.STATUS_BAR_NETWORK_TRAFFIC_STYLE,
+                 CMSettings.System.NAV_BUTTONS,
+                 CMSettings.System.KEY_HOME_LONG_PRESS_ACTION,
+                 CMSettings.System.KEY_HOME_DOUBLE_TAP_ACTION,
+@@ -2001,6 +2013,7 @@ public final class CMSettings {
+         public static final Map<String, Validator> VALIDATORS =
+                 new ArrayMap<String, Validator>();
+         static {
++            VALIDATORS.put(STATUS_BAR_NETWORK_TRAFFIC_STYLE, STATUS_BAR_NETWORK_TRAFFIC_STYLE_VALIDATOR);
+             VALIDATORS.put(NOTIFICATION_PLAY_QUEUE, NOTIFICATION_PLAY_QUEUE_VALIDATOR);
+             VALIDATORS.put(HIGH_TOUCH_SENSITIVITY_ENABLE,
+                     HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR);
