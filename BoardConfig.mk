@@ -61,6 +61,7 @@ KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-li
 KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 #BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 LZMA_RAMDISK_TARGETS := recovery
+BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
 
 # Charger/Healthd
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
