@@ -4,10 +4,10 @@ Original patch: https://review.mfunz.com/#/c/13980/
 
 project packages/apps/Settings/
 diff --git a/packages/apps/Settings/res/values-ar/cm_strings.xml b/packages/apps/Settings/res/values-ar/cm_strings.xml
-index 601868d2f..e59d50841 100644
+index fe33c10a2..5de516135 100644
 --- a/packages/apps/Settings/res/values-ar/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-ar/cm_strings.xml
-@@ -1052,4 +1052,11 @@
+@@ -1048,4 +1048,11 @@
    <!-- Format string for fingerprint location message -->
    <!-- Fingerprint sensor locations -->
    <!-- SIM status format string -->
@@ -20,10 +20,10 @@ index 601868d2f..e59d50841 100644
 +  <string name="status_bar_network_traffic_style_all">الصادرة والواردة</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-be/cm_strings.xml b/packages/apps/Settings/res/values-be/cm_strings.xml
-index be58ba997..51a4788f1 100644
+index e771cd87a..dbe105671 100644
 --- a/packages/apps/Settings/res/values-be/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-be/cm_strings.xml
-@@ -1018,4 +1018,11 @@
+@@ -1015,4 +1015,11 @@
    <!-- Format string for fingerprint location message -->
    <!-- Fingerprint sensor locations -->
    <!-- SIM status format string -->
@@ -36,7 +36,7 @@ index be58ba997..51a4788f1 100644
 +  <string name="status_bar_network_traffic_style_all">Выходныя i ўваходныя</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-bg/cm_strings.xml b/packages/apps/Settings/res/values-bg/cm_strings.xml
-index 0aea1c42b..2eadb1208 100644
+index 3aedb9dea..d4edcbd43 100644
 --- a/packages/apps/Settings/res/values-bg/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-bg/cm_strings.xml
 @@ -1098,4 +1098,11 @@
@@ -52,7 +52,7 @@ index 0aea1c42b..2eadb1208 100644
 +  <string name="status_bar_network_traffic_style_all">Изходящи и входящи</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-ca/cm_strings.xml b/packages/apps/Settings/res/values-ca/cm_strings.xml
-index 182529fde..ede5963b2 100644
+index 6678c7282..f003795b4 100644
 --- a/packages/apps/Settings/res/values-ca/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-ca/cm_strings.xml
 @@ -1098,4 +1098,11 @@
@@ -68,10 +68,10 @@ index 182529fde..ede5963b2 100644
 +  <string name="status_bar_network_traffic_style_all">Enviats i rebuts</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-cs/cm_strings.xml b/packages/apps/Settings/res/values-cs/cm_strings.xml
-index 7d6359adf..6ff729661 100644
+index d22152601..917d43c18 100644
 --- a/packages/apps/Settings/res/values-cs/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-cs/cm_strings.xml
-@@ -1099,4 +1099,11 @@
+@@ -1096,4 +1096,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">pravá strana</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Hlas: <xliff:g id="voice_status">%1$s</xliff:g> / Data: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -84,10 +84,10 @@ index 7d6359adf..6ff729661 100644
 +  <string name="status_bar_network_traffic_style_all">Odchozí a příchozí</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-da/cm_strings.xml b/packages/apps/Settings/res/values-da/cm_strings.xml
-index 3fcb9357b..2f008cc53 100644
+index 2181214c0..060d8424d 100644
 --- a/packages/apps/Settings/res/values-da/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-da/cm_strings.xml
-@@ -1061,4 +1061,11 @@
+@@ -1058,4 +1058,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">højre side</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Stemme: <xliff:g id="voice_state">%1$s</xliff:g>, data: <xliff:g id="data_state">%2$s</xliff:g></string>
@@ -100,7 +100,7 @@ index 3fcb9357b..2f008cc53 100644
 +  <string name="status_bar_network_traffic_style_all">Udgående og indgående</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-de/cm_strings.xml b/packages/apps/Settings/res/values-de/cm_strings.xml
-index eabecd0a7..2c4ae64a6 100644
+index 102f48109..0d844ee5a 100644
 --- a/packages/apps/Settings/res/values-de/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-de/cm_strings.xml
 @@ -1098,4 +1098,11 @@
@@ -116,10 +116,10 @@ index eabecd0a7..2c4ae64a6 100644
 +  <string name="status_bar_network_traffic_style_all">Ausgehend und Eingehend</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-el/cm_strings.xml b/packages/apps/Settings/res/values-el/cm_strings.xml
-index 3f90f225b..dcca36ca7 100644
+index aa38529e9..e0a52b458 100644
 --- a/packages/apps/Settings/res/values-el/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-el/cm_strings.xml
-@@ -1088,4 +1088,11 @@
+@@ -1095,4 +1095,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">στη δεξιά πλευρά</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Φωνή: <xliff:g id="voice_status">%1$s</xliff:g> / Δεδομένα: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -164,13 +164,13 @@ index b76ef67fd..1a2698eae 100644
 +  <string name="status_bar_network_traffic_style_all">Outgoing and incoming</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-es-rUS/cm_strings.xml b/packages/apps/Settings/res/values-es-rUS/cm_strings.xml
-index de7a9f070..4747a65cb 100644
+index 620b080b8..1b73eee48 100644
 --- a/packages/apps/Settings/res/values-es-rUS/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-es-rUS/cm_strings.xml
-@@ -1046,4 +1046,11 @@
-   <!-- Format string for fingerprint location message -->
-   <!-- Fingerprint sensor locations -->
-   <!-- SIM status format string -->
+@@ -732,6 +732,13 @@
+   <string name="status_bar_battery_percentage_default">Oculto</string>
+   <string name="status_bar_battery_percentage_text_inside">Dentro del icono</string>
+   <string name="status_bar_battery_percentage_text_next">Junto al icono</string>
 +  <!-- Show network speed -->
 +  <string name="show_network_speed_title">Velocidad de red</string>
 +  <string name="show_network_speed_summary">Mostrar velocidad de red en la barra de estado</string>
@@ -178,12 +178,14 @@ index de7a9f070..4747a65cb 100644
 +  <string name="status_bar_network_traffic_style_up">Saliente</string>
 +  <string name="status_bar_network_traffic_style_down">Entrante</string>
 +  <string name="status_bar_network_traffic_style_all">Salentes y entrantes</string>
- </resources>
+   <!-- Status bar - icon blacklist -->
+   <string name="status_bar_icons_title">Iconos de la barra de estado</string>
+   <string name="status_bar_icons_summary">Controlar qué iconos aparecen en la barra de estado</string>
 diff --git a/packages/apps/Settings/res/values-es/cm_strings.xml b/packages/apps/Settings/res/values-es/cm_strings.xml
-index 6d2de53ad..ce14d7e56 100644
+index bf995df75..e8e216d86 100644
 --- a/packages/apps/Settings/res/values-es/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-es/cm_strings.xml
-@@ -1064,4 +1064,11 @@
+@@ -1070,4 +1070,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">lado derecho</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Voz: <xliff:g id="voice_status">%1$s</xliff:g> / Datos: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -212,10 +214,10 @@ index 384471953..769a48b6d 100644
 +  <string name="status_bar_network_traffic_style_all">Sortant et entrant</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-fr/cm_strings.xml b/packages/apps/Settings/res/values-fr/cm_strings.xml
-index d9bbf069b..5b44c2f73 100644
+index ea544bffb..3e152588d 100644
 --- a/packages/apps/Settings/res/values-fr/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-fr/cm_strings.xml
-@@ -1068,4 +1068,11 @@ Vous êtes maintenant à <xliff:g id="step_count">%1$d</xliff:g> étapes de l\'a
+@@ -1065,4 +1065,11 @@ Vous êtes maintenant à <xliff:g id="step_count">%1$d</xliff:g> étapes de l\'a
    <string name="security_settings_fingerprint_sensor_location_left">le côté gauche</string>
    <string name="security_settings_fingerprint_sensor_location_right">le côté droit</string>
    <!-- SIM status format string -->
@@ -228,10 +230,10 @@ index d9bbf069b..5b44c2f73 100644
 +  <string name="status_bar_network_traffic_style_all">Sortant et entrant</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-hu/cm_strings.xml b/packages/apps/Settings/res/values-hu/cm_strings.xml
-index 19d2c6554..78f3a5c7d 100644
+index 382915e8f..e09500e49 100644
 --- a/packages/apps/Settings/res/values-hu/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-hu/cm_strings.xml
-@@ -1097,4 +1097,11 @@
+@@ -1094,4 +1094,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">jobb oldalán</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Hang: <xliff:g id="voice_status">%1$s</xliff:g> / Adat: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -244,10 +246,10 @@ index 19d2c6554..78f3a5c7d 100644
 +  <string name="status_bar_network_traffic_style_all">Kimenő és bejövő</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-in/cm_strings.xml b/packages/apps/Settings/res/values-in/cm_strings.xml
-index d56866d32..3a9abc121 100644
+index 46cdd7c05..7b574a9cc 100644
 --- a/packages/apps/Settings/res/values-in/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-in/cm_strings.xml
-@@ -1096,4 +1096,11 @@
+@@ -1093,4 +1093,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">sisi kanan</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Suara: <xliff:g id="voice_status">%1$s</xliff:g> / Data: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -260,10 +262,10 @@ index d56866d32..3a9abc121 100644
 +  <string name="status_bar_network_traffic_style_all">Keluar dan masuk</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-it/cm_strings.xml b/packages/apps/Settings/res/values-it/cm_strings.xml
-index 2ab30b7ec..93bc7ef30 100644
+index 3b5ceb26d..1da07c0c8 100644
 --- a/packages/apps/Settings/res/values-it/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-it/cm_strings.xml
-@@ -1100,4 +1100,11 @@
+@@ -1098,4 +1098,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">destra</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Voce: <xliff:g id="voice_status">%1$s</xliff:g> / Dati: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -276,10 +278,10 @@ index 2ab30b7ec..93bc7ef30 100644
 +  <string name="status_bar_network_traffic_style_all">In uscita e in entrata</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-iw/cm_strings.xml b/packages/apps/Settings/res/values-iw/cm_strings.xml
-index 0a892eb50..ebe234e75 100644
+index ec34f2002..022d989dc 100644
 --- a/packages/apps/Settings/res/values-iw/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-iw/cm_strings.xml
-@@ -1099,4 +1099,11 @@
+@@ -1096,4 +1096,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">צד ימין</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">קול: <xliff:g id="voice_status">%1$s</xliff:g> / נתונים: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -292,7 +294,7 @@ index 0a892eb50..ebe234e75 100644
 +  <string name="status_bar_network_traffic_style_all">יוצאות ונכנסות</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-ja/cm_strings.xml b/packages/apps/Settings/res/values-ja/cm_strings.xml
-index 22f2a8588..07c22e196 100644
+index aa9490529..fe200961c 100644
 --- a/packages/apps/Settings/res/values-ja/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-ja/cm_strings.xml
 @@ -1096,4 +1096,11 @@
@@ -308,10 +310,10 @@ index 22f2a8588..07c22e196 100644
 +  <string name="status_bar_network_traffic_style_all">送信と受信</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-ko/cm_strings.xml b/packages/apps/Settings/res/values-ko/cm_strings.xml
-index 9798f0252..198239864 100644
+index 6ee3f2a5e..356cc739b 100644
 --- a/packages/apps/Settings/res/values-ko/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-ko/cm_strings.xml
-@@ -1036,4 +1036,11 @@
+@@ -1033,4 +1033,11 @@
    <!-- Format string for fingerprint location message -->
    <!-- Fingerprint sensor locations -->
    <!-- SIM status format string -->
@@ -324,10 +326,10 @@ index 9798f0252..198239864 100644
 +  <string name="status_bar_network_traffic_style_all">발신 및 수신</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-nl/cm_strings.xml b/packages/apps/Settings/res/values-nl/cm_strings.xml
-index b9f8bdd0f..94f7739e4 100644
+index 627b53159..f364f8fed 100644
 --- a/packages/apps/Settings/res/values-nl/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-nl/cm_strings.xml
-@@ -1098,4 +1098,11 @@
+@@ -1096,4 +1096,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">rechterkant</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Spraak: <xliff:g id="voice_status">%1$s</xliff:g> / Gegevens: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -340,10 +342,10 @@ index b9f8bdd0f..94f7739e4 100644
 +  <string name="status_bar_network_traffic_style_all">Uitgaand en inkomend</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-pl/cm_strings.xml b/packages/apps/Settings/res/values-pl/cm_strings.xml
-index 553c11f4d..209be7660 100644
+index 0214bd43d..d38195939 100644
 --- a/packages/apps/Settings/res/values-pl/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-pl/cm_strings.xml
-@@ -1082,4 +1082,11 @@
+@@ -1077,4 +1077,11 @@
    <string name="security_settings_fingerprint_sensor_location_left">lewa strona</string>
    <string name="security_settings_fingerprint_sensor_location_right">prawa strona</string>
    <!-- SIM status format string -->
@@ -356,10 +358,10 @@ index 553c11f4d..209be7660 100644
 +  <string name="status_bar_network_traffic_style_all">Wysyłania i pobierania</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-pt-rBR/cm_strings.xml b/packages/apps/Settings/res/values-pt-rBR/cm_strings.xml
-index a7028bdb7..a017f8968 100644
+index 1ff832d27..c7241acb9 100644
 --- a/packages/apps/Settings/res/values-pt-rBR/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-pt-rBR/cm_strings.xml
-@@ -1098,4 +1098,11 @@
+@@ -1095,4 +1095,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">lado direito</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Voz: <xliff:g id="voice_status">%1$s</xliff:g> / Dados: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -372,7 +374,7 @@ index a7028bdb7..a017f8968 100644
 +  <string name="status_bar_network_traffic_style_all">Enviando e recebendo</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-pt-rPT/cm_strings.xml b/packages/apps/Settings/res/values-pt-rPT/cm_strings.xml
-index ad7a74b57..113dd4cfa 100644
+index 5cbc7c73d..4e811f824 100644
 --- a/packages/apps/Settings/res/values-pt-rPT/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-pt-rPT/cm_strings.xml
 @@ -1098,4 +1098,6 @@
@@ -383,7 +385,7 @@ index ad7a74b57..113dd4cfa 100644
 +  <string name="show_network_speed_title">Velocidade de rede</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-ru/cm_strings.xml b/packages/apps/Settings/res/values-ru/cm_strings.xml
-index 712f75821..a62b44621 100644
+index bb06f8dc5..8c321dbb5 100644
 --- a/packages/apps/Settings/res/values-ru/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-ru/cm_strings.xml
 @@ -1100,4 +1100,11 @@
@@ -415,10 +417,10 @@ index c840954df..e16032754 100644
 +  <string name="status_bar_network_traffic_style_all">Odhodni in prejeti</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-sr/cm_strings.xml b/packages/apps/Settings/res/values-sr/cm_strings.xml
-index 4aa4e322e..e21021720 100644
+index a96daaf27..8494e3da4 100644
 --- a/packages/apps/Settings/res/values-sr/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-sr/cm_strings.xml
-@@ -1086,4 +1086,11 @@
+@@ -1097,4 +1097,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">на десној страни</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">Глас: <xliff:g id="voice_status">%1$s</xliff:g> / Податак: <xliff:g id="data_status">%2$s</xliff:g></string>
@@ -431,10 +433,10 @@ index 4aa4e322e..e21021720 100644
 +  <string name="status_bar_network_traffic_style_all">Одлазни и долазни</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-sv/cm_strings.xml b/packages/apps/Settings/res/values-sv/cm_strings.xml
-index 9b495e505..c593e4a76 100644
+index 6156bc900..0050b4143 100644
 --- a/packages/apps/Settings/res/values-sv/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-sv/cm_strings.xml
-@@ -1033,4 +1033,11 @@ inkluderar en unik identifikation,
+@@ -1028,4 +1028,11 @@
    <!-- Format string for fingerprint location message -->
    <!-- Fingerprint sensor locations -->
    <!-- SIM status format string -->
@@ -447,13 +449,13 @@ index 9b495e505..c593e4a76 100644
 +  <string name="status_bar_network_traffic_style_all">Utgående och inkommande</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-tr/cm_strings.xml b/packages/apps/Settings/res/values-tr/cm_strings.xml
-index b545a40e5..62bccd804 100644
+index 32187be41..978055b3b 100644
 --- a/packages/apps/Settings/res/values-tr/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-tr/cm_strings.xml
-@@ -1046,4 +1046,11 @@
-   <!-- Format string for fingerprint location message -->
-   <!-- Fingerprint sensor locations -->
-   <!-- SIM status format string -->
+@@ -732,6 +732,13 @@
+   <string name="status_bar_battery_percentage_default">Gizli</string>
+   <string name="status_bar_battery_percentage_text_inside">Simge içinde</string>
+   <string name="status_bar_battery_percentage_text_next">Simge yanında</string>
 +  <!-- Show network speed -->
 +  <string name="show_network_speed_title">Ağ hızı</string>
 +  <string name="show_network_speed_summary">Ağ hızını durum çubuğunda göster</string>
@@ -461,12 +463,14 @@ index b545a40e5..62bccd804 100644
 +  <string name="status_bar_network_traffic_style_up">Giden</string>
 +  <string name="status_bar_network_traffic_style_down">Gelen</string>
 +  <string name="status_bar_network_traffic_style_all">Giden ve gelen</string>
- </resources>
+   <!-- Status bar - icon blacklist -->
+   <string name="status_bar_icons_title">Durum çubuğu simgeleri</string>
+   <string name="status_bar_icons_summary">Gösterilen durum çubuğu simgelerini kontrol et</string>
 diff --git a/packages/apps/Settings/res/values-uk/cm_strings.xml b/packages/apps/Settings/res/values-uk/cm_strings.xml
-index 06056693a..b8a08bc22 100644
+index 1425c6968..65158040f 100644
 --- a/packages/apps/Settings/res/values-uk/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-uk/cm_strings.xml
-@@ -947,4 +947,11 @@
+@@ -944,4 +944,11 @@
    <!-- Format string for fingerprint location message -->
    <!-- Fingerprint sensor locations -->
    <!-- SIM status format string -->
@@ -479,10 +483,10 @@ index 06056693a..b8a08bc22 100644
 +  <string name="status_bar_network_traffic_style_all">Вихідний та вхідний</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-vi/cm_strings.xml b/packages/apps/Settings/res/values-vi/cm_strings.xml
-index 89a2378d9..35482fda8 100644
+index 305468285..90b97adda 100644
 --- a/packages/apps/Settings/res/values-vi/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-vi/cm_strings.xml
-@@ -1045,4 +1045,11 @@
+@@ -1042,4 +1042,11 @@
    <!-- Format string for fingerprint location message -->
    <!-- Fingerprint sensor locations -->
    <!-- SIM status format string -->
@@ -495,7 +499,7 @@ index 89a2378d9..35482fda8 100644
 +  <string name="status_bar_network_traffic_style_all">Đi và đến</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml b/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
-index 4a8149059..7ce6bd08e 100644
+index 3ff7ec872..7d04c6762 100644
 --- a/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
 @@ -1097,4 +1097,11 @@
@@ -511,10 +515,10 @@ index 4a8149059..7ce6bd08e 100644
 +  <string name="status_bar_network_traffic_style_all">显示上传和下载速度</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-zh-rHK/cm_strings.xml b/packages/apps/Settings/res/values-zh-rHK/cm_strings.xml
-index d845d5cf7..18b7a23a3 100644
+index ed0a8dd64..811fffc4d 100644
 --- a/packages/apps/Settings/res/values-zh-rHK/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-zh-rHK/cm_strings.xml
-@@ -839,4 +839,11 @@
+@@ -837,4 +837,11 @@
    <!-- Format string for fingerprint location message -->
    <!-- Fingerprint sensor locations -->
    <!-- SIM status format string -->
@@ -527,10 +531,10 @@ index d845d5cf7..18b7a23a3 100644
 +  <string name="status_bar_network_traffic_style_all">上載及下載</string>
  </resources>
 diff --git a/packages/apps/Settings/res/values-zh-rTW/cm_strings.xml b/packages/apps/Settings/res/values-zh-rTW/cm_strings.xml
-index f616ebfdb..461f9b913 100644
+index b327c76ef..410136dc1 100644
 --- a/packages/apps/Settings/res/values-zh-rTW/cm_strings.xml
 +++ b/packages/apps/Settings/res/values-zh-rTW/cm_strings.xml
-@@ -1096,4 +1096,11 @@
+@@ -1097,4 +1097,11 @@
    <string name="security_settings_fingerprint_sensor_location_right">右側</string>
    <!-- SIM status format string -->
    <string name="sim_status_format_string">語音︰ <xliff:g id="voice_status">%1$s </xliff:g> / 資料︰ <xliff:g id="data_status">%2$s </xliff:g></string>
