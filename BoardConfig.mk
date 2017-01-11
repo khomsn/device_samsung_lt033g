@@ -73,6 +73,9 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOOTLOADER_BOARD_NAME := universal5420
 
+# Not building recovery
+TARGET_NO_RECOVERY := true
+
 # FIMG2D
 BOARD_USES_SKIA_FIMGAPI := true
 BOARD_USES_FIMGAPI_V4L2 := true
@@ -143,7 +146,7 @@ BOARD_RIL_CLASS := ../../../device/samsung/lt033g/ril
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
 #HAX: real block size is too small to build a ROM
 #BOARD_RECOVERYIMAGE_PARTITION_SIZE := 8388608
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 10485760
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 11534336
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2524971008
 # 12863930368 - 16384 <encryption footer>
 #BOARD_USERDATAIMAGE_PARTITION_SIZE := 12863913984
@@ -182,10 +185,6 @@ ENABLE_WEBGL := true
 # WFD
 BOARD_USES_WFD := true
 
-# ANT+
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
-BOARD_ANT_WIRELESS_POWER := "bluedroid"
-
 # Keymaster
 BOARD_USES_TRUST_KEYMASTER := true
 
@@ -216,3 +215,32 @@ WIFI_BAND                        := 802_11_ABG
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     device/samsung/lt033g/sepolicy
+
+# TWRP
+TW_MTP_DEVICE := /dev/mtp_usb
+# Graphics and Display
+RECOVERY_GRAPHICS_FORCE_USE_LINELENGTH := true
+TW_BRIGHTNESS_PATH := /sys/class/backlight/panel/brightness
+TW_MAX_BRIGHTNESS := 250
+TW_THEME := landscape_mdpi
+TW_NEW_ION_HEAP := true
+# Crypto
+TW_CRYPTO_REAL_BLKDEV := "/dev/block/mmcblk0p21"
+TW_CRYPTO_MNT_POINT := "/data"
+TW_CRYPTO_KEY_LOC := "footer"
+TW_INCLUDE_CRYPTO := true
+# Storages
+TW_INTERNAL_STORAGE_PATH := "/sdcard"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "sdcard"
+TW_EXTERNAL_STORAGE_PATH := "/external_sd"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+TW_DEFAULT_EXTERNAL_STORAGE := true
+TW_HAS_DUAL_STORAGE :=true
+TW_FLASH_FROM_STORAGE := true
+TW_SDEXT_NO_EXT4 := true
+# No partitioning SD Card
+BOARD_HAS_NO_REAL_SDCARD := true
+# TWRP specific build flags
+RECOVERY_SDCARD_ON_DATA := true
+TW_NO_REBOOT_BOOTLOADER := true
+TW_HAS_DOWNLOAD_MODE := true
