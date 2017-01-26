@@ -13,38 +13,38 @@
     },
     {
         "remote": "github",
-        "repository": "CyanogenMod/hardware_samsung",
+        "repository": "LineageOS/hardware_samsung",
         "revision": "cm-14.1",
         "target_path": "hardware/samsung"
     },
     {
         "remote": "github",
-        "repository": "CyanogenMod/hardware_samsung_slsi-cm_exynos",
+        "repository": "LineageOS/hardware_samsung_slsi-cm_exynos",
         "revision": "cm-14.1",
         "target_path": "hardware/samsung_slsi-cm/exynos"
     },
     {
         "remote": "github",
-        "repository": "CyanogenMod/hardware_samsung_slsi-cm_exynos5",
+        "repository": "LineageOS/hardware_samsung_slsi-cm_exynos5",
         "revision": "cm-14.1",
         "target_path": "hardware/samsung_slsi-cm/exynos5"
     },
     {
         "remote": "github",
-        "repository": "exynos5420/hardware_samsung_slsi-cm_exynos5420",
+        "repository": "LineageOS/hardware_samsung_slsi-cm_exynos5420",
         "revision": "cm-14.1",
         "target_path": "hardware/samsung_slsi-cm/exynos5420"
     },
     {
         "remote": "github",
-        "repository": "CyanogenMod/hardware_samsung_slsi-cm_openmax",
+        "repository": "LineageOS/hardware_samsung_slsi-cm_openmax",
         "revision": "cm-14.1",
         "target_path": "hardware/samsung_slsi-cm/openmax"
     },
     {
         "remote": "github",
         "revision": "cm-14.1",
-        "repository": "CyanogenMod/android_packages_apps_SamsungServiceMode",
+        "repository": "LineageOS/android_packages_apps_SamsungServiceMode",
         "target_path": "packages/apps/SamsungServiceMode"
     }
 ]
