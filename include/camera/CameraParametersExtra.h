@@ -17,6 +17,7 @@
 #include "camera/CameraParametersExtraDurationTimer.h"
 
 #define CAMERA_PARAMETERS_EXTRA_C \
+const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "nv21"; \
 const char CameraParameters::KEY_CITYID[] = "cityid"; \
 const char CameraParameters::KEY_WEATHER[] = "weather"; \
 const char CameraParameters::ISO_AUTO[] = "auto"; \
@@ -32,7 +33,7 @@ const char CameraParameters::ISO_100[] = "100"; \
 const char CameraParameters::ISO_80[] = "80"; \
 const char CameraParameters::ISO_50[] = "50"; \
 \
-int CameraParameters::getInt64(const char *key) const { return -1; } \
+int CameraParameters::getInt64(__attribute__((__unused__)) const char *key) const { return -1; } \
 extern "C" { \
     void acquire_dvfs_lock(void) { } \
     void release_dvfs_lock(void) { } \
@@ -44,6 +45,7 @@ CAMERA_PARAMETERS_EXTRA_C_DURATION_TIMER \
  */
 
 #define CAMERA_PARAMETERS_EXTRA_H \
+    static const char PIXEL_FORMAT_YUV420SP_NV21[]; \
     static const char KEY_CITYID[]; \
     static const char KEY_WEATHER[]; \
     static const char ISO_AUTO[]; \

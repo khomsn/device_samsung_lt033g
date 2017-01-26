@@ -2,49 +2,49 @@
     {
         "remote": "github",
         "repository": "ShevT/kernel_samsung_lt033g",
-        "revision": "cm-13.0",
+        "revision": "cm-14.1",
         "target_path": "kernel/samsung/lt033g"
     },
     {
         "remote": "github",
         "repository": "ShevT/vendor_samsung_lt033g",
-        "revision": "cm-13.0",
+        "revision": "cm-14.1",
         "target_path": "vendor/samsung/lt033g"
     },
     {
         "remote": "github",
-        "repository": "LineageOS/hardware_samsung",
-        "revision": "cm-13.0",
+        "repository": "CyanogenMod/hardware_samsung",
+        "revision": "cm-14.1",
         "target_path": "hardware/samsung"
     },
     {
         "remote": "github",
-        "repository": "LineageOS/hardware_samsung_slsi-cm_exynos",
-        "revision": "cm-13.0",
+        "repository": "CyanogenMod/hardware_samsung_slsi-cm_exynos",
+        "revision": "cm-14.1",
         "target_path": "hardware/samsung_slsi-cm/exynos"
     },
     {
         "remote": "github",
-        "repository": "exynos5420/hardware_samsung_slsi-cm_exynos5",
-        "revision": "cm-13.0",
+        "repository": "CyanogenMod/hardware_samsung_slsi-cm_exynos5",
+        "revision": "cm-14.1",
         "target_path": "hardware/samsung_slsi-cm/exynos5"
     },
     {
         "remote": "github",
-        "repository": "ShevT/hardware_samsung_slsi-cm_exynos5420",
-        "revision": "cm-13.0",
+        "repository": "exynos5420/hardware_samsung_slsi-cm_exynos5420",
+        "revision": "cm-14.1",
         "target_path": "hardware/samsung_slsi-cm/exynos5420"
     },
     {
         "remote": "github",
-        "repository": "LineageOS/hardware_samsung_slsi-cm_openmax",
-        "revision": "cm-13.0",
+        "repository": "CyanogenMod/hardware_samsung_slsi-cm_openmax",
+        "revision": "cm-14.1",
         "target_path": "hardware/samsung_slsi-cm/openmax"
     },
     {
         "remote": "github",
-        "revision": "cm-13.0",
-        "repository": "LineageOS/android_packages_apps_SamsungServiceMode",
+        "revision": "cm-14.1",
+        "repository": "CyanogenMod/android_packages_apps_SamsungServiceMode",
         "target_path": "packages/apps/SamsungServiceMode"
     }
 ]

@@ -22,6 +22,8 @@ TARGET_BOARD_PLATFORM := exynos5
 TARGET_SLSI_VARIANT := cm
 TARGET_SOC := exynos5420
 
+#TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+
 # Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
@@ -33,7 +35,7 @@ TARGET_CPU_VARIANT := cortex-a15
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_HAVE_SAMSUNG_BLUETOOTH := true
-BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/bluetooth/libbt_vndcfg.txt
+BOARD_CUSTOM_BT_CONFIG := $(LOCAL_PATH)/bluetooth/libbt_vndcfg.txt
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Bootloader
@@ -42,10 +44,11 @@ TARGET_OTA_ASSERT_DEVICE := lt033g,lt03wifi,lt03wifiue,n1awifi,n1a3g
 # Camera
 BOARD_CAMERA_SNUMINTS := 34
 BOARD_NEEDS_MEMORYHEAPION := true
-COMMON_GLOBAL_CFLAGS += -DCAMERA_SNUMINTS=$(BOARD_CAMERA_SNUMINTS)
+BOARD_GLOBAL_CFLAGS += -DCAMERA_SNUMINTS=$(BOARD_CAMERA_SNUMINTS)
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
 # Force the screenshot path to CPU consumer
-COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
+BOARD_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
 
 # Kernel
 BOARD_KERNEL_BASE := 0x10000000
@@ -61,9 +64,7 @@ BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charg
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
-
-# Build the platform with Clang
-USE_CLANG_PLATFORM_BUILD := true
+BOARD_BATTERY_DEVICE_NAME := battery
 
 # We use our lights hal
 TARGET_PROVIDES_LIBLIGHT := true
@@ -82,7 +83,8 @@ USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # Mixer
-BOARD_USE_BGRA_8888 := true
+### This is not implemented in frameworks/native yet.
+#BOARD_USE_BGRA_8888 := true
 
 # Shader cache config options
 # Maximum size of the  GLES Shaders that can be cached for reuse.
@@ -113,8 +115,8 @@ TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 BOARD_HARDWARE_CLASS := device/samsung/lt033g/cmhw
 
 # Samsung LSI OpenMAX
-COMMON_GLOBAL_CFLAGS += -DUSE_NATIVE_SEC_NV12TILED # use format from fw/native
-COMMON_GLOBAL_CFLAGS += -DWIDEVINE_PLUGIN_PRE_NOTIFY_ERROR
+BOARD_GLOBAL_CFLAGS += -DUSE_NATIVE_SEC_NV12TILED # use format from fw/native
+BOARD_GLOBAL_CFLAGS += -DWIDEVINE_PLUGIN_PRE_NOTIFY_ERROR
 
 # Samsung OpenMAX Video
 BOARD_USE_STOREMETADATA := true
@@ -133,8 +135,11 @@ BOARD_USE_VP8ENC_SUPPORT := true
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
 # Modem
-BOARD_MODEM_TYPE := xmm7260
 BOARD_PROVIDES_LIBRIL := true
+#BOARD_MODEM_TYPE := xmm6260
+BOARD_MODEM_TYPE := xmm7260
+# we need define it (because audio.primary.universal5420.so requires it)
+BOARD_GLOBAL_CFLAGS += -DSEC_PRODUCT_FEATURE_RIL_CALL_DUALMODE_CDMAGSM
 BOARD_MODEM_NEEDS_VIDEO_CALL_FIELD := true
 # RIL java overwrite
 BOARD_RIL_CLASS := ../../../device/samsung/lt033g/ril
@@ -176,9 +181,6 @@ SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 
-# Webkit
-ENABLE_WEBGL := true
-
 # WFD
 BOARD_USES_WFD := true
 
@@ -209,6 +211,9 @@ WIFI_DRIVER_NVRAM_PATH_PARAM     := "/sys/module/dhd/parameters/nvram_path"
 WIFI_DRIVER_NVRAM_PATH           := "/system/etc/wifi/nvram_net.txt"
 WIFI_BAND                        := 802_11_ABG
 
+# Fix too large recovery
+TARGET_RECOVERY_DENSITY := hdpi
+
 # SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/lt033g/sepolicy
+#BOARD_SEPOLICY_DIRS += \
+#    device/samsung/lt033g/sepolicy

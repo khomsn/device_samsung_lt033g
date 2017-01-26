@@ -163,22 +163,6 @@ on post-fs-data
     chmod 0775 /data/system/databases
     chown system system /data/system/databases
 
-    # Added for Playready DRM Support
-    mkdir /data/data/.drm 0775 drm system
-    chmod 0775 /data/data/.drm
-    chown drm system /data/data/.drm
-    mkdir /data/data/.drm/.playready 0775 drm system
-    chmod 0775 /data/data/.drm/.playready
-    chown drm system /data/data/.drm/.playready
-
-    # Added for Playready DCM DRM Support
-    mkdir /data/.dcmdrm 0775 drm system
-    chown drm system /data/.dcmdrm
-    chmod 0775 /data/.dcmdrm
-    mkdir /data/.dcmdrm/.playready 0775 drm system
-    chown drm system /data/.dcmdrm/.playready
-    chmod 0775 /data/.dcmdrm/.playready
-
     restorecon_recursive /efs
     restorecon_recursive /carrier
     restorecon_recursive /data/misc/keystore

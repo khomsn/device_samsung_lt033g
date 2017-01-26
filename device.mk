@@ -87,7 +87,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Gello
 
-# GPS
+# SHIM LIBS
 PRODUCT_PACKAGES += \
     libdmitry
 
@@ -167,7 +167,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-    frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml
+    frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
+    frameworks/native/data/etc/android.software.freeform_window_management.xml:system/etc/permissions/android.software.freeform_window_management.xml
 
 # Bluetooth
 PRODUCT_COPY_FILES += \
@@ -185,13 +186,15 @@ PRODUCT_PACKAGES += \
     init.universal5420.usb.rc \
     init.universal5420.wifi.rc \
     ueventd.universal5420.rc \
-    init.carrier.rc
+    init.baseband.rc
 
 # Radio
 PRODUCT_PACKAGES += \
     libsecril-client \
     libsecril-client-sap \
-    modemloader
+    modemloader \
+    libxml2 \
+    libprotobuf-cpp-full
 
 PRODUCT_PACKAGES += \
     CellBroadcastReceiver \
@@ -236,13 +239,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.usb.config=mtp \
-    ro.debug_level=0x4948
+    ro.debug_level=0x4948 \
+    ro.secure=0
 
-# DALVIK/ART
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.image-dex2oat-filter=speed \
-    dalvik.vm.dex2oat-filter=speed \
-    dalvik.vm.dex2oat-swap=false
+# adb has root
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.adb.secure=0 \
+    persist.adb.notify=0 \
+    ro.secure=0 \
+    ro.debuggable=1 \
+    persist.service.adb.enable=1
+
+# adb and apps
+ADDITIONAL_BUILD_PROPERTIES += \
+    persist.sys.root_access=3
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.sys.fw.dex2oat_thread_count=4
@@ -255,22 +265,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.debug.multi_window=true
 
-# HWUI CACHES
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.texture_cache_size=96 \
-    ro.hwui.layer_cache_size=64 \
-    ro.hwui.path_cache_size=16 \
-    ro.hwui.texture_cache_flushrate=0.4 \
-    ro.hwui.shape_cache_size=4 \
-    ro.hwui.gradient_cache_size=2 \
-    ro.hwui.drop_shadow_cache_size=6 \
-    ro.hwui.r_buffer_cache_size=8 \
-    ro.hwui.text_small_cache_width=1024 \
-    ro.hwui.text_small_cache_height=1024 \
-    ro.hwui.text_large_cache_width=4096 \
-    ro.hwui.text_large_cache_height=2048 \
-    ro.hwui.fbo_cache_size=16
-
 # Hwc - not used on cm/aosp
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwc.winupdate=1 \
@@ -280,6 +274,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.cm.hardware.cabc=/sys/class/mdnie/mdnie/cabc
 
+# Legacy stagefright media
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
+
 # Call Prebuilding Apps packages
 $(call inherit-product, vendor/samsung/prebuilding_apps/prebuilding_apps.mk)
 # Call Samsung LSI board support packages
@@ -287,5 +286,7 @@ $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5420/exynos5420.mk)
 # Call the proprietary setup
 $(call inherit-product, vendor/samsung/lt033g/lt033g-vendor.mk)
-# Configure the Dalvik heap
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+# call dalvik heap and hwui config
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
+
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)

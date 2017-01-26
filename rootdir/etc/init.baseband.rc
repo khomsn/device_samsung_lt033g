@@ -31,17 +31,10 @@ service_redefine ril-daemon /system/bin/rild
     socket rild stream 660 root radio
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
     socket rild-debug stream 660 radio system
-#FSI {Tmm] Add Start (120615)
-    socket rild-cas stream 660  casdrm mmb
-#FSI {Tmm] Add End (120615)
     user root
-    group radio cache inet misc audio sdcard_r sdcard_rw log vpn system
+    group radio cache inet misc audio sdcard_r sdcard_rw diag log readproc wakelock
     onrestart restart cpboot-daemon
 
 on property:persist.sys.cpboot=disable
     stop ril-daemon
     stop cpboot-daemon
-
-# for Wi-Fi only models
-on property:ro.radio.noril=yes
-stop ril-daemon
