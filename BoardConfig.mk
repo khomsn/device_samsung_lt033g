@@ -60,6 +60,7 @@ TARGET_KERNEL_SOURCE := kernel/samsung/lt033g
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-linux-eabi-UB-5.3/bin
 KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 #BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+LZMA_RAMDISK_TARGETS := recovery
 
 # Charger/Healthd
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
