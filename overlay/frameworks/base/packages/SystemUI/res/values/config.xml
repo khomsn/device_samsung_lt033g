@@ -42,4 +42,16 @@
     <string name="quick_settings_tiles_default" translatable="false">
         cell,wifi,bt,location,rotation,flashlight,hotspot,compass,volume_panel,sync,usb_tether,live_display,dnd,ambient_display,performance,cast
     </string>
+
+    <!-- Doze: does this device support STATE_DOZE and STATE_DOZE_SUSPEND?  -->
+    <bool name="doze_display_state_supported">true</bool>
+
+    <!-- Doze: should the significant motion sensor be used as a pulse signal? -->
+    <bool name="doze_pulse_on_significant_motion">false</bool>
+
+    <!-- Doze: should the pickup sensor be used as a pulse signal? -->
+    <bool name="doze_pulse_on_pick_up">false</bool>
+
+    <!-- Doze: pulse parameter - once faded in, how long does it stay visible? -->
+    <integer name="doze_pulse_duration_visible">6000</integer>
 </resources>
