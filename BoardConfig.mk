@@ -67,7 +67,6 @@ BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charg
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
-BOARD_BATTERY_DEVICE_NAME := battery
 
 # We use our lights hal
 TARGET_PROVIDES_LIBLIGHT := true
@@ -133,12 +132,8 @@ BOARD_USE_QOS_CTRL := false
 BOARD_USE_S3D_SUPPORT := true
 BOARD_USE_VP8ENC_SUPPORT := true
 
-# Sensors
-TARGET_NO_SENSOR_PERMISSION_CHECK := true
-
 # Modem
 BOARD_PROVIDES_LIBRIL := true
-#BOARD_MODEM_TYPE := xmm6260
 BOARD_MODEM_TYPE := xmm7260
 # we need define it (because audio.primary.universal5420.so requires it)
 BOARD_GLOBAL_CFLAGS += -DSEC_PRODUCT_FEATURE_RIL_CALL_DUALMODE_CDMAGSM
@@ -153,7 +148,7 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 10485760
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2524971008
 # 12863930368 - 16384 <encryption footer>
-#BOARD_USERDATAIMAGE_PARTITION_SIZE := 12863913984
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 12863913984
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -169,9 +164,6 @@ BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 # Enable dex-preoptimization to speed up first boot sequence
 WITH_DEXPREOPT := true
 WITH_DEXPREOPT_BOOT_IMG_ONLY := true
-
-# UMS
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
 
 # Use these flags if the board has a ext4 partition larger than 2gb
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -212,7 +204,6 @@ WIFI_DRIVER_FW_PATH_STA          := "/system/etc/wifi/bcmdhd_sta.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/system/etc/wifi/bcmdhd_apsta.bin"
 WIFI_DRIVER_NVRAM_PATH_PARAM     := "/sys/module/dhd/parameters/nvram_path"
 WIFI_DRIVER_NVRAM_PATH           := "/system/etc/wifi/nvram_net.txt"
-WIFI_BAND                        := 802_11_ABG
 
 # Fix too large recovery
 TARGET_RECOVERY_DENSITY := hdpi
