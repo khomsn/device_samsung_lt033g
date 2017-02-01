@@ -12,11 +12,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
     <!-- Disable livedisplay by default -->
     <integer name="config_defaultLiveDisplayMode">0</integer>
-
-    <!-- Default, comma-delimited, quick settings tiles. See QSConstants.java for a list of all available tiles -->
-    <string name="config_defaultQuickSettingsTiles" translatable="false">cell,wifi,bt,location,rotation,flashlight,hotspot,compass,volume_panel,sync,usb_tether,live_display,dnd,ambient_display,performance,cast,edit</string>
-
 </resources>
