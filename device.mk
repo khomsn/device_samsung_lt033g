@@ -287,6 +287,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.legacyencoder=true \
     media.stagefright.less-secure=true
 
+# Disable persistent GPU compositing
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.disable_hwc=1
+
 # Call Prebuilding Apps packages
 $(call inherit-product, vendor/samsung/prebuilding_apps/prebuilding_apps.mk)
 # Call Samsung LSI board support packages
