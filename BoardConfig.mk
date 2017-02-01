@@ -215,5 +215,5 @@ WIFI_BAND                        := 802_11_ABG
 TARGET_RECOVERY_DENSITY := hdpi
 
 # SELinux
-#BOARD_SEPOLICY_DIRS += \
-#    device/samsung/lt033g/sepolicy
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/lt033g/sepolicy
