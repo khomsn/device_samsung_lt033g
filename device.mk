@@ -260,6 +260,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-threads=4 \
     dalvik.vm.image-dex2oat-threads=4
 
+# Dex2oat optimizations
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-filter=speed \
+    dalvik.vm.dex2oat-swap=false
+
 # Enable mock location
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.allow.mock.location=1
