@@ -254,8 +254,11 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 ADDITIONAL_BUILD_PROPERTIES += \
     persist.sys.root_access=3
 
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.sys.fw.dex2oat_thread_count=4
+# limit dex2oat threads to improve thermals
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.boot-dex2oat-threads=4 \
+    dalvik.vm.dex2oat-threads=4 \
+    dalvik.vm.image-dex2oat-threads=4
 
 # Enable mock location
 ADDITIONAL_DEFAULT_PROPERTIES += \
