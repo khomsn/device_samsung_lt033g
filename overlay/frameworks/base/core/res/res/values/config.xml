@@ -129,9 +129,6 @@
          when there's no network connection. If the scan doesn't timeout, use zero -->
     <integer name="config_radioScanningTimeout">0</integer>
 
-    <!-- This device does not allow sms service. -->
-    <bool name="config_sms_capable">true</bool>
-
     <!-- The VoiceMail default value is displayed to my own number if it is true -->
     <bool name="config_telephony_use_own_number_for_voicemail">true</bool>
 
