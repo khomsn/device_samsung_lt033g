@@ -291,6 +291,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.disable_hwc=1
 
+# Enable SDCard fs
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sdcardfs.enable=true
+
 # Call Prebuilding Apps packages
 $(call inherit-product, vendor/samsung/prebuilding_apps/prebuilding_apps.mk)
 # Call Samsung LSI board support packages
