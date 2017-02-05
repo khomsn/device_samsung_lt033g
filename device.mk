@@ -69,10 +69,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     HexoLibre
 
-# hardware/samsung/AdvancedDisplay (MDNIE)
-PRODUCT_PACKAGES += \
-    AdvancedDisplay
-
 # Remove packages that do not work well
 PRODUCT_PACKAGES += \
     RemovePackages
