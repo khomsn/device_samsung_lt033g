@@ -193,7 +193,6 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-full
 
 PRODUCT_PACKAGES += \
-    CellBroadcastReceiver \
     SamsungServiceMode
 
 # Misc libraries
@@ -201,10 +200,6 @@ PRODUCT_PACKAGES += \
     libxml2 \
     libprotobuf-cpp-full \
     libstlport
-
-# Weather
-PRODUCT_PACKAGES += \
-    OpenWeatherMapProvider
 
 # Wifi
 PRODUCT_COPY_FILES += \
