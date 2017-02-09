@@ -279,10 +279,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.legacyencoder=true \
     media.stagefright.less-secure=true
 
-# Disable persistent GPU compositing
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.disable_hwc=1
-
 # Fixes game grashing (HeartStone)
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.force_msaa=true
