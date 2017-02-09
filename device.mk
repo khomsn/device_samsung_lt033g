@@ -25,7 +25,8 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_AAPT_PREBUILT_DPI := xhdpi hdpi
 
 PRODUCT_PACKAGES += \
-    gralloc.exynos5
+    gralloc.exynos5 \
+    libfimg
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=320 \
