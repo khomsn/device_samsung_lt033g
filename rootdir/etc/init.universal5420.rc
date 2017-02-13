@@ -17,7 +17,7 @@ on init
     mkdir /preload 0774 root root
 
 on early-init
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
+    mount debugfs /sys/kernel/debug /sys/kernel/debug mode=755
     write /sys/block/mmcblk0/queue/read_ahead_kb 512
     write /sys/block/mmcblk1/queue/read_ahead_kb 512
 
