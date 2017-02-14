@@ -1,0 +1,17 @@
+Add our SEMCO mac address
+
+project hardware/samsung/
+diff --git a/hardware/samsung/macloader/macaddr_mappings.h b/hardware/samsung/macloader/macaddr_mappings.h
+index 56d3666..6c8429c 100644
+--- a/hardware/samsung/macloader/macaddr_mappings.h
++++ b/hardware/samsung/macloader/macaddr_mappings.h
+@@ -123,7 +123,8 @@ static const struct company_range semco_ranges = {
+         "4c:66:41",
+         "51:f6:6b",
+         "d8:c4:e9",
+-        "ec:9b:f3"
++        "ec:9b:f3",
++        "cc:07:ab"
+     }
+ };
+ 
