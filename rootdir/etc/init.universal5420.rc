@@ -266,9 +266,7 @@ on boot
     chown system radio /sys/class/camera/rear/rear_camfw
     chown system radio /sys/class/camera/rear/rear_camfw_full
     chown system radio /sys/class/camera/rear/rear_camtype
-
-    chown system radio /sys/class/camera/flash/rear_flash
-
+    chown cameraserver system /sys/class/camera/flash/rear_flash
     chown system radio /sys/class/camera/front/front_camfw
     chown system radio /sys/class/camera/front/front_camtype
 
@@ -395,6 +393,13 @@ on boot
     write /sys/module/mxts_n1/parameters/touchkey_booster_enabled 0
     write /sys/module/wacom_i2c_func/parameters/wacom_booster_enabled 0
 
+    # Change owner /data/misc/media/ for camera
+    chmod 0700 /data/misc/media
+    chown cameraserver cameraserver /data/misc/media
+    # Change owner files (if exist)
+    chown cameraserver audio /data/misc/media/CameraID.txt
+    chown cameraserver audio /data/misc/media/cal_data.bin
+
 on charger
     # Set cpu governor to powersave while in charging mode
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
@@ -452,9 +457,9 @@ on fs
     chown system radio /sys/class/audio/earjack/state
 
 # create camera directory
-    mkdir /data/camera 0700 media media
+    mkdir /data/camera 0700 cameraserver system
     chmod 0700 /data/camera
-    chown media media /data/camera
+    chown cameraserver system /data/camera
 
 # GPS
     chown root system /dev/ttySAC1
