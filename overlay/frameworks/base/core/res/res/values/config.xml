@@ -348,7 +348,7 @@
          don't support RIL_REQUEST_GET_RADIO_CAPABILITY
          format is UMTS|LTE|...
     -->
-    <string translatable="false" name="config_radio_access_family">GSM | WCDMA | GPRS | EDGE</string>
+    <string translatable="false" name="config_radio_access_family">GSM|GPRS|EDGE|WCDMA</string>
 
     <!-- Doze mode -->
     <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
