@@ -16,11 +16,16 @@ on fs
     chown radio radio /sys/devices/virtual/misc/multipdp/waketime
     chown radio radio /sys/devices/platform/s5p-ehci/ehci_cpu_core
 
-on early-boot
+on post-fs-data
     # Remove symlinks to avoid issues with migrate after nandroid restores
-    # Will be recreated at end of boot
     rm -r -d /data/data/com.android.providers.telephony/databases
     rm -r -d /data/data/com.android.providers.telephony/shared_prefs
+
+    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
+    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
+
+    restart cpboot-daemon
+    restart ril-daemon
 
 service modemloader /system/bin/modemloader
     class core
@@ -40,8 +45,3 @@ service_redefine ril-daemon /system/bin/rild
     user root
     group radio cache inet misc audio sdcard_r sdcard_rw diag log readproc wakelock
     onrestart restart cpboot-daemon
-
-on property:dev.bootcomplete=1
-    # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
-    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
-    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
