@@ -41,10 +41,6 @@ service_redefine ril-daemon /system/bin/rild
     group radio cache inet misc audio sdcard_r sdcard_rw diag log readproc wakelock
     onrestart restart cpboot-daemon
 
-on property:persist.sys.cpboot=disable
-    stop ril-daemon
-    stop cpboot-daemon
-
 on property:dev.bootcomplete=1
     # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
     symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
