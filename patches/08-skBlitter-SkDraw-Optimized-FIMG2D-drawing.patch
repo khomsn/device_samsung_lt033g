@@ -1,0 +1,1725 @@
+From 4f7a34e73019871e9e6cdf33b8fe0df5a20b7754 Mon Sep 17 00:00:00 2001
+From: "Christopher N. Hesse" <raymanfx@gmail.com>
+Date: Sun, 27 Nov 2016 14:54:26 +0100
+Subject: [PATCH] skBlitter/SkDraw: Optimized FIMG2D drawing
+https://review.lineageos.org/#/c/61162/
+
+Adapted from a Samsung Exynos 5422 OSS BSP.
+
+Patch Set 6
+
+project external/skia/
+diff --git a/external/skia/Android.mk b/external/skia/Android.mk
+index 1d18202d8..30fc1ab48 100644
+--- a/external/skia/Android.mk
++++ b/external/skia/Android.mk
+@@ -768,6 +768,21 @@ LOCAL_SRC_FILES += \
+ 	src/core/asm/SkBlitter_RGB16_NEON.S
+ endif
+ 
++# for FIMG2D acceleration
++ifeq ($(BOARD_USES_SKIA_FIMGAPI),true)
++    LOCAL_CFLAGS += -DFIMG2D_ENABLED
++    LOCAL_SRC_FILES += src/core/SkThread_trylock.cpp
++    LOCAL_C_INCLUDES += $(TOP)/hardware/samsung_slsi-cm/exynos/include
++    ifeq ($(BOARD_USES_FIMGAPI_V4L2),true)
++        LOCAL_CFLAGS += -DFIMG2D_V4L2_ENABLED
++        LOCAL_SRC_FILES += src/core/SkFimgV4L2.cpp
++        LOCAL_SHARED_LIBRARIES += libexynosg2d
++    else
++        LOCAL_SRC_FILES += src/core/SkFimgApi4x.cpp
++        LOCAL_SHARED_LIBRARIES += libfimg
++    endif
++endif
++
+ LOCAL_CFLAGS_x86 += \
+ 	-msse2 \
+ 	-mfpmath=sse
+@@ -840,6 +855,14 @@ ifeq ($(TARGET_HAVE_QC_PERF),true)
+         LOCAL_WHOLE_STATIC_LIBRARIES += libqc-skia
+ endif
+ 
++ifeq ($(BOARD_USES_SKIA_FIMGAPI),true)
++    ifeq ($(BOARD_USES_FIMGAPI_V4L2),true)
++        LOCAL_SHARED_LIBRARIES += libexynosg2d
++    else
++        LOCAL_SHARED_LIBRARIES += libfimg
++    endif
++endif
++
+ LOCAL_EXPORT_C_INCLUDE_DIRS := \
+ 	$(LOCAL_PATH)/include/codec \
+ 	$(LOCAL_PATH)/include/android \
+diff --git a/external/skia/bench/Android.mk b/external/skia/bench/Android.mk
+index 7b2932480..b26b89357 100644
+--- a/external/skia/bench/Android.mk
++++ b/external/skia/bench/Android.mk
+@@ -426,6 +426,10 @@ LOCAL_SHARED_LIBRARIES := \
+ 	libEGL \
+ 	libz
+ 
++ifeq ($(BOARD_USES_SKIA_FIMGAPI),true)
++    LOCAL_SHARED_LIBRARIES += libfimg
++endif
++
+ LOCAL_STATIC_LIBRARIES := \
+ 	libskia_static \
+ 	libjsoncpp
+diff --git a/external/skia/dm/Android.mk b/external/skia/dm/Android.mk
+index e51da0fc6..a8363cc45 100644
+--- a/external/skia/dm/Android.mk
++++ b/external/skia/dm/Android.mk
+@@ -588,6 +588,10 @@ LOCAL_SHARED_LIBRARIES := \
+ 	libGLESv2 \
+ 	libEGL
+ 
++ifeq ($(BOARD_USES_SKIA_FIMGAPI),true)
++    LOCAL_SHARED_LIBRARIES += libfimg
++endif
++
+ LOCAL_STATIC_LIBRARIES := \
+ 	libskia_static \
+ 	libhwui_static \
+diff --git a/external/skia/include/core/SkFimgApi4x.h b/external/skia/include/core/SkFimgApi4x.h
+new file mode 100644
+index 000000000..e2ac3136a
+--- /dev/null
++++ b/external/skia/include/core/SkFimgApi4x.h
+@@ -0,0 +1,64 @@
++/*
++ * Copyright 2012, Samsung Electronics Co. LTD
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++#ifndef SkFimgApi_DEFINED
++#define SkFimgApi_DEFINED
++
++#include "SkColorPriv.h"
++#include "SkBitmap.h"
++#include "SkMallocPixelRef.h"
++#include "SkFlattenable.h"
++#include "SkXfermode.h"
++#include "SkMatrix.h"
++#include "SkBitmap.h"
++#include "SkMask.h"
++
++#include "FimgApi.h"
++
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++
++#include <fcntl.h>
++#include <unistd.h>
++#include <errno.h>
++#include <signal.h>
++#include <sys/mman.h>
++#include <sys/time.h>
++#include <sys/ioctl.h>
++#include <sys/poll.h>
++#include <sys/stat.h>
++
++#ifdef FIMG2D_BOOSTUP
++#include "fimg2d_board.h"
++#endif
++
++//---------------------------------------------------------------------------//
++
++#define FIMGAPI_COMPROMISE_USE true
++
++#define FIMGAPI_FINISHED       (0x1<<0)
++#undef FIMGAPI_DEBUG_MESSAGE
++
++bool FimgApiCheckPossible(Fimg *fimg);
++bool FimgApiIsDstMode(Fimg *fimg);
++bool FimgApiCompromise(Fimg *fimg);
++int FimgApiStretch(Fimg *fimg, const char *func_name);
++int FimgARGB32_Rect(const uint32_t *device,  int x,  int y,  int width,  int height,
++                    size_t rowbyte,  uint32_t color);
++int FimgRGB16_Rect(const uint32_t *device,  int x,  int y,  int width,  int height,
++                    size_t rowbyte,  uint32_t color);
++uint32_t toARGB32(uint32_t color);
++#endif //SkFimgApi_DEFINED
+diff --git a/external/skia/include/core/SkFimgV4L2.h b/external/skia/include/core/SkFimgV4L2.h
+new file mode 100644
+index 000000000..029cd58d6
+--- /dev/null
++++ b/external/skia/include/core/SkFimgV4L2.h
+@@ -0,0 +1,128 @@
++/*
++ * Copyright 2013, Samsung Electronics Co. LTD
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++#ifndef SkFimgApi_DEFINED
++#define SkFimgApi_DEFINED
++
++#include "SkColorPriv.h"
++#include "SkBitmap.h"
++#include "SkMallocPixelRef.h"
++#include "SkFlattenable.h"
++#include "SkXfermode.h"
++#include "SkMatrix.h"
++#include "SkBitmap.h"
++#include "SkMask.h"
++
++#include "exynos_blender.h"
++#include "exynos_blender_obj.h"
++
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++
++#include <fcntl.h>
++#include <unistd.h>
++#include <errno.h>
++#include <signal.h>
++#include <sys/mman.h>
++#include <sys/time.h>
++#include <sys/ioctl.h>
++#include <sys/poll.h>
++#include <sys/stat.h>
++
++#ifdef FIMG2D_BOOSTUP
++#include "fimg2d_board.h"
++#endif
++
++//---------------------------------------------------------------------------//
++
++#define FIMGAPI_COMPROMISE_USE true
++
++#define FIMGAPI_FINISHED       (0x1<<0)
++#undef FIMGAPI_DEBUG_MESSAGE
++
++enum premultiplied {
++    NON_PREMULTIPLIED,
++    PREMULTIPLIED,
++};
++
++enum rotation {
++    ROT_ORIGIN,
++    ROT_90,    /* clockwise */
++    ROT_180,
++    ROT_270,
++    XFLIP,    /* x-axis flip */
++    YFLIP,    /* y-axis flip */
++};
++
++struct Fimg {
++    int             srcX;
++    int             srcY;
++    unsigned int    srcW;
++    unsigned int    srcH;
++    unsigned int    srcFWStride; // this is not w, just stride (w * bpp)
++    unsigned int    srcFH;
++    unsigned int    srcBPP;
++    int             srcColorFormat;
++    unsigned char  *srcAddr;
++
++    int             dstX;
++    int             dstY;
++    unsigned int    dstW;
++    unsigned int    dstH;
++    unsigned int    dstFWStride; // this is not w, just stride (w * bpp)
++    unsigned int    dstFH;
++    unsigned int    dstBPP;
++    int             dstColorFormat;
++    unsigned char  *dstAddr;
++
++    int             clipT;
++    int             clipB;
++    int             clipL;
++    int             clipR;
++
++    int             mskX;
++    int             mskY;
++    unsigned int    mskW;
++    unsigned int    mskH;
++    unsigned int    mskFWStride; // this is not w, just stride (w * bpp)
++    unsigned int    mskFH;
++    unsigned int    mskBPP;
++    int             mskColorFormat;
++    unsigned char  *mskAddr;
++
++    unsigned long   fillcolor;
++    int             rotate;
++    unsigned int    alpha;
++    int             repeat;
++    int             xfermode;
++    int             isDither;
++    int             isFilter;
++    int             colorFilter;
++    int             matrixType;
++    float           matrixSx;
++    float           matrixSy;
++};
++bool FimgApiCheckPossible(Fimg *fimg);
++bool FimgApiIsDstMode(Fimg *fimg);
++bool FimgApiCompromise(Fimg *fimg);
++int FimgApiStretch(Fimg *fimg, const char *func_name);
++int FimgARGB32_Rect(const uint32_t *device,  int x,  int y,  int width,  int height,
++                    size_t rowbyte,  uint32_t color);
++int FimgRGB16_Rect(const uint32_t *device,  int x,  int y,  int width,  int height,
++                    size_t rowbyte,  uint32_t color);
++uint32_t toARGB32(uint32_t color);
++
++#endif //SkFimgApi_DEFINED
+diff --git a/external/skia/include/core/SkPixmap.h b/external/skia/include/core/SkPixmap.h
+index 894b23819..30aa1db34 100644
+--- a/external/skia/include/core/SkPixmap.h
++++ b/external/skia/include/core/SkPixmap.h
+@@ -69,6 +69,15 @@ public:
+     SkAlphaType alphaType() const { return fInfo.alphaType(); }
+     bool isOpaque() const { return fInfo.isOpaque(); }
+ 
++#if 1
++    /**
++     *  From SkBitmap.h
++     */
++    int bytesPerPixel() const { return fInfo.bytesPerPixel(); }
++    void* getAddr(int x, int y) const;
++    void* getPixels() const { return const_cast<void*>(fPixels); }
++#endif
++
+     SkIRect bounds() const { return SkIRect::MakeWH(this->width(), this->height()); }
+ 
+     uint64_t getSize64() const { return sk_64_mul(fInfo.height(), fRowBytes); }
+diff --git a/external/skia/include/core/SkThread_trylock.h b/external/skia/include/core/SkThread_trylock.h
+new file mode 100644
+index 000000000..00bd3b5e4
+--- /dev/null
++++ b/external/skia/include/core/SkThread_trylock.h
+@@ -0,0 +1,32 @@
++/*
++ * Copyright 2013, Samsung Electronics Co. LTD
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++#ifndef SkThread_trylock_DEFINED
++#define SkThread_trylock_DEFINED
++
++#include <stdio.h>
++#include <pthread.h>
++
++class SkMutex_trylock {
++public:
++    SkMutex_trylock();
++    ~SkMutex_trylock();
++    int acquire();
++    void release();
++    pthread_mutex_t mtx;
++};
++
++#endif
+diff --git a/external/skia/src/core/SkBlitter_ARGB32.cpp b/external/skia/src/core/SkBlitter_ARGB32.cpp
+index a00ed86d8..dcbfd3ac9 100644
+--- a/external/skia/src/core/SkBlitter_ARGB32.cpp
++++ b/external/skia/src/core/SkBlitter_ARGB32.cpp
+@@ -12,6 +12,14 @@
+ #include "SkXfermode.h"
+ #include "SkBlitMask.h"
+ 
++#if defined(FIMG2D_ENABLED)
++#define FORCE_CPU_WIDTH (100)
++#define FORCE_CPU_HEIGHT (100)
++#include "SkBitmap.h"
++#include "SkBitmapProcShader.h"
++#include "SkFimgApi4x.h"
++#endif
++
+ ///////////////////////////////////////////////////////////////////////////////
+ 
+ static void SkARGB32_Blit32(const SkPixmap& device, const SkMask& mask,
+@@ -246,10 +254,25 @@ void SkARGB32_Blitter::blitRect(int x, int y, int width, int height) {
+     uint32_t    color = fPMColor;
+     size_t      rowBytes = fDevice.rowBytes();
+ 
++#if defined(FIMG2D_ENABLED)
++    int retFimg = 0;
++    if (width > FORCE_CPU_WIDTH && height > FORCE_CPU_HEIGHT)
++        retFimg = FimgARGB32_Rect(fDevice.addr32(0, 0), x, y, width, height, rowBytes, color);
++    else
++        retFimg = 0;
++
++    if (retFimg != FIMGAPI_FINISHED) {
++        while (--height >= 0) {
++            SkBlitRow::Color32(device, device, width, color);
++            device = (uint32_t*)((char*)device + rowBytes);
++        }
++    }
++#else
+     while (--height >= 0) {
+         SkBlitRow::Color32(device, device, width, color);
+         device = (uint32_t*)((char*)device + rowBytes);
+     }
++#endif
+ }
+ 
+ #if defined _WIN32 && _MSC_VER >= 1300
+diff --git a/external/skia/src/core/SkBlitter_RGB16.cpp b/external/skia/src/core/SkBlitter_RGB16.cpp
+index 1fbe28c71..f1915ca99 100644
+--- a/external/skia/src/core/SkBlitter_RGB16.cpp
++++ b/external/skia/src/core/SkBlitter_RGB16.cpp
+@@ -14,6 +14,14 @@
+ #include "SkUtilsArm.h"
+ #include "SkXfermode.h"
+ 
++#if defined(FIMG2D_ENABLED)
++#define FORCE_CPU_WIDTH (100)
++#define FORCE_CPU_HEIGHT (100)
++#include "SkBitmap.h"
++#include "SkBitmapProcShader.h"
++#include "SkFimgApi4x.h"
++#endif
++
+ #if defined(__mips_dsp)
+ extern void blitmask_d565_opaque_mips(int width, int height, uint16_t* device,
+                                       unsigned deviceRB, const uint8_t* alpha,
+@@ -40,6 +48,32 @@ extern "C" void blitAntiH_NEON(const SkAlpha* SK_RESTRICT antialias,
+                                uint32_t srcExpanded, unsigned scale);
+ #endif
+ 
++#if defined(FIMG2D_ENABLED)
++/*
++ * Legacy methods (removed in upstream)
++ */
++static uint32_t pmcolor_to_expand16_L(SkPMColor c) {
++    unsigned r = SkGetPackedR32(c);
++    unsigned g = SkGetPackedG32(c);
++    unsigned b = SkGetPackedB32(c);
++    return (g << 24) | (r << 13) | (b << 2);
++}
++static inline void blend32_16_row_L(SkPMColor src, uint16_t dst[], int count) {
++    SkASSERT(count > 0);
++    uint32_t src_expand = pmcolor_to_expand16_L(src);
++    unsigned scale = SkAlpha255To256(0xFF - SkGetPackedA32(src)) >> 3;
++#ifdef NEON_BLIT
++    blitH_NEON(dst, count, src_expand, scale);
++#else
++    do {
++        uint32_t dst_expand = SkExpand_rgb_16(*dst) * scale;
++        *dst = SkCompact_rgb_16((src_expand + dst_expand) >> 5);
++        dst += 1;
++    } while (--count != 0);
++#endif
++}
++#endif
++
+ void sk_dither_memset16(uint16_t dst[], uint16_t value, uint16_t other,
+                         int count) {
+     if (count > 0) {
+@@ -511,10 +545,26 @@ void SkRGB16_Opaque_Blitter::blitRect(int x, int y, int width, int height) {
+             device = (uint16_t*)((char*)device + deviceRB);
+         }
+     } else {  // no dither
++#if defined(FIMG2D_ENABLED)
++        SkPMColor src32 = fSrcColor32;
++        int retFimg = 0;
++        if (width > FORCE_CPU_WIDTH && height > FORCE_CPU_HEIGHT)
++            retFimg = FimgRGB16_Rect(fDevice.addr32(0,0), x, y, width, height, deviceRB, src32);
++        else
++            retFimg = 0;
++
++        if (retFimg != FIMGAPI_FINISHED) {
++            while (--height >= 0) {
++                blend32_16_row_L(src32, device, width);
++                device = (uint16_t*)((char*)device + deviceRB);
++            }
++        }
++ #else
+         while (--height >= 0) {
+             sk_memset16(device, color16, width);
+             device = (uint16_t*)((char*)device + deviceRB);
+         }
++#endif
+     }
+ }
+ 
+diff --git a/external/skia/src/core/SkDraw.cpp b/external/skia/src/core/SkDraw.cpp
+index 2509c3ad6..45eb2f9be 100644
+--- a/external/skia/src/core/SkDraw.cpp
++++ b/external/skia/src/core/SkDraw.cpp
+@@ -37,6 +37,16 @@
+ #include "SkDrawProcs.h"
+ #include "SkMatrixUtils.h"
+ 
++#if defined(FIMG2D_ENABLED)
++#define FORCE_CPU_WIDTH (100)
++#define FORCE_CPU_HEIGHT (100)
++#if defined(FIMG2D_V4L2_ENABLED)
++#include "SkFimgV4L2.h"
++#else
++#include "SkFimgApi4x.h"
++#endif
++#endif
++
+ //#define TRACE_BITMAP_DRAWS
+ 
+ // Helper function to fix code gen bug on ARM64.
+@@ -903,6 +913,107 @@ void SkDraw::drawRect(const SkRect& prePaintRect, const SkPaint& paint,
+             const SkRasterClip& clip = looper.getRC();
+             SkBlitter*          blitter = blitterStorage.get();
+ 
++#if defined(FIMG2D_ENABLED)
++            if (ir.width() > FORCE_CPU_WIDTH && ir.height() > FORCE_CPU_HEIGHT) {
++                SkShader* tempShader = NULL;
++                SkBitmap srcBitmap;
++                SkShader::TileMode tempTileMode[2];
++                bool shaderIsBitmap;
++                tempShader = paint.getShader();
++                if (tempShader) {
++                    shaderIsBitmap = tempShader->isABitmap(&srcBitmap, NULL, tempTileMode);
++
++                    if (shaderIsBitmap && (srcBitmap.isNull() == false) &&
++                        (tempTileMode[0] == SkShader::kClamp_TileMode) && (tempTileMode[1] == SkShader::kClamp_TileMode)) {
++                        SkRect r;
++                        SkIRect fimg_ir;
++                        Fimg fimg;
++                        const SkIRect& clipBounds = clip.getBounds();
++
++                        r.set(0, 0, SkIntToScalar(srcBitmap.width()),
++                                SkIntToScalar(srcBitmap.height()));
++
++                        r.round(&fimg_ir);
++
++                        fimg.srcX = fimg_ir.fLeft;
++                        fimg.srcY = fimg_ir.fTop;
++                        fimg.srcW = fimg_ir.width();
++                        fimg.srcH = fimg_ir.height();
++
++                        fimg.srcFWStride = srcBitmap.rowBytes();
++                        fimg.srcFH = srcBitmap.height();
++                        fimg.srcBPP = srcBitmap.bytesPerPixel();
++                        fimg.srcColorFormat = srcBitmap.colorType();
++                        srcBitmap.lockPixels();
++                        fimg.srcAddr = (unsigned char *)srcBitmap.getAddr(0, 0);
++
++                        if ((r.fLeft < 0) || (r.fTop < 0))
++                            fimg.srcAddr = NULL;
++
++                        devRect.round(&fimg_ir);
++
++                        fimg.dstX = fimg_ir.fLeft;
++                        fimg.dstY = fimg_ir.fTop;
++                        fimg.dstW = fimg_ir.width();
++                        fimg.dstH = fimg_ir.height();
++
++                        fimg.dstFWStride = fDst.rowBytes();
++                        fimg.dstFH = fDst.height();
++                        fimg.dstBPP = fDst.bytesPerPixel();
++                        fimg.dstColorFormat = fDst.colorType();
++                        // FIXME: Do we need to lock here?
++                        //fDst.lockPixels();
++                        fimg.dstAddr = (unsigned char *)fDst.getAddr(0, 0);
++
++                        fimg.mskAddr = NULL;
++                        fimg.rotate = 0;
++                        fimg.alpha = paint.getAlpha();
++
++                        if (srcBitmap.isOpaque() && (255 == fimg.alpha))
++                            fimg.alpha = 255;
++                        if (clip.isRect()) {
++                            fimg.clipT = clipBounds.fTop;
++                            fimg.clipB = clipBounds.fBottom;
++                            fimg.clipL = clipBounds.fLeft;
++                            fimg.clipR = clipBounds.fRight;
++                        } else {
++                            fimg.srcAddr = NULL;
++                            fimg.clipT = 0;
++                            fimg.clipB = 0;
++                            fimg.clipL = 0;
++                            fimg.clipR = 0;
++                        }
++
++                        SkXfermode::Mode mode;
++                        SkXfermode::IsMode(paint.getXfermode(), &mode);
++                        fimg.xfermode = mode;
++                        fimg.isDither = paint.isDither();
++                        fimg.isFilter = paint.getFilterQuality() != kNone_SkFilterQuality;
++                        fimg.colorFilter = (int)paint.getColorFilter();
++
++                        fimg.matrixType = (int)matrix->getType();
++                        fimg.matrixSx = matrix->getScaleX();
++                        fimg.matrixSy = matrix->getScaleY();
++
++                        if ((fimg.dstW <= 0)||(fimg.dstH <= 0))
++                            fimg.srcAddr = NULL;
++
++                        if (fimg.srcAddr != NULL && fimg.dstAddr != NULL) {
++                            int retFimg;
++
++                            retFimg = FimgApiStretch(&fimg, __func__);
++
++                            if (retFimg) {
++                                fimg.srcAddr = NULL;
++                                return;
++                            }
++                        }
++                        fimg.srcAddr = NULL;
++                    }
++                }
++            }
++#endif
++
+             // we want to "fill" if we are kFill or kStrokeAndFill, since in the latter
+             // case we are also hairline (if we've gotten to here), which devolves to
+             // effectively just kFill
+@@ -1337,12 +1448,89 @@ void SkDraw::drawBitmap(const SkBitmap& bitmap, const SkMatrix& prematrix,
+         int ix = SkScalarRoundToInt(matrix.getTranslateX());
+         int iy = SkScalarRoundToInt(matrix.getTranslateY());
+         if (clipHandlesSprite(*fRC, ix, iy, pmap)) {
++#if defined(FIMG2D_ENABLED)
++            Fimg fimg;
++#endif
+             SkTBlitterAllocator allocator;
+             // blitter will be owned by the allocator.
+             SkBlitter* blitter = SkBlitter::ChooseSprite(fDst, paint, pmap, ix, iy, &allocator);
+             if (blitter) {
++#if defined(FIMG2D_ENABLED)
++                SkAAClipBlitterWrapper wrapper(*fRC, blitter);
++                const SkRegion& clip = wrapper.getRgn();
++                SkRegion::Cliperator cliper(clip, SkIRect::MakeXYWH(ix, iy, pmap.width(), pmap.height()));
++                const SkIRect& cr = cliper.rect();
++                memset(&fimg, 0, sizeof(fimg));
++                for (; !cliper.done(); cliper.next()) {
++
++                    fimg.matrixType = (int)matrix.getType();
++                    fimg.matrixSx = matrix.getScaleX();
++                    fimg.matrixSy = matrix.getScaleY();
++
++                    fimg.srcX = cr.fLeft - ix;
++                    fimg.srcY = cr.fTop - iy;
++                    fimg.srcW = cr.width();
++                    fimg.srcH = cr.height();
++                    fimg.srcFWStride = bitmap.rowBytes();
++                    fimg.srcFH = bitmap.height();
++                    fimg.srcBPP = bitmap.bytesPerPixel();
++                    fimg.srcColorFormat = bitmap.colorType();
++                    fimg.srcAddr = (unsigned char *)bitmap.getAddr(0, 0);
++
++                    fimg.dstX = cr.fLeft;
++                    fimg.dstY = cr.fTop;
++                    fimg.dstW = cr.width();
++                    fimg.dstH = cr.height();
++                    fimg.dstFWStride = fDst.rowBytes();
++                    fimg.dstFH = fDst.height();
++                    fimg.dstBPP = fDst.bytesPerPixel();
++                    fimg.dstColorFormat = fDst.colorType();
++                    fimg.dstAddr = (unsigned char *)fDst.getAddr(0,0);
++
++                    if (((cr.fLeft - ix) < 0) || ((cr.fTop - iy) < 0))
++                        fimg.srcAddr = NULL;
++
++                    fimg.clipT = cr.fTop;
++                    fimg.clipB = cr.fBottom;
++                    fimg.clipL = cr.fLeft;
++                    fimg.clipR = cr.fRight;
++
++                    fimg.mskAddr = NULL;
++                    fimg.rotate = 0;
++
++                    SkXfermode::Mode mode;
++                    SkXfermode::IsMode(paint.getXfermode(), &mode);
++                    fimg.xfermode = mode;
++
++                    fimg.isDither = paint.isDither();
++                    fimg.colorFilter = (int)paint.getColorFilter();
++
++                    fimg.alpha = paint.getAlpha();
++                    if (bitmap.isOpaque() && (255 == fimg.alpha))
++                        fimg.alpha = 255;
++
++                    if (fimg.srcAddr != NULL) {
++                        int retFimg = FimgApiStretch(&fimg, __func__);
++
++                        if (retFimg == FIMGAPI_FINISHED) {
++                            fimg.srcAddr = NULL;
++                        } else {
++                            fimg.srcAddr = NULL;
++                            SkScan::FillIRect(SkIRect::MakeXYWH(ix, iy, pmap.width(),
++                                              pmap.height()), *fRC, blitter);
++                            return;
++                        }
++                    } else {
++                        fimg.srcAddr = NULL;
++                        SkScan::FillIRect(SkIRect::MakeXYWH(ix, iy, pmap.width(), pmap.height()),
++                                                            *fRC, blitter);
++                        return;
++                    }
++                }
++#else
+                 SkScan::FillIRect(SkIRect::MakeXYWH(ix, iy, pmap.width(), pmap.height()),
+                                   *fRC, blitter);
++#endif
+                 return;
+             }
+             // if !blitter, then we fall-through to the slower case
+diff --git a/external/skia/src/core/SkFimgApi4x.cpp b/external/skia/src/core/SkFimgApi4x.cpp
+new file mode 100644
+index 000000000..86708643f
+--- /dev/null
++++ b/external/skia/src/core/SkFimgApi4x.cpp
+@@ -0,0 +1,452 @@
++/*
++ * Copyright 2012, Samsung Electronics Co. LTD
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++#define LOG_TAG "SKIA"
++#include <cutils/log.h>
++#include <stdlib.h>
++#include "SkFimgApi4x.h"
++#include "SkUtils.h"
++#define FLOAT_TO_INT_PRECISION (14)
++
++enum color_format formatSkiaToDriver[] = {
++    SRC_DST_FORMAT_END, //!< bitmap has not been configured
++    SRC_DST_FORMAT_END, //!< Mask 1bit is not supported by FIMG2D
++    SRC_DST_FORMAT_END, //!< Mask 8bit is not supported by FIMG2D
++    SRC_DST_FORMAT_END, //!< kIndex8_Config is not supported by FIMG2D
++    CF_RGB_565,
++    SRC_DST_FORMAT_END, //!< ARGB4444 is not supported by FIMG2D
++    CF_ARGB_8888,
++};
++
++enum blit_op blendingSkiaToDriver[] = {
++    BLIT_OP_CLR,
++    BLIT_OP_SRC,
++    BLIT_OP_DST,
++    BLIT_OP_SRC_OVER,
++};
++
++enum scaling filterSkiaToDriver[] = {
++    SCALING_NEAREST,
++    SCALING_BILINEAR,
++};
++
++bool FimgApiCheckPossible(Fimg *fimg)
++{
++    if (fimg->srcAddr != NULL) {
++        switch (fimg->srcColorFormat) {
++        case kRGB_565_SkColorType:
++        case kN32_SkColorType:
++            break;
++        default:
++            return false;
++        }
++    }
++
++    switch (fimg->dstColorFormat) {
++    case kRGB_565_SkColorType:
++        break;
++    case kN32_SkColorType:
++        break;
++    default:
++        return false;
++    }
++
++    switch (fimg->xfermode) {
++    case SkXfermode::kSrcOver_Mode:
++    case SkXfermode::kClear_Mode:
++    case SkXfermode::kSrc_Mode:
++    case SkXfermode::kDst_Mode:
++        break;
++    default:
++        return false;
++    }
++
++    if (fimg->colorFilter != 0)
++        return false;
++
++    if (fimg->matrixType & SkMatrix::kAffine_Mask)
++        return false;
++
++    if ((fimg->matrixSx < 0) || (fimg->matrixSy < 0))
++        return false;
++
++    if ((fimg->srcX + fimg->srcW) > 8000 || (fimg->srcY + fimg->srcH) > 8000)
++        return false;
++
++    if ((fimg->dstX + fimg->dstW) > 8000 || (fimg->dstY + fimg->dstH) > 8000)
++        return false;
++
++    if ((fimg->clipT < 0) || (fimg->clipB < 0) || (fimg->clipL < 0) || (fimg->clipR < 0)) {
++        SkDebugf("Invalid clip value: TBLR = (%d, %d, %d, %d)",fimg->clipT, fimg->clipB, fimg->clipL, fimg->clipR);
++        return false;
++    }
++
++    if ((fimg->clipT >= fimg->clipB) || (fimg->clipL >= fimg->clipR)) {
++        SkDebugf("Invalid clip value: TBLR = (%d, %d, %d, %d)",fimg->clipT, fimg->clipB, fimg->clipL, fimg->clipR);
++        return false;
++    }
++
++    return true;
++}
++
++bool FimgApiIsDstMode(Fimg *fimg)
++{
++    if (fimg->xfermode == SkXfermode::kDst_Mode)
++        return true;
++    else
++        return false;
++}
++
++bool FimgApiCheckPossible_Clipping(Fimg *fimg)
++{
++    if (((fimg->clipR - fimg->clipL) <= 0) || ((fimg->clipB - fimg->clipT) <= 0))
++        return false;
++
++    return true;
++}
++
++bool FimgApiCompromise(Fimg *fimg)
++{
++    struct compromise_param param;
++
++    /* source format setting*/
++    switch (fimg->srcColorFormat) {
++        case kRGB_565_SkColorType:
++            param.src_fmt = 0;
++            break;
++        case kN32_SkColorType:
++            param.src_fmt = 1;
++            break;
++        case kUnknown_SkColorType:
++            param.src_fmt = 2;
++            break;
++        default :
++            return false;
++    }
++    /* destination format setting */
++    switch (fimg->dstColorFormat) {
++        case kRGB_565_SkColorType:
++            param.dst_fmt = 0;
++            break;
++        case kN32_SkColorType:
++            param.dst_fmt = 1;
++            break;
++        default :
++            return false;
++    }
++    /* scaling setting */
++    if (fimg->srcW == fimg->dstW && fimg->srcH == fimg->dstH)
++        param.isScaling = 0;
++    else if (fimg->srcW * fimg->srcH < fimg->dstW * fimg->dstH)
++        param.isScaling = 1;
++    else
++        param.isScaling = 2;
++    /* filter_mode setting */
++    param.isFilter = fimg->isFilter;
++    /* blending mode setting */
++    if (fimg->xfermode == SkXfermode::kSrc_Mode)
++        param.isSrcOver = 0;
++    else
++        param.isSrcOver = 1;
++
++    param.clipW = (fimg->clipR - fimg->clipL) * 1.2;
++    param.clipH = (fimg->clipB - fimg->clipT) * 0.8;
++
++    return compromiseFimgApi(&param);
++}
++
++bool FimgSupportNegativeCoordinate(Fimg *fimg)
++{
++    unsigned int dstL, dstR, dstT, dstB;
++    int dstFW, dstFH;
++
++    if (fimg->dstBPP <= 0)
++        return false;
++
++    if (fimg->dstX < 0) {
++        if ((fimg->dstW + fimg->dstX) < (fimg->dstFWStride / fimg->dstBPP))
++            dstFW = fimg->dstW + fimg->dstX;
++        else
++            dstFW = fimg->dstFWStride / fimg->dstBPP;
++
++        dstL = ((unsigned int)(0 - fimg->dstX) << FLOAT_TO_INT_PRECISION) / fimg->dstW;
++        dstR = ((unsigned int)(dstFW - fimg->dstX) << FLOAT_TO_INT_PRECISION) / fimg->dstW;
++        fimg->srcX = (int)((fimg->srcW * dstL + (1 << (FLOAT_TO_INT_PRECISION - 1))) >> FLOAT_TO_INT_PRECISION) + fimg->srcX;
++        fimg->srcW = (int)((fimg->srcW * dstR + (1 << (FLOAT_TO_INT_PRECISION - 1))) >> FLOAT_TO_INT_PRECISION) - fimg->srcX;
++        fimg->dstW = dstFW;
++        fimg->dstX = 0;
++    }
++
++    if (fimg->dstY < 0) {
++        if ((fimg->dstH + fimg->dstY) < fimg->dstFH)
++            dstFH = fimg->dstH + fimg->dstY;
++        else
++            dstFH = fimg->dstFH;
++
++        dstT = ((unsigned int)(0 - fimg->dstY) << FLOAT_TO_INT_PRECISION) / fimg->dstH;
++        dstB = ((unsigned int)(dstFH - fimg->dstY) << FLOAT_TO_INT_PRECISION) / fimg->dstH;
++        fimg->srcY = (int)((fimg->srcH * dstT + (1 << (FLOAT_TO_INT_PRECISION - 1))) >> FLOAT_TO_INT_PRECISION) + fimg->srcY;
++        fimg->srcH = (int)((fimg->srcH * dstB + (1 << (FLOAT_TO_INT_PRECISION - 1))) >> FLOAT_TO_INT_PRECISION) - fimg->srcY;
++        fimg->dstH = dstFH;
++        fimg->dstY = 0;
++    }
++
++    return true;
++}
++
++int FimgApiStretch(Fimg *fimg, const char *func_name)
++{
++    static unsigned int seq_no = 100;
++
++    struct fimg2d_blit cmd;
++    struct fimg2d_image srcImage;
++    struct fimg2d_image dstImage;
++
++    /* to support negative coordinate */
++    if ((fimg->dstAddr != NULL) && ((fimg->dstX < 0) || (fimg->dstY < 0))) {
++        if (!FimgSupportNegativeCoordinate(fimg))
++            return false;
++    }
++
++    if (FimgApiCheckPossible(fimg) == false)
++        return false;
++
++    if (FimgApiIsDstMode(fimg) == true)
++        return FIMGAPI_FINISHED;
++
++    if (fimg->clipL < fimg->dstX)
++        fimg->clipL = fimg->dstX;
++    if (fimg->clipT < fimg->dstY)
++        fimg->clipT = fimg->dstY;
++    if (fimg->clipR > (fimg->dstX + fimg->dstW))
++        fimg->clipR = fimg->dstX + fimg->dstW;
++    if (fimg->clipB > (fimg->dstY + fimg->dstH))
++        fimg->clipB = fimg->dstY + fimg->dstH;
++
++#if FIMGAPI_COMPROMISE_USE
++    if (FimgApiCompromise(fimg) == false)
++        return false;
++#endif
++    enum rotation rotate;
++
++    switch (fimg->rotate) {
++    case 0:
++        rotate = ORIGIN;
++        break;
++    case 90:
++        rotate = ROT_90;
++        break;
++    case 180:
++        rotate = ROT_180;
++        break;
++    case 270:
++        rotate = ROT_270;
++        break;
++    default:
++        return false;
++    }
++
++    cmd.op = blendingSkiaToDriver[fimg->xfermode];
++    cmd.param.g_alpha = fimg->alpha;
++    cmd.param.premult = PREMULTIPLIED;
++    cmd.param.dither = fimg->isDither;
++    cmd.param.rotate = rotate;
++    cmd.param.solid_color = fimg->fillcolor;
++
++    if (fimg->srcAddr != NULL && (fimg->srcW != fimg->dstW || fimg->srcH != fimg->dstH)) {
++        cmd.param.scaling.mode = filterSkiaToDriver[fimg->isFilter];
++        cmd.param.scaling.src_w = fimg->srcW;
++        cmd.param.scaling.src_h = fimg->srcH;
++        cmd.param.scaling.dst_w = fimg->dstW;
++        cmd.param.scaling.dst_h = fimg->dstH;
++    } else
++        cmd.param.scaling.mode = NO_SCALING;
++
++    cmd.param.repeat.mode = NO_REPEAT;
++    cmd.param.repeat.pad_color = 0x0;
++
++    cmd.param.bluscr.mode = OPAQUE;
++    cmd.param.bluscr.bs_color = 0x0;
++    cmd.param.bluscr.bg_color = 0x0;
++
++    if (fimg->srcAddr != NULL) {
++        srcImage.addr.type = ADDR_USER;
++        srcImage.addr.start = (long unsigned)fimg->srcAddr;
++        srcImage.plane2.type = ADDR_USER;
++        srcImage.plane2.start = NULL;
++        srcImage.need_cacheopr = true;
++        if (fimg->srcFWStride <= 0 || fimg->srcBPP <= 0)
++            return false;
++        srcImage.width = fimg->srcFWStride / fimg->srcBPP;
++        srcImage.height = fimg->srcFH;
++        srcImage.stride = fimg->srcFWStride;
++        if (fimg->srcColorFormat == kRGB_565_SkColorType)
++            srcImage.order = AX_RGB;
++        else
++            srcImage.order = AX_BGR; // kARGB_8888_Config
++
++        srcImage.fmt = formatSkiaToDriver[fimg->srcColorFormat];
++        srcImage.rect.x1 = fimg->srcX;
++        srcImage.rect.y1 = fimg->srcY;
++        srcImage.rect.x2 = fimg->srcX + fimg->srcW;
++        srcImage.rect.y2 = fimg->srcY + fimg->srcH;
++        cmd.src = &srcImage;
++    } else
++        cmd.src = NULL;
++
++    if (fimg->dstAddr != NULL) {
++        dstImage.addr.type = ADDR_USER;
++        dstImage.addr.start = (long unsigned)fimg->dstAddr;
++        dstImage.plane2.type = ADDR_USER;
++        dstImage.plane2.start = NULL;
++        dstImage.need_cacheopr = true;
++        if (fimg->dstFWStride <= 0 || fimg->dstBPP <= 0)
++            return false;
++        dstImage.width = fimg->dstFWStride / fimg->dstBPP;
++        dstImage.height = fimg->dstFH;
++        dstImage.stride = fimg->dstFWStride;
++        if (fimg->dstColorFormat == kRGB_565_SkColorType)
++            dstImage.order = AX_RGB;
++        else
++            dstImage.order = AX_BGR; // kARGB_8888_Config
++
++        dstImage.fmt = formatSkiaToDriver[fimg->dstColorFormat];
++        dstImage.rect.x1 = fimg->dstX;
++        dstImage.rect.y1 = fimg->dstY;
++        dstImage.rect.x2 = fimg->dstX + fimg->dstW;
++        dstImage.rect.y2 = fimg->dstY + fimg->dstH;
++
++        cmd.param.clipping.enable = true;
++        cmd.param.clipping.x1 = fimg->clipL;
++        cmd.param.clipping.y1 = fimg->clipT;
++        cmd.param.clipping.x2 = fimg->clipR;
++        cmd.param.clipping.y2 = fimg->clipB;
++
++        cmd.dst = &dstImage;
++
++    } else
++        cmd.dst = NULL;
++
++    cmd.msk = NULL;
++
++    cmd.tmp = NULL;
++    cmd.sync = BLIT_SYNC;
++    cmd.seq_no = seq_no++;
++
++    if (FimgApiCheckPossible_Clipping(fimg) == false)
++        return false;
++
++#if defined(FIMGAPI_DEBUG_MESSAGE)
++    printDataBlit("Before stretchFimgApi:", &cmd);
++#endif
++
++    if (stretchFimgApi(&cmd) < 0) {
++#if defined(FIMGAPI_DEBUG_MESSAGE)
++        ALOGE("%s:stretch failed\n", __FUNCTION__);
++#endif
++        return false;
++    }
++    return FIMGAPI_FINISHED;
++}
++
++int FimgARGB32_Rect(const uint32_t *device, int x, int y, int width, int height,
++                    size_t rowbyte, uint32_t color)
++{
++    Fimg fimg;
++    memset(&fimg, 0, sizeof(Fimg));
++
++    fimg.srcAddr        = (unsigned char *)NULL;
++    fimg.srcColorFormat = kUnknown_SkColorType;
++    fimg.mskAddr        = (unsigned char *)NULL;
++
++    fimg.fillcolor      = toARGB32(color);
++
++    fimg.dstX           = x;
++    fimg.dstY           = y;
++    fimg.dstW           = width;
++    fimg.dstH           = height;
++    fimg.dstFWStride    = rowbyte;
++    fimg.dstFH          = y + height;
++    fimg.dstBPP         = 4; /* 4Byte */
++    fimg.dstColorFormat = kN32_SkColorType;
++    fimg.dstAddr        = (unsigned char *)device;
++
++    fimg.clipT          = y;
++    fimg.clipB          = y + height;
++    fimg.clipL          = x;
++    fimg.clipR          = x + width;
++
++    fimg.rotate         = 0;
++
++    fimg.xfermode       = SkXfermode::kSrcOver_Mode;
++    fimg.isDither       = false;
++    fimg.colorFilter    = 0;
++    fimg.matrixType     = 0;
++    fimg.matrixSx       = 0;
++    fimg.matrixSy       = 0;
++    fimg.alpha          = 0xFF;
++
++    return FimgApiStretch(&fimg, __func__);
++}
++
++int FimgRGB16_Rect(const uint32_t *device, int x, int y, int width, int height,
++                    size_t rowbyte, uint32_t color)
++{
++    Fimg fimg;
++    memset(&fimg, 0, sizeof(Fimg));
++
++    fimg.srcAddr        = (unsigned char *)NULL;
++    fimg.srcColorFormat = kUnknown_SkColorType;
++    fimg.mskAddr        = (unsigned char *)NULL;
++
++    fimg.fillcolor      = toARGB32(color);
++
++    fimg.dstX           = x;
++    fimg.dstY           = y;
++    fimg.dstW           = width;
++    fimg.dstH           = height;
++    fimg.dstFWStride    = rowbyte;
++    fimg.dstFH          = y + height;
++    fimg.dstBPP         = 2;
++    fimg.dstColorFormat = kRGB_565_SkColorType;
++    fimg.dstAddr        = (unsigned char *)device;
++
++    fimg.clipT          = y;
++    fimg.clipB          = y + height;
++    fimg.clipL          = x;
++    fimg.clipR          = x + width;
++
++    fimg.rotate         = 0;
++
++    fimg.xfermode       = SkXfermode::kSrcOver_Mode;
++    fimg.isDither       = false;
++    fimg.colorFilter    = 0;
++    fimg.matrixType     = 0;
++    fimg.matrixSx       = 0;
++    fimg.matrixSy       = 0;
++    fimg.alpha          = 0xFF;
++
++    return FimgApiStretch(&fimg, __func__);
++}
++uint32_t toARGB32(uint32_t color)
++{
++    U8CPU a = SkGetPackedA32(color);
++    U8CPU r = SkGetPackedR32(color);
++    U8CPU g = SkGetPackedG32(color);
++    U8CPU b = SkGetPackedB32(color);
++
++    return (a << 24) | (r << 16) | (g << 8) | (b << 0);
++}
+diff --git a/external/skia/src/core/SkFimgV4L2.cpp b/external/skia/src/core/SkFimgV4L2.cpp
+new file mode 100644
+index 000000000..aebc4dd8f
+--- /dev/null
++++ b/external/skia/src/core/SkFimgV4L2.cpp
+@@ -0,0 +1,470 @@
++
++/*
++ * Copyright 2012, Samsung Electronics Co. LTD
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++#define LOG_TAG "SKIA"
++#include <cutils/log.h>
++#include <stdlib.h>
++#include "SkFimgV4L2.h"
++#include "SkUtils.h"
++#define FLOAT_TO_INT_PRECISION (14)
++
++struct bl_property default_prop = { DEV_G2D0, false };
++
++bool FimgApiCheckPossible(Fimg *fimg)
++{
++    if (fimg->srcAddr != NULL) {
++        switch (fimg->srcColorFormat) {
++            case kRGB_565_SkColorType:
++            case kN32_SkColorType:
++                break;
++            default:
++                return false;
++        }
++    }
++    if (fimg->dstAddr != NULL) {
++        switch (fimg->dstColorFormat) {
++            case kRGB_565_SkColorType:
++                break;
++            case kN32_SkColorType:
++                break;
++            default:
++                return false;
++        }
++    }
++
++    switch (fimg->xfermode) {
++        case SkXfermode::kSrcOver_Mode:
++        case SkXfermode::kClear_Mode:
++        case SkXfermode::kSrc_Mode:
++        case SkXfermode::kDst_Mode:
++            break;
++        default:
++            return false;
++    }
++
++    if (fimg->srcFWStride <= 0 || fimg->srcBPP <= 0)
++        return false;
++
++    if (fimg->dstFWStride <= 0 || fimg->dstBPP <= 0)
++        return false;
++
++    if (fimg->colorFilter != 0)
++        return false;
++
++    if (fimg->matrixType & SkMatrix::kAffine_Mask)
++        return false;
++
++    if ((fimg->matrixSx < 0) || (fimg->matrixSy < 0))
++        return false;
++
++    if ((fimg->srcX + fimg->srcW) > 8000 || (fimg->srcY + fimg->srcH) > 8000)
++        return false;
++
++    if ((fimg->dstX + fimg->dstW) > 8000 || (fimg->dstY + fimg->dstH) > 8000)
++        return false;
++
++    if ((fimg->clipT < 0) || (fimg->clipB < 0) || (fimg->clipL < 0) || (fimg->clipR < 0)) {
++        SkDebugf("Invalid clip value: TBLR = (%d, %d, %d, %d)",fimg->clipT, fimg->clipB, fimg->clipL, fimg->clipR);
++        return false;
++    }
++
++    if ((fimg->clipT >= fimg->clipB) || (fimg->clipL >= fimg->clipR)) {
++        SkDebugf("Invalid clip value: TBLR = (%d, %d, %d, %d)",fimg->clipT, fimg->clipB, fimg->clipL, fimg->clipR);
++        return false;
++    }
++
++    return true;
++}
++
++bool FimgApiIsDstMode(Fimg *fimg)
++{
++    if (fimg->xfermode == SkXfermode::kDst_Mode)
++        return true;
++    else
++        return false;
++}
++
++bool FimgApiCheckPossible_Clipping(Fimg *fimg)
++{
++    if (((fimg->clipR - fimg->clipL) <= 0) || ((fimg->clipB - fimg->clipT) <= 0))
++        return false;
++
++    return true;
++}
++
++bool FimgSupportNegativeCoordinate(Fimg *fimg)
++{
++    unsigned int dstL, dstR, dstT, dstB;
++    int dstFW, dstFH;
++
++    if (fimg->dstBPP <= 0)
++        return false;
++
++    if (fimg->dstX < 0) {
++        if ((fimg->dstW + fimg->dstX) < (fimg->dstFWStride / fimg->dstBPP))
++            dstFW = fimg->dstW + fimg->dstX;
++        else
++            dstFW = fimg->dstFWStride / fimg->dstBPP;
++
++        dstL = ((unsigned int)(0 - fimg->dstX) << FLOAT_TO_INT_PRECISION) / fimg->dstW;
++        dstR = ((unsigned int)(dstFW - fimg->dstX) << FLOAT_TO_INT_PRECISION) / fimg->dstW;
++        fimg->srcX = (int)((fimg->srcW * dstL + (1 << (FLOAT_TO_INT_PRECISION - 1))) >> FLOAT_TO_INT_PRECISION) + fimg->srcX;
++        fimg->srcW = (int)((fimg->srcW * dstR + (1 << (FLOAT_TO_INT_PRECISION - 1))) >> FLOAT_TO_INT_PRECISION) - fimg->srcX;
++        fimg->dstW = dstFW;
++        fimg->dstX = 0;
++    }
++
++    if (fimg->dstY < 0) {
++        if ((fimg->dstH + fimg->dstY) < fimg->dstFH)
++            dstFH = fimg->dstH + fimg->dstY;
++        else
++            dstFH = fimg->dstFH;
++
++        dstT = ((unsigned int)(0 - fimg->dstY) << FLOAT_TO_INT_PRECISION) / fimg->dstH;
++        dstB = ((unsigned int)(dstFH - fimg->dstY) << FLOAT_TO_INT_PRECISION) / fimg->dstH;
++        fimg->srcY = (int)((fimg->srcH * dstT + (1 << (FLOAT_TO_INT_PRECISION - 1))) >> FLOAT_TO_INT_PRECISION) + fimg->srcY;
++        fimg->srcH = (int)((fimg->srcH * dstB + (1 << (FLOAT_TO_INT_PRECISION - 1))) >> FLOAT_TO_INT_PRECISION) - fimg->srcY;
++        fimg->dstH = dstFH;
++        fimg->dstY = 0;
++    }
++
++    return true;
++}
++
++bool FimgApiCompromise(Fimg *fimg)
++{
++    if ((fimg->clipR-fimg->clipL) * (fimg->clipB-fimg->clipT) < 480 * 480)
++        return false;
++    return true;
++}
++
++int ChangeColorForV4L2(int colorFormat) {
++    if (colorFormat == kRGB_565_SkColorType)
++        return V4L2_PIX_FMT_RGB565;
++    if (colorFormat == kN32_SkColorType)
++        return V4L2_PIX_FMT_RGB32;
++    return -1;
++}
++
++int FimgApiStretch(Fimg *fimg, const char *func_name)
++{
++    /* to support negative coordinate */
++    if ((fimg->dstAddr != NULL) && ((fimg->dstX < 0) || (fimg->dstY < 0))) {
++        if (!FimgSupportNegativeCoordinate(fimg))
++            return false;
++    }
++
++    if (FimgApiCheckPossible(fimg) == false)
++        return false;
++
++    if (FimgApiIsDstMode(fimg) == true)
++        return FIMGAPI_FINISHED;
++
++    if (fimg->clipL < fimg->dstX)
++        fimg->clipL = fimg->dstX;
++    if (fimg->clipT < fimg->dstY)
++        fimg->clipT = fimg->dstY;
++    if (fimg->clipR > (fimg->dstX + fimg->dstW))
++        fimg->clipR = fimg->dstX + fimg->dstW;
++    if (fimg->clipB > (fimg->dstY + fimg->dstH))
++        fimg->clipB = fimg->dstY + fimg->dstH;
++
++#if FIMGAPI_COMPROMISE_USE
++    if (FimgApiCompromise(fimg) == false)
++        return false;
++#endif
++    if (FimgApiCheckPossible_Clipping(fimg) == false)
++        return false;
++    enum rotation rotate;
++
++    switch (fimg->rotate) {
++    case 0:
++        rotate = ROT_ORIGIN;
++        break;
++    case 90:
++        rotate = ROT_90;
++        break;
++    case 180:
++        rotate = ROT_180;
++        break;
++    case 270:
++        rotate = ROT_270;
++        break;
++    default:
++        return false;
++    }
++
++    bl_handle_t fimg_handle_t = NULL;
++    int result = 0;
++    void *addr[BL_MAX_PLANES];
++    fimg_handle_t = exynos_bl_create(&default_prop);
++    if (!fimg_handle_t) {
++        ALOGE("<SkFimgV4L2> exynos_bl_create error");
++        return false;
++    }
++
++    result = exynos_bl_set_src_format(fimg_handle_t, (fimg->srcFWStride)/(fimg->srcBPP), fimg->srcFH, fimg->srcX, fimg->srcY, fimg->srcW, fimg->srcH, ChangeColorForV4L2(fimg->srcColorFormat));
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_src_format error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_dst_format(fimg_handle_t, (fimg->dstFWStride)/(fimg->dstBPP), fimg->dstFH, fimg->dstX, fimg->dstY, fimg->dstW, fimg->dstH, ChangeColorForV4L2(fimg->dstColorFormat));
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_dst_format error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    addr[0] = (void *)fimg->srcAddr;
++    addr[1] = NULL;
++    addr[2] = NULL;
++
++    result = exynos_bl_set_src_addr(fimg_handle_t, addr, V4L2_MEMORY_USERPTR);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_src_addr error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    addr[0] = (void *)fimg->dstAddr;
++
++    result = exynos_bl_set_dst_addr(fimg_handle_t, addr, V4L2_MEMORY_USERPTR);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_dst_addr error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_clip(fimg_handle_t, true, fimg->clipL, fimg->clipT, fimg->clipR - fimg->clipL, fimg->clipB - fimg->clipT);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_clip error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++    if (fimg->isDither) {
++        result = exynos_bl_set_dither(fimg_handle_t, true);
++        if (result < 0) {
++            ALOGE("<SkFimgV4L2> exynos_bl_set_dither : %d", result);
++            exynos_bl_destroy(fimg_handle_t);
++            return false;
++        }
++    }
++
++    result = exynos_bl_set_blend(fimg_handle_t, (BL_OP_TYPE)(fimg->xfermode+1), true);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_blend error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_galpha(fimg_handle_t, (fimg->alpha != 0xFF), fimg->alpha);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_galpha error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    if ((fimg->srcAddr != NULL) && (fimg->srcW == fimg->dstW) && (fimg->srcH == fimg->dstH))
++        fimg->isFilter = -1;
++
++    if (!(fimg->matrixType && SkMatrix::kScale_Mask))
++        fimg->isFilter = -1;
++
++    result = exynos_bl_set_scale(fimg_handle_t, (BL_SCALE)(fimg->isFilter + 1), fimg->srcW, fimg->dstW, fimg->srcH, fimg->dstH);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_scale error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    if (fimg->isFilter == -1)
++        result = exynos_bl_set_repeat(fimg_handle_t, (BL_REPEAT)fimg->repeat);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_repeat error : %d", result);
++        return false;
++    }
++
++    /*result = exynos_bl_set_rotate(fimg_handle_t, rotate, false, false);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_rotate error : %d", result);
++        return false;
++    }*/
++
++    result = exynos_bl_do_blend(fimg_handle_t);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_do_blend error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    exynos_bl_destroy(fimg_handle_t);
++
++#if defined(FIMGAPI_DEBUG_MESSAGE)
++    printDataBlit("Before stretchFimgApi:", &cmd);
++#endif
++
++    return FIMGAPI_FINISHED;
++}
++
++int FimgARGB32_Rect(const uint32_t *device, int x, int y, int width, int height,
++                    size_t rowbyte, uint32_t color)
++{
++    bl_handle_t fimg_handle_t = NULL;
++    int result = 0;
++    void *addr[BL_MAX_PLANES];
++
++    return false;
++
++    if ((x < 0) || (y < 0) || (width <= 0) || (height <= 0) || (rowbyte <= 0))
++        return false;
++
++    fimg_handle_t = exynos_bl_create(&default_prop);
++    if (!fimg_handle_t) {
++        ALOGE("<SkFimgV4L2> exynos_bl_create error");
++        return false;
++    }
++
++    result = exynos_bl_set_color_fill(fimg_handle_t, true, toARGB32(color));
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_color_fill error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_galpha(fimg_handle_t, false, 0xFF);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_galpha error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    addr[0] = (void *)device;
++    addr[1] = NULL;
++    addr[2] = NULL;
++
++    result = exynos_bl_set_dst_addr(fimg_handle_t, addr, V4L2_MEMORY_USERPTR);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_dst_addr error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_dst_format(fimg_handle_t, rowbyte/32, y+height, x, y, width, height, ChangeColorForV4L2(kN32_SkColorType));
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_dst_format error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_blend(fimg_handle_t, OP_SRC_OVER, PREMULTIPLIED);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_blend error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_do_blend(fimg_handle_t);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_do_blend error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    exynos_bl_destroy(fimg_handle_t);
++
++    return FIMGAPI_FINISHED;
++}
++
++int FimgRGB16_Rect(const uint32_t *device, int x, int y, int width, int height,
++                    size_t rowbyte, uint32_t color)
++{
++    bl_handle_t fimg_handle_t = NULL;
++    int result = 0;
++    void *addr[BL_MAX_PLANES];
++
++    return false;
++
++    if ((x < 0) || (y < 0) || (width <= 0) || (height <= 0) || (rowbyte <= 0))
++        return false;
++
++    fimg_handle_t = exynos_bl_create(&default_prop);
++    if (!fimg_handle_t) {
++        ALOGE("<SkFimgV4L2> exynos_bl_create error");
++        return false;
++    }
++
++    result = exynos_bl_set_color_fill(fimg_handle_t, true, toARGB32(color));
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_color_fill error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_galpha(fimg_handle_t, false, 0xFF);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_galpha error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    addr[0] = (void *)device;
++    addr[1] = NULL;
++    addr[2] = NULL;
++
++    result = exynos_bl_set_dst_addr(fimg_handle_t, addr, V4L2_MEMORY_USERPTR);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_dst_addr error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_dst_format(fimg_handle_t, rowbyte/16, y+height, x, y, width, height, ChangeColorForV4L2(kRGB_565_SkColorType));
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_dst_format error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_set_blend(fimg_handle_t, OP_SRC_OVER, PREMULTIPLIED);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_set_blend error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    result = exynos_bl_do_blend(fimg_handle_t);
++    if (result < 0) {
++        ALOGE("<SkFimgV4L2> exynos_bl_do_blend error : %d", result);
++        exynos_bl_destroy(fimg_handle_t);
++        return false;
++    }
++
++    exynos_bl_destroy(fimg_handle_t);
++
++    return FIMGAPI_FINISHED;
++}
++uint32_t toARGB32(uint32_t color)
++{
++    U8CPU a = SkGetPackedA32(color);
++    U8CPU r = SkGetPackedR32(color);
++    U8CPU g = SkGetPackedG32(color);
++    U8CPU b = SkGetPackedB32(color);
++
++    return (a << 24) | (r << 16) | (g << 8) | (b << 0);
++}
+diff --git a/external/skia/src/core/SkPixmap.cpp b/external/skia/src/core/SkPixmap.cpp
+index 57bb19425..3c28ea775 100644
+--- a/external/skia/src/core/SkPixmap.cpp
++++ b/external/skia/src/core/SkPixmap.cpp
+@@ -117,6 +117,41 @@ static uint16_t pack_8888_to_4444(unsigned a, unsigned r, unsigned g, unsigned b
+     return SkToU16(pixel);
+ }
+ 
++#if 1
++/**
++ * From SkBitmap.cpp
++ */
++void* SkPixmap::getAddr(int x, int y) const {
++    SkASSERT((unsigned)x < (unsigned)this->width());
++    SkASSERT((unsigned)y < (unsigned)this->height());
++
++    char* base = (char*)this->getPixels();
++    if (base) {
++        base += y * this->rowBytes();
++        switch (this->colorType()) {
++            case kRGBA_8888_SkColorType:
++            case kBGRA_8888_SkColorType:
++                base += x << 2;
++                break;
++            case kARGB_4444_SkColorType:
++            case kRGB_565_SkColorType:
++                base += x << 1;
++                break;
++            case kAlpha_8_SkColorType:
++            case kIndex_8_SkColorType:
++            case kGray_8_SkColorType:
++                base += x;
++                break;
++            default:
++                SkDEBUGFAIL("Can't return addr for config");
++                base = nullptr;
++                break;
++        }
++    }
++    return base;
++}
++#endif
++
+ bool SkPixmap::erase(SkColor color, const SkIRect& inArea) const {
+     if (nullptr == fPixels) {
+         return false;
+diff --git a/external/skia/src/core/SkThread_trylock.cpp b/external/skia/src/core/SkThread_trylock.cpp
+new file mode 100644
+index 000000000..cdc76f1f0
+--- /dev/null
++++ b/external/skia/src/core/SkThread_trylock.cpp
+@@ -0,0 +1,50 @@
++/*
++ * Copyright 2013, Samsung Electronics Co. LTD
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++#include "SkThread_trylock.h"
++#include "SkTypes.h"
++
++#include <cutils/log.h>
++#include <pthread.h>
++
++SkMutex_trylock::SkMutex_trylock()
++{
++    int status;
++
++    status = pthread_mutex_init(&mtx, NULL);
++    if (status != 0) {
++       SkASSERT(0 == status);
++    }
++}
++
++SkMutex_trylock::~SkMutex_trylock()
++{
++    int status = pthread_mutex_destroy(&mtx);
++
++    if (status != 0) {
++        SkASSERT(0 == status);
++    }
++}
++
++int SkMutex_trylock::acquire()
++{
++    return pthread_mutex_trylock(&mtx);
++}
++
++void SkMutex_trylock::release()
++{
++    pthread_mutex_unlock(&mtx);
++}
+-- 
+2.11.0
