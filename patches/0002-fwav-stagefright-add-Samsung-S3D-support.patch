@@ -1,7 +1,8 @@
-From 7603cff38c14e78d8d18504b69f58461e8ae7d55 Mon Sep 17 00:00:00 2001
+From a43526774bc2f9bf8308c6e76ed6c5fcefc7a33c Mon Sep 17 00:00:00 2001
 From: tincho5588 <tincho5588@gmail.com>
 Date: Tue, 24 Jan 2017 06:34:40 -0300
 Subject: [PATCH] stagefright: add Samsung S3D support
+https://review.lineageos.org/#/c/158180/
 
 Taken from insignal:
 http://git.insignal.co.kr/insignal/arndale_octa-jb_mr1.1/android/platform/frameworks/av/commit/?h=arndale_octa-jb_mr1.1&id=f3667253827f206e455b54df47234a2d4db05826
@@ -13,15 +14,14 @@ This change includes commits:
 https://review.lineageos.org/#/c/63286/4
 https://review.lineageos.org/#/c/63027/5
 
-Change-Id: Ie72b2cf568c5c05a19a619c0448adc27d981028b
----
+Patch set 2
 
 project frameworks/av/
 diff --git a/frameworks/av/media/libstagefright/ACodec.cpp b/frameworks/av/media/libstagefright/ACodec.cpp
-index 15433d9..f8ccf25 100644
+index 7aaa1e6bc..ac23aedae 100644
 --- a/frameworks/av/media/libstagefright/ACodec.cpp
 +++ b/frameworks/av/media/libstagefright/ACodec.cpp
-@@ -63,6 +63,11 @@
+@@ -85,6 +85,11 @@
  
  #include <stagefright/AVExtensions.h>
  
@@ -33,7 +33,7 @@ index 15433d9..f8ccf25 100644
  namespace android {
  
  enum {
-@@ -1001,6 +1006,10 @@
+@@ -1023,6 +1028,10 @@ status_t ACodec::setupNativeWindowSizeFormatAndUsage(
  
      if (mFlags & kFlagIsGrallocUsageProtected) {
          usage |= GRALLOC_USAGE_PROTECTED;
@@ -45,10 +45,10 @@ index 15433d9..f8ccf25 100644
  
      usage |= kVideoGrallocUsage;
 diff --git a/frameworks/av/media/libstagefright/Android.mk b/frameworks/av/media/libstagefright/Android.mk
-index de0633a..3ee1b3d 100644
+index 9fcb299ff..5515ba33b 100644
 --- a/frameworks/av/media/libstagefright/Android.mk
 +++ b/frameworks/av/media/libstagefright/Android.mk
-@@ -131,6 +131,29 @@
+@@ -140,6 +140,29 @@ LOCAL_STATIC_LIBRARIES := \
  
  LOCAL_WHOLE_STATIC_LIBRARIES := libavextensions
  
@@ -79,7 +79,7 @@ index de0633a..3ee1b3d 100644
          libstagefright_enc_common \
          libstagefright_avc_common \
 diff --git a/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp b/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
-index 24b60e8..3a5d94a 100644
+index 04e2da1a2..dd3a68033 100644
 --- a/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
 +++ b/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
 @@ -39,6 +39,12 @@
@@ -95,7 +95,7 @@ index 24b60e8..3a5d94a 100644
  static const OMX_U32 kPortIndexInput = 0;
  static const OMX_U32 kPortIndexOutput = 1;
  
-@@ -1862,6 +1868,42 @@
+@@ -1856,6 +1862,42 @@ void OMXNodeInstance::onEvent(
          case OMX_EventPortSettingsChanged:
              arg2String = asString((OMX_INDEXEXTTYPE)arg2);
              // fall through
@@ -138,3 +138,5 @@ index 24b60e8..3a5d94a 100644
          default:
              arg1String = portString(arg1);
      }
+-- 
+2.11.0
