@@ -186,6 +186,8 @@ BOARD_USES_TRUST_KEYMASTER := true
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
 
+# Audio HAL from hardware/samsung
+TARGET_AUDIOHAL_VARIANT := samsung
 # Advanced Low Power audio support
 BOARD_USE_ALP_AUDIO := true
 
