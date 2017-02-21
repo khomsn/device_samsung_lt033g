@@ -22,10 +22,7 @@ TARGET_BOARD_PLATFORM := exynos5
 TARGET_SLSI_VARIANT := cm
 TARGET_SOC := exynos5420
 
-# E linker  : /system/vendor/lib/liblvverx_3.20.03.so: has text relocations
-# E linker  : /system/vendor/lib/liblvvetx_3.20.03.so: has text relocations
-# E linker  : /system/lib/lib_SoundAlive_play_ver125e.so: has text relocations
-TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+#TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
 # Architecture
 TARGET_ARCH := arm
