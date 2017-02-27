@@ -62,7 +62,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
     audio.offload.disable=1 \
     ro.config.media_vol_steps=30 \
-    ro.config.vc_call_vol_steps=15
+    ro.config.vc_call_vol_steps=20
 
 # Camera
 PRODUCT_PACKAGES += \
