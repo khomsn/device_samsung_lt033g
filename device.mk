@@ -226,6 +226,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.dataroaming=false
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
+    telephony.lteOnCdmaDevice=0 \
+    persist.radio.apm_sim_not_pwdn=1 \
+    persist.radio.add_power_save=1 \
+    rild.libpath=/system/lib/libsec-ril.so
+
+ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.usb.config=mtp \
     ro.debug_level=0x4948 \
     ro.secure=0
