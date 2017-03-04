@@ -62,7 +62,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.disable=1 \
     ro.config.media_vol_steps=30 \
     ro.config.vc_call_vol_steps=20 \
-    audio_hal.force_voice_config=wide
+    audio_hal.force_voice_config=wide \
+    audio_hal.disable_two_mic=true
 
 # Camera
 PRODUCT_PACKAGES += \
