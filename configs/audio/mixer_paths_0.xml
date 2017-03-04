@@ -271,9 +271,14 @@
         <ctl name="EPOUT Input 4 Volume" value="32" />
     </path>
 
-    <!-- path name="voice-earpiece-wb"-->
-        <!-- Empty path -->
-    <!-- /path -->
+    <path name="voice-earpiece-wb">
+        <path name="earpiece" />
+        <ctl name="EPOUT Digital Volume" value="128" />
+        <ctl name="EPOUT Input 1 Volume" value="32" />
+        <ctl name="EPOUT Input 2 Volume" value="32" />
+        <ctl name="EPOUT Input 3 Volume" value="32" />
+        <ctl name="EPOUT Input 4 Volume" value="32" />
+    </path>
 
     <path name="voice-speaker">
         <path name="speaker" />
@@ -284,9 +289,14 @@
         <ctl name="SPKOUTR Input 3 Volume" value="32" />
     </path>
 
-    <!-- path name="voice-speaker-wb" -->
-        <!-- Empty path -->
-    <!-- /path -->
+    <path name="voice-speaker-wb">
+        <path name="speaker" />
+        <ctl name="Speaker Digital Volume" value="126" />
+        <ctl name="SPKOUTL Input 1 Volume" value="32" />
+        <ctl name="SPKOUTR Input 1 Volume" value="32" />
+        <ctl name="SPKOUTL Input 3 Volume" value="32" />
+        <ctl name="SPKOUTR Input 3 Volume" value="32" />
+    </path>
 
     <path name="voice-headphones">
         <path name="headphones" />
@@ -298,9 +308,15 @@
         <ctl name="HPOUT1R Input 2 Volume" value="32" />
     </path>
 
-    <!-- path name="voice-headphones-wb" -->
-        <!-- Empty path -->
-    <!-- /path -->
+    <path name="voice-headphones-wb">
+        <path name="headphones" />
+        <ctl name="Noise Gate Switch" value="0" />
+        <ctl name="HPOUT1 Digital Volume" value="108" />
+        <ctl name="HPOUT1L Input 1 Volume" value="32" />
+        <ctl name="HPOUT1R Input 1 Volume" value="32" />
+        <ctl name="HPOUT1L Input 2 Volume" value="32" />
+        <ctl name="HPOUT1R Input 2 Volume" value="32" />
+    </path>
 
     <!-- path name="hdmi" -->
         <!-- Empty path -->
@@ -350,10 +366,9 @@
 
     <!-- Two mic -->
     <!-- path name="voice-earpiece-mic" -->
-        <!-- path name="headset-mic" / -->
-        <!-- ctl name="IN1R Volume" value="39" / -->
-        <!-- ctl name="IN1R Digital Volume" value="128" / -->
-        <!-- ctl name="LHPF1 Input 1 Volume" value="32" / -->
+        <!-- Should be main mic and back mic -->
+        <!-- Capture channel set to main mic -->
+        <!-- Empty path -->
     <!-- /path -->
 
     <!-- path name="voice-earpiece-mic-wb" -->
@@ -384,9 +399,12 @@
         <ctl name="LHPF1 Input 1 Volume" value="32" />
     </path>
 
-    <!-- path name="voice-headset-mic-wb" -->
-        <!-- Empty path -->
-    <!-- /path -->
+    <path name="voice-headset-mic-wb">
+        <path name="headset-mic" />
+        <ctl name="IN1R Volume" value="39" />
+        <ctl name="IN1R Digital Volume" value="128" />
+        <ctl name="LHPF1 Input 1 Volume" value="32" />
+    </path>
 
     <!-- path name="hdmi-mic" -->
         <!-- Empty path -->
@@ -394,7 +412,7 @@
 
     <path name="bt-sco-mic">
         <path name="channel-none" />
-        <!-- path name="verb-voicecall" / -->
+        <path name="verb-voicecall" />
         <ctl name="AIF2TX1 Input 2" value="AIF3RX1" />
         <ctl name="AIF2TX2 Input 2" value="AIF3RX2" />
         <ctl name="ASRC2L Input" value="AIF3RX1" />
