@@ -63,6 +63,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    camera.universal5420 \
     libhwjpeg
 
 # Themes
