@@ -153,10 +153,6 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Extended filesystem support
-TARGET_KERNEL_HAVE_EXFAT := true
-TARGET_KERNEL_HAVE_NTFS := true
-
 # Disable journaling on system.img to save space
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 
