@@ -120,7 +120,6 @@
     <string-array translatable="false" name="radioAttributes">
        <item>"1,1"</item>
        <item>"0,1"</item>
-       <item>"7,1"</item>
     </string-array>
 
     <!-- The duration (in milliseconds) that the radio will scan for a signal
