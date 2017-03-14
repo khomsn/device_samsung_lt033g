@@ -22,9 +22,6 @@ TARGET_BOARD_PLATFORM := exynos5
 TARGET_SLSI_VARIANT := cm
 TARGET_SOC := exynos5420
 
-# GMS Client ID
-PRODUCT_GMS_CLIENTID_BASE := android-samsung
-
 # Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
