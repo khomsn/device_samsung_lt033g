@@ -299,10 +299,6 @@
     <!-- Our gralloc has support for protected buffers -->
     <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
 
-    <!-- Enable translucent UI -->
-    <bool name="config_enableLockScreenTranslucentDecor">true</bool>
-    <bool name="config_enableTranslucentDecor">true</bool>
-
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>
 
