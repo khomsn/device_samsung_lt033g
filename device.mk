@@ -225,20 +225,25 @@ PRODUCT_PACKAGES += \
     charger_res_images
 
 # Radio
-PRODUCT_PROPERTY_OVERRIDES += \
+ADDITIONAL_DEFAULT_PROPERTIES += \
     keyguard.no_require_sim=true \
     ro.com.android.dataroaming=false
 
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    telephony.lteOnCdmaDevice=0 \
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1 \
     persist.radio.add_power_save=1 \
-    rild.libpath=/system/lib/libsec-ril.so
+    telephony.lteOnCdmaDevice=0 \
+    ro.telephony.default_network=0 \
+    rild.libpath=/system/lib/libsec-ril.so \
+    ro.data.large_tcp_window_size=true
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ril.hsxpa=1 \
+    ro.ril.gprsclass=10
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.usb.config=mtp \
-    ro.debug_level=0x4948 \
-    ro.secure=0
+    ro.debug_level=0x4948
 
 # adb has root
 ADDITIONAL_DEFAULT_PROPERTIES += \
@@ -248,7 +253,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.debuggable=1 \
     persist.service.adb.enable=1
 
-# adb and apps
+# root for adb and apps
 ADDITIONAL_BUILD_PROPERTIES += \
     persist.sys.root_access=3
 
