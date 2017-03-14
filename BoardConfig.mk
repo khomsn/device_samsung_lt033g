@@ -183,6 +183,9 @@ BOARD_USE_ALP_AUDIO := true
 # Power HAL from hardware/samsung
 TARGET_POWERHAL_VARIANT := samsung
 
+# Sensors
+TARGET_NO_SENSOR_PERMISSION_CHECK := true
+
 # Allow to use baseline profile for AVC recording
 TARGET_USE_AVC_BASELINE_PROFILE := true
 
