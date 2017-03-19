@@ -176,7 +176,7 @@ on boot
     chown system radio /sys/class/sec/sec_touchkey/touchkey_back
     chown system radio /sys/class/sec/sec_touchkey/touchkey_threshold
     chown system radio /sys/class/sec/sec_touchkey/extra_button_event
-    chown system system /sys/class/sec/sec_touchkey/tsp_keys_enabled
+    chown system system /sys/class/sec/sec_touchkey/touchkey_enabled
 
     chmod 0660 /dev/ttySAC2
     chown system system /dev/ttySAC2
