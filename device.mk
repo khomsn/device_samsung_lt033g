@@ -70,9 +70,10 @@ PRODUCT_PACKAGES += \
     camera.universal5420 \
     libhwjpeg
 
-# Themes
+# Substratum Themes
 PRODUCT_PACKAGES += \
-    HexoLibre
+    ThemeInterfacer \
+    projekt.substratum.theme.xml
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
