@@ -341,6 +341,20 @@
         <ctl name="AIF3TX2 Input 2 Volume" value="32" />
     </path>
 
+    <path name="bt-sco-headset-wb">
+        <!-- path name="verb-normal" / -->
+        <ctl name="ASRC1L Input" value="AIF1RX1" />
+        <ctl name="ASRC1R Input" value="AIF1RX2" />
+        <ctl name="AIF3TX1 Input 1" value="ASRC1L" />
+        <ctl name="AIF3TX2 Input 1" value="ASRC1R" />
+        <ctl name="AIF3TX1 Input 2" value="AIF2RX1" />
+        <ctl name="AIF3TX2 Input 2" value="AIF2RX2" />
+        <ctl name="AIF3TX1 Input 1 Volume" value="32" />
+        <ctl name="AIF3TX1 Input 2 Volume" value="32" />
+        <ctl name="AIF3TX2 Input 1 Volume" value="32" />
+        <ctl name="AIF3TX2 Input 2 Volume" value="32" />
+    </path>
+
     <!-- ########## Capture ########## -->
 
     <path name="earpiece-mic">
@@ -411,6 +425,17 @@
     <!-- /path -->
 
     <path name="bt-sco-mic">
+        <path name="channel-none" />
+        <path name="verb-voicecall" />
+        <ctl name="AIF2TX1 Input 2" value="AIF3RX1" />
+        <ctl name="AIF2TX2 Input 2" value="AIF3RX2" />
+        <ctl name="ASRC2L Input" value="AIF3RX1" />
+        <ctl name="ASRC2R Input" value="AIF3RX2" />
+        <ctl name="AIF2TX1 Input 1" value="None" />
+        <ctl name="AIF2TX2 Input 1" value="None" />
+    </path>
+
+    <path name="bt-sco-mic-wb">
         <path name="channel-none" />
         <path name="verb-voicecall" />
         <ctl name="AIF2TX1 Input 2" value="AIF3RX1" />
