@@ -84,7 +84,8 @@ USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # Mixer
-BOARD_USE_BGRA_8888_FB := true
+### This is not implemented in frameworks/native yet.
+#BOARD_USE_BGRA_8888 := true
 
 # Shader cache config options
 # Maximum size of the  GLES Shaders that can be cached for reuse.
