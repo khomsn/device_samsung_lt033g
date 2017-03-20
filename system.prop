@@ -1,7 +1,7 @@
 # Modem
 rild.libargs=-d /dev/ttyS0
 ro.telephony.ril_class=SlteRIL
-ro.ril.telephony.mqanelements=5
+ro.ril.telephony.mqanelements=6
 
 # GPS
 ro.gps.agps_provider=1
