@@ -21,7 +21,6 @@ import static com.android.internal.telephony.RILConstants.*;
 
 import android.content.Context;
 import android.telephony.Rlog;
-import android.os.AsyncResult;
 import android.os.Message;
 import android.os.Parcel;
 import android.os.SystemProperties;
@@ -32,7 +31,6 @@ import com.android.internal.telephony.uicc.IccCardApplicationStatus;
 import com.android.internal.telephony.uicc.IccCardStatus;
 import com.android.internal.telephony.uicc.IccRefreshResponse;
 import com.android.internal.telephony.uicc.IccUtils;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -149,15 +147,6 @@ public class SlteRIL extends RIL {
           if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
           send(rr);
-        }
-    }
-
-    public void setDataAllowed(boolean allowed, Message result) {
-        Rlog.v(RILJ_LOG_TAG, "XMM7260RIL: setDataAllowed");
-
-        if (result != null) {
-            AsyncResult.forMessage(result, 0, null);
-            result.sendToTarget();
         }
     }
 
