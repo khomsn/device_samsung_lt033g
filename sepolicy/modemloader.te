@@ -7,5 +7,6 @@ type modemloader_prop, property_type;
 init_daemon_domain(modemloader)
 
 allow modemloader proc:file r_file_perms;
+allow modemloader system_prop:property_service set;
 
 set_prop(modemloader, modemloader_prop)
