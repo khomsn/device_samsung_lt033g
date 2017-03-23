@@ -1,2 +1,2 @@
-# for ril
-allow audioserver rild:unix_stream_socket connectto;
+# Allow audioserver to connect to rild
+unix_socket_connect(audioserver, rild, rild)

@@ -17,6 +17,9 @@ allow init tmpfs:lnk_file create;
 allow init gpsd:process { noatsecure };
 allow init mediaserver:process { noatsecure };
 
+# Mount debugfs on /sys/kernel/debug.
+allow init debugfs:dir mounton;
+
 # ??
 allow init debugfs:file write;
 
