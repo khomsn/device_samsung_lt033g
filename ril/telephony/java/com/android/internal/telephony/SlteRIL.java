@@ -41,12 +41,12 @@ import java.util.Collections;
  */
 public class SlteRIL extends RIL {
 
-    /**********************************************************
-     * SAMSUNG REQUESTS
-     **********************************************************/
     static final boolean RILJ_LOGD = true;
     static final boolean RILJ_LOGV = true;
 
+    /**********************************************************
+     * SAMSUNG REQUESTS
+     **********************************************************/
     private static final int RIL_REQUEST_DIAL_EMERGENCY_CALL = 10001;
     private static final int RIL_UNSOL_STK_SEND_SMS_RESULT = 11002;
     private static final int RIL_UNSOL_STK_CALL_CONTROL_RESULT = 11003;
