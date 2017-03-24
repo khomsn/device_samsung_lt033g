@@ -1,4 +1,3 @@
-type secmem_device, dev_type;
 # Unified Memory Management device
 type ump_device, dev_type;
 
@@ -7,3 +6,12 @@ type emmcblk_device, file_type;
 
 # /dev/umts_boot*, /dev/ehci_power
 type mif_device, dev_type;
+
+# /dev/ttySAC0
+type bluetooth_device, dev_type;
+
+# /dev/rfkill
+type rfkill_device, dev_type;
+
+# /dev/s5p-smem
+type secmem_device, dev_type;
