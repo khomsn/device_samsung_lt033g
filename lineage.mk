@@ -19,5 +19,5 @@ PRODUCT_GMS_CLIENTID_BASE := android-samsung
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=lt033gub \
     TARGET_DEVICE=lt033g \
-    BUILD_FINGERPRINT="samsung/lt033gxx/lt033g:5.1.1/LMY47X/P601XXUDPL1:user/release-keys" \
-    PRIVATE_BUILD_DESC="lt033gxx-user 5.1.1 LMY47X P601XXUDPL1 release-keys"
+    BUILD_FINGERPRINT="samsung/lt033gub/lt033g:5.1.1/LMY47X/P601UBSDQA1:user/release-keys" \
+    PRIVATE_BUILD_DESC="lt033gub-user 5.1.1 LMY47X P601UBSDQA1 release-keys"
