@@ -36,7 +36,7 @@ static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
 char const *const PANEL_FILE       = "/sys/class/backlight/panel/brightness";
 char const *const BUTTON_FILE      = "/sys/class/sec/sec_touchkey/brightness";
-char const *const KEYS_ENABLED     = "/sys/class/sec/sec_touchkey/tsp_keys_enabled";
+char const *const KEYS_ENABLED     = "/sys/class/sec/sec_touchkey/touchkey_enabled";
 
 char const *const WAKE_LOCK_PATH   = "/sys/power/wake_lock";
 char const *const WAKE_UNLOCK_PATH = "/sys/power/wake_unlock";
