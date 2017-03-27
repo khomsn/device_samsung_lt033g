@@ -303,6 +303,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sdcardfs.enable=true
 
+# Samsung Specific Properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.PDA=P601UBSDQA1 \
+    ro.build.hidden_ver=P601UBSDQA1 \
+    ro.build.official.release=true \
+    ro.chipname=exynos5420
+
 # Call Prebuilding Apps packages
 $(call inherit-product, vendor/samsung/prebuilding_apps/prebuilding_apps.mk)
 # Call Samsung LSI board support packages
