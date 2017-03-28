@@ -159,7 +159,7 @@ static void set_wakelock(bool acquire)
     }
 }
 
-static int set_light_notifications(struct light_device_t* dev,
+static int set_light_notifications(struct light_device_t* dev __unused,
                                     struct light_state_t const* state)
 {
     int brightness = 0;
@@ -206,7 +206,7 @@ static int set_light_notifications(struct light_device_t* dev,
     return ret;
 }
 
-static int set_light_backlight(struct light_device_t *dev,
+static int set_light_backlight(struct light_device_t *dev __unused,
             struct light_state_t const *state)
 {
     int err = 0;
@@ -219,7 +219,7 @@ static int set_light_backlight(struct light_device_t *dev,
     return err;
 }
 
-static int set_light_buttons(struct light_device_t* dev,
+static int set_light_buttons(struct light_device_t* dev __unused,
         struct light_state_t const* state)
 {
     int err = 0;
@@ -242,7 +242,7 @@ static int close_lights(struct light_device_t *dev)
     return 0;
 }
 
-static int set_light_leds_noop(struct light_device_t *dev,
+static int set_light_leds_noop(struct light_device_t *dev __unused,
             struct light_state_t const *state)
 {
     return 0;
