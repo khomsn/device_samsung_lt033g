@@ -74,6 +74,10 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOOTLOADER_BOARD_NAME := universal5420
 
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/lt033g/releasetools
+TARGET_BOARD_INFO_FILE ?= device/samsung/lt033g/board-info.txt
+
 # FIMG2D
 BOARD_USES_SKIA_FIMGAPI := true
 BOARD_USES_NEON_BLITANTIH := true
