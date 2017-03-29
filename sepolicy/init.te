@@ -25,3 +25,8 @@ allow init debugfs:file write;
 
 # denied { setattr relabelto } name="rear_camfw"
 allow init video_device:file { relabelto setattr };
+
+
+#denied { getattr } for path="/efs/wifi/.mac.info"
+#denied { getattr } for path="/efs/wifi/.mac.cob"
+allow init wifi_efs_file:file getattr;
