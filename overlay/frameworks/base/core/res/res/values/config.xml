@@ -419,5 +419,8 @@
         <item>"/system/framework/oat/arm/services.odex"</item>
         <item>"/system/framework/arm/boot.oat"</item>
         <item>"/system/framework/arm/boot-core-libart.oat"</item>
-   </string-array>
+    </string-array>
+
+    <!-- Configuartion to support SIM contact batch operation.-->
+    <bool name="config_sim_phonebook_batch_operation">false</bool>
 </resources>
