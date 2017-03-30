@@ -1,1 +1,1 @@
-add_lunch_combo cm_lt033g-userdebug
+add_lunch_combo aicp_lt033g-userdebug
