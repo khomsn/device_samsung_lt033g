@@ -5,3 +5,11 @@ ro.ril.telephony.mqanelements=6
 
 # GPS
 ro.gps.agps_provider=1
+
+# SM-P601 Hardware Info
+ro.device.chipset=Exynos 5420 
+ro.device.cpu=Octa-core, 4x1.9GHz Cortex-A15 + 4x1.3GHz Cortex-A7
+ro.device.gpu=Mali-T628 MP6
+ro.device.rear_cam=8 MP
+ro.device.front_cam=2.1 MP
+ro.device.screen_res=10.1'' 2560x1600 WQXGA 299 ppi
