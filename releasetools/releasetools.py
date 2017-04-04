@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import hashlib
 import common
 import re
 import os
@@ -34,13 +33,5 @@ def AddBootloaderAssertion(info, input_zip):
   if m:
     bootloaders = m.group(1).split("|")
     if "*" not in bootloaders:
-      AssertPartitionChecksum(info,
-              "/dev/block/platform/msm_sdcc.1/by-name/aboot", 1048576, bootloaders)
+      info.script.AssertSomeBootloader(*bootloaders)
     info.metadata["pre-bootloader"] = m.group(1)
-
-def AssertPartitionChecksum(info, partition, size, checksums):
-    info.script.AppendExtra('assert(' +
-            ' || '.join(['sha1_check(read_file("EMMC:%s:%d:%s")) == ""' % (partition, size, c)
-                for c in checksums]) +
-            ' || abort("Invalid checksum for partition %s")' % (partition) +
-            ');')
