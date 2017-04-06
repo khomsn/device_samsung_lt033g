@@ -200,6 +200,9 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 # Allow to use baseline profile for AVC recording
 TARGET_USE_AVC_BASELINE_PROFILE := true
 
+# IR
+IR_HAL_SUFFIX := universal5420
+
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
 BOARD_WLAN_DEVICE                := bcmdhd
