@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2014-2016 The Dirty Unicorns Project
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Quick Settings tiles -->
+    <string name="quick_settings_screenshot_label">Скриншот</string>
+    <string name="quick_settings_region_screenshot_label">Частичный скриншот</string>
+    <string name="quick_settings_adb_network">ADB сеть</string>
+    <string name="quick_settings_network_adb_enabled_label">Включено</string>
+    <string name="quick_settings_network_adb_disabled_label">Отключено</string>
+    <string name="quick_settings_sync_label">Синхронизация</string>
+    <string name="accessibility_quick_settings_sync_off">Синхрон. выкл</string>
+    <string name="accessibility_quick_settings_sync_on">Синхрон. вкл</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Синхрон. выкл</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Синхрон. вкл</string>
+    <string name="quick_settings_expanded_desktop_label">Расширенный рабочий стол</string>
+    <string name="quick_settings_expanded_desktop">Расширенный</string>
+    <string name="quick_settings_expanded_desktop_off">Нормальный</string>
+    <string name="quick_settings_reboot_label">Перезагрузка</string>
+    <string name="quick_settings_reboot_recovery_label">Режим восстановления</string>
+    <string name="accessibility_quick_settings_usb_tether_off">USB модем выкл.</string>
+    <string name="accessibility_quick_settings_usb_tether_on">USB модем вкл.</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_off">USB модем выключен</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_on">USB модем включен</string>
+    <string name="quick_settings_usb_tether_label">USB модем</string>
+    <string name="quick_settings_music_label">Музыка</string>
+    <string name="quick_settings_music_play">Играть</string>
+    <string name="quick_settings_music_pause">Пауза</string>
+    <string name="quick_settings_ime_tile_label">Метод ввода</string>
+    <string name="quick_settings_caffeine_label">Таймер</string>
+    <string name="accessibility_quick_settings_caffeine_off">Таймер выкл.</string>
+    <string name="accessibility_quick_settings_caffeine_on">Таймер вкл.</string>
+    <string name="quick_settings_screenrecord">Запись экрана</string>
+    <string name="quick_settings_screenrecord_on">Запись...</string>
+    <string name="quick_settings_heads_up_label">Всплывающие уведомления</string>
+    <string name="accessibility_quick_settings_heads_up_off">Всплывающие уведомления выключены</string>
+    <string name="accessibility_quick_settings_heads_up_on">Всплывающие уведомления включены</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Всплывающие уведомления выключены</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Всплывающие уведомления включены</string>
+    <string name="quick_settings_pulse_enabled">Пульсация вкл.</string>
+    <string name="quick_settings_pulse_disabled">Пульсация выкл.</string>
+    <string name="quick_settings_pulse_label">Пульсация</string>
+    <string name="accessibility_quick_settings_pulse_off">Пульсация выключена</string>
+    <string name="accessibility_quick_settings_pulse_on">Пульсация включена</string>
+    <string name="accessibility_quick_settings_pulse_changed_off">Пульсация выключена</string>
+    <string name="accessibility_quick_settings_pulse_changed_on">Пульсация включена</string>
+    <string name="quick_settings_locale_label">Язык</string>
+    <string name="quick_settings_locale_more_locales_toast">Настройте несколько языков для включения функциональности переключателя</string>
+    <string name="quick_settings_sound_label">Звук</string>
+    <string name="quick_settings_sound_ring">Звонок</string>
+    <string name="quick_settings_sound_vibrate">Вибросигнал</string>
+    <string name="quick_settings_sound_silent">Без звука</string>
+    <string name="accessibility_quick_settings_location_battery_saving">Определение местоположения: по координатам сети (экономия батареи)</string>
+    <string name="accessibility_quick_settings_location_gps_only">Определение местоположения: по спутникам GPS</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Определение местоположения: по всем источникам</string>
+    <string name="accessibility_quick_settings_location_changed_battery_saving">Служба определения местоположения переключена в режим - «по координатам сети»</string>
+    <string name="accessibility_quick_settings_location_changed_gps_only">Служба определения местоположения переключена в режим - «по спутникам GPS»</string>
+    <string name="accessibility_quick_settings_location_changed_high_accuracy">Служба отправки местоположения переключена в режим - «по всем источникам»</string>
+    <string name="quick_settings_location_detail_title">Режим местоположения</string>
+    <string name="quick_settings_location_battery_saving_label">По координатам сети</string>
+    <string name="quick_settings_location_gps_only_label">По спутникам GPS</string>
+    <string name="quick_settings_location_high_accuracy_label">По всем источникам</string>
+    <string name="quick_settings_location_off_label">Местоположение выкл</string>
+
+    <!-- Screenshot Delete Toast -->
+    <string name="delete_screenshot_toast">Скриншот удалён</string>
+
+    <!-- Navigation bar Tile -->
+    <string name="quick_settings_navigation_bar">Панель навигации</string>
+    <string name="quick_settings_smartbar">Умная панель вкл.</string>
+    <string name="quick_settings_smartbar_off">Умная панель выкл.</string>
+    <string name="quick_settings_fling">Росчерк</string>
+    <string name="quick_settings_fling_off">Росчерк выкл.</string>
+
+    <!-- Heads up snooze toast -->
+    <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> Всплывающие уведомления выключены на одну минуту.</string>
+    <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Всплывающие уведомления выключены на <xliff:g id="number">%d</xliff:g> минут.</string>
+
+    <!-- Screenshot action -->
+    <string name="screenshot_abort_title">Скриншот не был создан</string>
+    <string name="screenshot_abort_text">Операция прервана</string>
+
+    <!-- Aicp Extras Tile -->
+    <string name="quick_aicp_extras_toast">Б-г-г. Ты действительно думал, что долгое удержание плитки тебе что-то откроет?</string>
+
+    <!-- App sidebar -->
+    <string name="default_folder_text">Папка</string>
+    <string name="title_activity_sidebar_configuration">Настройка панели приложений</string>
+    <string name="action_save">Сохранить</string>
+    <string name="toast_items_saved">Элементы панели приложений сохранены.</string>
+    <string name="content_setup_instructions">Добавление элементов на «Панель приложений» осуществляется долгим нажатием на любой элемент справа и перетаскиванием его на панель\n\nГруппируйте элементы в папки простым перемещением.\n\nЧтобы удалить элемент, просто перетащите его из «Панели приложений» в любое место.</string>
+    <string name="content_setup_dismiss">Продолжить</string>
+    <string name="toast_not_installed">Приложение не установлено</string>
+
+    <!-- PA Pie Tile -->
+    <string name="quick_settings_pie">Pie</string>
+    <string name="quick_settings_pie_off">Pie выкл.</string>
+    <string name="quick_settings_pie_on">Pie вкл.</string>
+
+    <!-- Kill app toast -->
+    <string name="app_killed_message">Процесс приложения «убит»</string>
+
+    <!-- Ambient Display Tile -->
+    <string name="quick_settings_ambient_display_label">Авто включение экрана</string>
+    <!-- Content description of the ambient display tile in quick settings when off (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_ambient_display_off">Авто включение выкл</string>
+    <!-- Content description of the ambient display tile in quick settings when on (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_ambient_display_on">Авто включение вкл</string>
+    <!-- Announcement made when ambient display changes to off (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Авто включение экрана выключено</string>
+    <!-- Announcement made when ambient display changes to on (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Авто включение экрана включено</string>
+
+    <!-- Application picker Tile -->
+    <string name="quick_settings_app_picker">Выбор приложения</string>
+
+    <!-- accessibility label for button to open running apps prefscreen [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_running_services">Открыть экран запущенных служб</string>
+
+    <!-- On The Go -->
+    <string name="onthego_notif_ticker">Режим «На ходу» включен</string>
+    <string name="onthego_notif_title">Режим «На ходу» активен</string>
+    <string name="onthego_notif_stop">Остановить</string>
+    <string name="onthego_notif_options">Настройки</string>
+    <string name="onthego_notif_error">Невозможно включить режим «На ходу»</string>
+    <string name="onthego_notif_restart">Перезапустить режим «На ходу»</string>
+    <string name="onthego_notif_camera_changed">Режим камеры изменён</string>
+    <string name="onthego_transparency">Прозрачность</string>
+    <string name="onthego_front_camera">Использовать переднюю камеру</string>
+    <string name="onthego_service_toggle">Автоматически перезапускать службу</string>
+    <!-- To do: Add QS OnTheGo
+    <string name="quick_settings_onthego_back">Задняя камера</string>
+    <string name="quick_settings_onthego_front">Передняя камера</string>-->
+
+    <!-- Slim Recents -->
+    <string name="recents_multiwin_warning">Многооконный режим уже активан.\nПросто нажмите на приложение, чтобы прикрепить.</string>
+    <string name="recents_multiwin_nolastapp">Вы убрали все недавние приложения, пожалуйста выберите приложение с рабочего стола или из меню приложений.</string>
+    <string name="slim_recent_keyguard">Разблокируйте устройство для просмотра недавних приложений</string>
+    <string name="slim_recent_pinned">Открепите экран для просмотра недавних приложений</string>
+
+    <!-- Slim recents app sidebar queue app toast -->
+    <string name="toast_recents_queue_app">Запустить %s после закрытия недавних приложений</string>
+    <string name="toast_recents_cancel_queued_app">Запуск приложения отменен</string>
+
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Остановить принудительно?</string>
+    <string name="force_stop_dlg_text">Принудительнпая остановка приложения может вызвать ошибки.</string>
+    <string name="dlg_ok">Да</string>
+    <string name="dlg_cancel">Отмена</string>
+    <string name="kill">«Убить» приложение</string>
+
+    <!-- App circle sidebar -->
+    <string name="app_float_maximize_item_title">Развернуть</string>
+    <string name="app_float_item_title">Плавающий вид</string>
+    <string name="app_stop_item_title">«Убить» приложение</string>
+
+    <!-- Slim recents membar -->
+    <string name="recents_free_ram">RAM: %1$d MB свободно</string>
+
+    <!-- OmniJAWS -->
+    <string name="omnijaws_service_error">Ошибка</string>
+    <string name="omnijaws_service_unkown">Нет данных о погоде</string>
+    <string name="omnijaws_detail_header">Погода</string>
+    <string name="omnijaws_label_default">Погода</string>
+    <string name="omnijaws_current_text">Сейчас</string>
+    <string name="omnijaws_package_not_available">OmniJaws недоступен</string>
+
+    <!-- Off/On/Toggle -->
+    <string name="off">Выключено</string>
+    <string name="on">Включено</string>
+    <string name="toggle">Переключить</string>
+
+    <!-- Dialog Cancel/OK -->
+    <string name="cancel">Отмена</string>
+    <string name="dlg_ok">Да</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
+    <!-- Slim Shortcut Actions -->
+    <string name="shortcut_picker">Ярлыки Aicp</string>
+    <string name="shortcut_rotation">Поворот</string>
+    <string name="shortcut_reboot">Перезагрузка</string>
+    <string name="shortcut_recovery">Режим восстановления</string>
+    <string name="shortcut_screensleep">Выключить экран</string>
+    <string name="shortcut_volume">Звуковая панель</string>
+    <string name="shortcut_restart_ui">Перезапуск интерфейса</string>
+    <string name="shortcut_powermenu">Меню кнопки питания</string>
+    <string name="shortcut_flashlight">Фонарик</string>
+    <string name="shortcut_clear_notifications">Учистить уведомления</string>
+    <string name="shortcut_toggle_title">Действия для выполнения</string>
+
+    <!-- MagiskManager QS Tile -->
+    <string name="quick_magiskmanager_label">Magisk</string>
+    <string name="quick_magiskmanager_na">Менеджер Magisk не установлен! Установите его.</string>
+
+    <!-- Compass QS Tile -->
+    <string name="quick_settings_compass_label">Компас</string>
+    <string name="quick_settings_compass_init">Инициализация\u2026</string>
+    <string name="accessibility_quick_settings_compass_off">Компас выкл.</string>
+    <string name="accessibility_quick_settings_compass_on">Компас вкл.</string>
+    <string name="accessibility_quick_settings_compass_changed_off">Компас выключен</string>
+    <string name="accessibility_quick_settings_compass_changed_on">Компас включен</string>
+    <string name="quick_settings_compass_N">С</string>
+    <string name="quick_settings_compass_NE">СВ</string>
+    <string name="quick_settings_compass_E">В</string>
+    <string name="quick_settings_compass_SE">ЮВ</string>
+    <string name="quick_settings_compass_S">Ю</string>
+    <string name="quick_settings_compass_SW">ЮЗ</string>
+    <string name="quick_settings_compass_W">З</string>
+    <string name="quick_settings_compass_NW">СЗ</string>
+</resources>
