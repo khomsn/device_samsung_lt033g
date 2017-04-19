@@ -1,0 +1,22 @@
+Settings: Enable advanced power menu by default
+
+project packages/apps/Settings/
+diff --git a/packages/apps/Settings/res/xml/rr_button_settings.xml b/packages/apps/Settings/res/xml/rr_button_settings.xml
+index ea206232b..22c6cbd88 100644
+--- a/packages/apps/Settings/res/xml/rr_button_settings.xml
++++ b/packages/apps/Settings/res/xml/rr_button_settings.xml
+@@ -83,11 +83,12 @@
+             android:title="@string/power_end_call_title"
+             android:summary="@string/power_end_call_summary"
+             android:persistent="false"/>
+-            
++
+        <cyanogenmod.preference.CMSecureSettingSwitchPreference
+             android:key="advanced_reboot"
+             android:title="@string/advanced_reboot_title"
+-            android:summary="@string/advanced_reboot_summary" />
++            android:summary="@string/advanced_reboot_summary"
++            android:defaultValue="true"/>
+ 
+     </PreferenceCategory>
+ 
