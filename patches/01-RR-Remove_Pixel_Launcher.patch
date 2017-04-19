@@ -1,10 +1,10 @@
 
 project vendor/cm/
 diff --git a/vendor/cm/config/common.mk b/vendor/cm/config/common.mk
-index 5ad739a9..5291497f 100644
+index a4791e4c..4eab8d47 100644
 --- a/vendor/cm/config/common.mk
 +++ b/vendor/cm/config/common.mk
-@@ -75,10 +75,6 @@ PRODUCT_COPY_FILES += \
+@@ -79,10 +79,6 @@ PRODUCT_COPY_FILES += \
  PRODUCT_COPY_FILES += \
      vendor/cm/Features.mkdn:system/etc/RR/Features.txt
  
