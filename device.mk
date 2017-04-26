@@ -85,6 +85,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Gello
 
+# AquaMail
+PRODUCT_PACKAGES += \
+    AquaMail
+
 # SHIM LIBS
 PRODUCT_PACKAGES += \
     libdmitry
