@@ -6,4 +6,5 @@ allow platform_app exfat:file create_file_perms;
 # fimg2d
 allow platform_app fimg2d_device:chr_file rw_file_perms;
 
-allow platform_app camera_prop:file { read open };
+# camera
+allow platform_app camera_prop:file r_file_perms;
