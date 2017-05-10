@@ -65,6 +65,8 @@ BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charg
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
 BOARD_NO_CHARGER_LED := true
+# Enable real time lockscreen charging current values
+BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
 # We use our lights hal
 TARGET_PROVIDES_LIBLIGHT := true
