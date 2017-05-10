@@ -354,9 +354,12 @@
 
     <!-- ########## Capture ########## -->
 
-    <!-- path name="earpiece-mic" -->
-        <!-- Empty path -->
-    <!-- /path -->
+    <path name="earpiece-mic">
+        <path name="main-mic" />
+        <ctl name="IN1L Volume" value="23" />
+        <ctl name="IN1L Digital Volume" value="128" />
+        <ctl name="LHPF1 Input 1 Volume" value="32" />
+    </path>
 
     <path name="speaker-mic">
         <path name="main-mic" />
