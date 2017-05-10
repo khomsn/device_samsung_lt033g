@@ -4,3 +4,7 @@ allow sysinit proc:file rw_file_perms;
 allow sysinit storage_file:dir getattr;
 allow sysinit unlabeled:dir getattr;
 allow sysinit emmcblk_device:blk_file read;
+
+allow sysinit emmcblk_device:blk_file open;
+allow sysinit emmcblk_device:blk_file ioctl;
+allow sysinit self:capability sys_admin;
