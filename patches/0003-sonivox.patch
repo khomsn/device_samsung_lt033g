@@ -1,0 +1,16 @@
+Fix definition
+
+project external/sonivox/
+diff --git a/external/sonivox/arm-wt-22k/lib_src/eas_pan.h b/external/sonivox/arm-wt-22k/lib_src/eas_pan.h
+index cb0a90d..da82c49 100644
+--- a/external/sonivox/arm-wt-22k/lib_src/eas_pan.h
++++ b/external/sonivox/arm-wt-22k/lib_src/eas_pan.h
+@@ -31,7 +31,7 @@
+  *----------------------------------------------------------------------------
+ */
+ 
+-#ifndef EAS_PAN_H
++#ifndef _EAS_PAN_H
+ #define _EAS_PAN_H
+ 
+ #include "eas_types.h"
