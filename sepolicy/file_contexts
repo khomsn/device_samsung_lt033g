@@ -19,7 +19,7 @@
 /dev/video18								u:object_r:video_device:s0
 /dev/video19								u:object_r:video_device:s0
 
-/dev/fimg2d								u:object_r:video_device:s0
+/dev/fimg2d								u:object_r:fimg2d_device:s0
 
 /dev/video40								u:object_r:camera_device:s0
 /dev/video41								u:object_r:camera_device:s0
