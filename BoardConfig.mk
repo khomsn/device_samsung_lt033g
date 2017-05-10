@@ -64,6 +64,7 @@ LINKER_FORCED_SHIM_LIBS := /system/vendor/lib/egl/libGLES_mali.so|libpopcountsi2
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
+BOARD_NO_CHARGER_LED := true
 
 # We use our lights hal
 TARGET_PROVIDES_LIBLIGHT := true
