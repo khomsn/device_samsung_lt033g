@@ -20,3 +20,21 @@ allow mediaserver efs_file:dir r_dir_perms;
 
 # /efs/wv.keys
 allow mediaserver efs_file:file r_file_perms;
+
+#
+# All our codecs run in the mediaserver process for now because of
+# media.stagefright.less-secure.
+# The rules below should be moved to mediacodec.te once this is fixed.
+#
+# BEGIN
+
+# /dev/s5p-smem
+allow mediaserver secmem_device:chr_file { ioctl rw_file_perms };
+
+# /system/lib/omx/
+allow mediaserver system_file:dir r_dir_perms;
+
+# /sys/class/video4linux/video6/name
+allow mediaserver sysfs:file r_file_perms;
+
+# END
