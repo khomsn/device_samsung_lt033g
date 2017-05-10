@@ -401,9 +401,6 @@ on charger
     # EHCI runtime enable for LPA
     write /sys/devices/platform/s5p-ehci/power/control auto
 
-    # Do not set any USB mode while charging
-    setprop sys.usb.config charging
-
 on fs
     setprop ro.crypto.fuse_sdcard true
     mount_all /fstab.universal5420
