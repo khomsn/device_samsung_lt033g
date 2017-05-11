@@ -304,6 +304,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.official.release=true \
     ro.chipname=exynos5420
 
+# New grid design Recents UI
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.recents.grid=true
+
 # Call Prebuilding Apps packages
 $(call inherit-product, vendor/samsung/prebuilding_apps/prebuilding_apps.mk)
 # Call Samsung LSI board support packages
