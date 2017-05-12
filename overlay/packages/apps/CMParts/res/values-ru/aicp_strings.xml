@@ -26,9 +26,9 @@
     <string name="status_bar_date_style_normal">Нормальный</string>
     <string name="status_bar_date_style_lowercase">Строчными буквами</string>
     <string name="status_bar_date_style_uppercase">Прописными буквами</string>
-    <string name="status_bar_date_format_custom">Свой формат Java</string>
-    <string name="status_bar_date_string_edittext_title">Должно соответствовать Java DateFormat. Например: MM/dd/yy</string>
-    <string name="status_bar_date_string_edittext_summary">Введите строку</string>
+    <string name="status_bar_date_format_custom">Свой формат</string>
+    <string name="status_bar_date_string_edittext_title">Формат должен соответствовать Java DateFormat. Например: MM/dd/yy</string>
+    <string name="status_bar_date_string_edittext_summary">Введите значение</string>
 
     <!-- Date position -->
     <string name="clock_date_position">Расположение даты</string>
@@ -39,10 +39,10 @@
     <string name="menu_cancel">Отменить</string>
 
     <!-- Pa Battery -->
-    <string name="status_bar_battery_style_solid">Сплошний круг</string>
+    <string name="status_bar_battery_style_solid">Сплошний</string>
 
     <!-- Aicp Battery -->
-    <string name="status_bar_battery_style_aicp">AICP батарея</string>
+    <string name="status_bar_battery_style_aicp">Батарея AICP</string>
 
     <!-- Power menu torch -->
     <string name="power_menu_torch_title">Фонарик</string>
@@ -55,6 +55,12 @@
     <string name="press_color_to_apply">Нажмите на цвет, чтобы применить</string>
     <string name="set">Установить</string>
     <string name="color_default">По умолчанию</string>
+
+    <string name="battery_light_blend_color_title">Смешивание цветов</string>
+    <string name="battery_light_blend_color_summary">Смешать полные/пустые цвета, соответствующие проценту заряда батареи</string>
+    <string name="battery_light_blend_color_reverse_title">Обратное направление цветов</string>
+    <string name="battery_light_blend_color_reverse_summary_off">Полный &#8594; пустой: красный &#8592; зеленый &#8592; синий &#8592; красный</string>
+    <string name="battery_light_blend_color_reverse_summary_on">Полный &#8594; пустой: красный &#8594; зеленый &#8594; синий &#8594; красный</string>
 
     <!-- Translating strings from strings.xml -->
     <!-- -->
@@ -77,5 +83,30 @@
 
     <!-- Statusbar clock font style -->
     <string name="clock_font_style_title">Шрифт</string>
+    <string name="clock_font_normal">Обычный</string>
+    <string name="clock_font_italic">Курсив</string>
+    <string name="clock_font_bold">Жирный</string>
+    <string name="clock_font_bold_italic">Жирный курсив</string>
+    <string name="clock_font_light">Лёгкий</string>
+    <string name="clock_font_light_italic">Лёгкий курсив</string>
+    <string name="clock_font_thin">Тонкий</string>
+    <string name="clock_font_thin_italic">Тонкий курсив</string>
+    <string name="clock_font_condensed">Уплотнённый</string>
+    <string name="clock_font_condensed_italic">Уплотнённый курсив</string>
+    <string name="clock_font_condensed_light">Уплотнённый лёгкий</string>
+    <string name="clock_font_condensed_light_italic">Уплотнённый лёгкий курсив</string>
+    <string name="clock_font_condensed_bold">Уплотнённый жирный</string>
+    <string name="clock_font_condensed_bold_italic">Уплотнённый жирный курсив</string>
+    <string name="clock_font_medium">Средний</string>
+    <string name="clock_font_medium_italic">Средний курсив</string>
+    <string name="clock_font_black">Очень жирный</string>
+    <string name="clock_font_black_italic">Очень жирный курсив</string>
+    <string name="clock_font_dancingscript">DancingScript</string>
+    <string name="clock_font_dancingscript_bold">DancingScript жирный</string>
+    <string name="clock_font_comingsoon">ComingSoon</string>
+    <string name="clock_font_notoserif">NotoSerif обычный</string>
+    <string name="clock_font_notoserif_italic">NotoSerif курсив</string>
+    <string name="clock_font_notoserif_bold">NotoSerif жирный</string>
+    <string name="clock_font_notoserif_bold_italic">NotoSerif жирный курсив</string>
     <string name="clock_font_size_title">Размер шрифта</string>
 </resources>

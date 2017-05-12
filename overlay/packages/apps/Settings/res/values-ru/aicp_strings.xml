@@ -16,9 +16,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Aicp Extras -->
-    <string name="aicpextras_settings">Дополнительные настройки - AICP Extras</string>
-    <string name="summary_aicp">Персональные настройки системы</string>
-    <string name="header_category_aicpextras">Тонкая настройка</string>
+    <string name="summary_aicp">Дополнительные настройки системы</string>
+    <string name="header_category_aicpextras">Персональные настройки</string>
 
     <!-- Turn on display when power connected; turn off display when power disconnected -->
     <string name="wake_when_plugged_or_unplugged_title">Включение при зарядке</string>
@@ -44,28 +43,28 @@
     <string name="show_dev_already_enabled">Не нужно, настройки для разработчиков включены по умолчанию.</string>
     <!-- ADB always notify -->
     <string name="adb_always_notify">Всегда уведомлять об отладке</string>
-    <string name="adb_always_notify_summary">Всегда отображать уведомление, когда включена отладка, даже если не подключено</string>
+    <string name="adb_always_notify_summary">Всегда отображать уведомление, когда включена отладка, даже если ADB не активен</string>
 
     <!-- Expanded desktop -->
     <string name="power_menu_expanded_desktop">Расширенный рабочий стол</string>
     <string name="expanded_hide_nothing">Ничего не скрывать</string>
     <string name="expanded_hide_status">Скрывать строку состояния</string>
     <string name="expanded_hide_navigation">Скрывать панель навигации</string>
-    <string name="expanded_hide_both">Скрывать строку и панель</string>
-    <string name="expanded_nothing_to_show">Для настройки параметров расширенного экрана для отдельных приложений отключите параметр «Включить для всех»</string>
+    <string name="expanded_hide_both">Скрывать обе</string>
+    <string name="expanded_nothing_to_show">Для настройки параметров расширенного экрана для отдельных приложений отключите «Включить для всех»</string>
     <string name="expanded_desktop_state">Расширенный экран</string>
     <string name="expanded_enabled_for_all">Включено для всех</string>
     <string name="expanded_user_configurable">Настраивается пользователем</string>
-    <string name="expanded_desktop_style">Стиль расширенного рабочего стола</string>
-    <string name="expanded_desktop_style_description">Выбрать стиль расширенного рабочего стола по умолчанию</string>
+    <string name="expanded_desktop_style">Режим расширенного рабочего стола</string>
+    <string name="expanded_desktop_style_description">Режим расширенного рабочего стола по умолчанию</string>
     <string name="expanded_desktop_title">Настройки расширенного рабочего стола</string>
 
     <!-- Vendor version -->
-    <string name="vendor_version">Версия вендора</string>
+    <string name="vendor_version">Версия ПО производителя</string>
     <string name="vendor_version_default">Неизвестно</string>
 
     <!-- Density category -->
-    <string name="density_category">Параметры плотности</string>
+    <string name="density_category">Настройки плотности</string>
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Выбор цвета</string>
@@ -74,24 +73,24 @@
     <string name="color_default">По умолчанию</string>
 
     <!-- Navigation Bar -->
-    <string name="navigation_category">Навигация</string>
+    <string name="navigation_category">Панель навигации</string>
     <string name="navbar_interface_title">Интерфейс</string>
     <string name="navbar_size">Размер панели навигации</string>
     <string name="navbar_mode">Режим навигации</string>
     <string name="navbar_visibility">Включить панель навигации</string>
     <string name="navigationbar_settings_title">Панель навигации</string>
-    <string name="navigationbar_settings_summary">Настроить стиль и поведение панели навигации</string>
+    <string name="navigationbar_settings_summary">Настройка стиля панели навигации</string>
     <string name="navbar_general_title">Расширенные настройки</string>
     <string name="navigation_bar_left_title">Режим левши</string>
-    <string name="navigation_bar_left_summary">Помещать панель навигации в левую сторону при горизонтальной ориентации</string>
+    <string name="navigation_bar_left_summary">Отображать панель навигации слева при горизонтальной ориентации</string>
     <string name="info_pref_note_title">Примечание</string>
     <string name="smartbar_interface">Умная панель</string>
     <string name="icon_pack_picker_dialog_title">Наборы значков</string>
-    <string name="image_exceeds_max_allowed_size">Изображение не должно превышать 512x512</string>
-    <string name="invalid_icon_from_uri">Не удается загрузить изображения контент-провайдера</string>
-    <string name="picker_activities">Действие</string>
-    <string name="select_custom_app_title">Выбрать приложение</string>
-    <string name="select_custom_activity_title">Выбрать действие</string>
+    <string name="image_exceeds_max_allowed_size">Изображение не должно превышать размер 512x512</string>
+    <string name="invalid_icon_from_uri">Не удается загрузить от поставщика изображений</string>
+    <string name="picker_activities">Действия</string>
+    <string name="select_custom_app_title">Выбрать своё приложение</string>
+    <string name="select_custom_activity_title">Выбрать своё действие</string>
     <string name="profile_applist_title">Приложения</string>
     <string name="default_string">По умолчанию</string>
     <string name="reset">Сбросить</string>
@@ -107,8 +106,8 @@
     <string name="fling_settings">Управление жестами</string>
     <string name="fling_interface">Жесты</string>
     <string name="fling_enable_title">Включить управление жестами</string>
-    <string name="fling_back_home_policy">Кнопки «Назад» и «Домой» должны быть назначены в любом случае. Для изменения «Назад» и «Домой», снчала установите треюуемое назначение.</string>
-    <string name="fling_split_bar_policy">Когда «правое» или «левое» действие назначено, то это действие распространяется на всю панель</string>
+    <string name="fling_back_home_policy">Кнопки «Назад» и «Домой» должны быть установлены всегда. Для изменения «Назад» и «Домой», снчала установите нужное назначение.</string>
+    <string name="fling_split_bar_policy">Когда назначено действие «справа» или «слева», оно выполняется на всей панели</string>
     <string name="fling_def_summary">Действие не установлено</string>
     <string name="fling_swipe_actions">Жест росчерком</string>
     <string name="fling_tap_actions">Жест касанием</string>
@@ -160,28 +159,28 @@
 
     <!-- Pulse navigation bar music visualizer -->
     <string name="pulse_help_policy_notice_title">О визуализации - пульсация</string>
-    <string name="pulse_help_policy_notice_summary">Пульсация - графическая визуализация аудио на панели навигации, во время воспроизведения музыки. Визуализация может не работать с некоторыми источниками звука.</string>
+    <string name="pulse_help_policy_notice_summary">Пульсация - это блестящий и стильный визуализатор звука, который отображается на панели навигации при воспроизведении музыки. Пульсация не работает с некоторыми источниками звука при прослушивании через динамик устройства</string>
     <string name="pulse_settings">Визуализация спектра музыки</string>
     <string name="pulse_settings_summary">Графический эквалайзер на панели навигации</string>
     <string name="fling_show_pulse_title">Включить пульсацию</string>
-    <string name="fling_show_pulse_summary">Графический эквалайзер на панели навигации</string>
+    <string name="fling_show_pulse_summary">Включить графический эквалайзер на панели навигации</string>
     <string name="pulse_render_mode_title">Режим отображения</string>
     <string name="pulse_render_mode_fading_bars">Затухающие блоки</string>
     <string name="pulse_render_mode_solid_lines">Сплошные линии</string>
     <string name="fling_pulse_color">Цвет отображения</string>
-    <string name="eos_fling_lavalamp_title">Включить эффект лавы</string>
-    <string name="eos_fling_lavalamp_summary">Включает анимацию смешивания плавно меняющихся цветов</string>
+    <string name="eos_fling_lavalamp_title">Включить эффект «Лава Лампу»</string>
+    <string name="eos_fling_lavalamp_summary">Включает анимацию плавно меняющихся цветов</string>
     <string name="pulse_advanced_category">Дополнительно</string>
-    <string name="pulse_legacy_mode_advanced_category">Настройка режима «затухающих блоков»</string>
+    <string name="pulse_legacy_mode_advanced_category">Настройка «затухающих блоков»</string>
     <string name="pulse_custom_fudge_factor">Уровень чувствительности</string>
-    <string name="lavamp_solid_speed_title">Скорость эффекта лавы</string>
-    <string name="pulse_solid_units_count">Количество линий на панеле</string>
-    <string name="pulse_solid_lines_count">Количество линий на панеле</string>
+    <string name="lavamp_solid_speed_title">Скорость «Лава Лампы»</string>
+    <string name="pulse_solid_units_count">Количество линий на панели</string>
+    <string name="pulse_solid_lines_count">Количество линий на панели</string>
     <string name="pulse_solid_units_opacity">Прозрачность линий</string>
     <string name="pulse_solid_dimen_category">Настройка режима «сплошных линий»</string>
     <string name="pulse_custom_buttons_opacity_title">Прозрачность кнопок на панели</string>
-    <string name="fling_lavalamp_color_from">Эффект лавы - начальный цвет</string>
-    <string name="fling_lavalamp_color_to">Эффект лавы - конечный цвет</string>
+    <string name="fling_lavalamp_color_from">Начальный цвет «Лава Лампы»</string>
+    <string name="fling_lavalamp_color_to">Конечный цвет «Лава Лампы»</string>
 
     <!-- Pulse config -->
     <string name="pulse_custom_dimen">Ширина столбца</string>
@@ -190,39 +189,39 @@
     <string name="pulse_empty_block_size">Расстояние между блоками</string>
 
     <!-- Navbar height -->
-    <string name="navigation_bar_size_title">Размер панели</string>
-    <string name="portrait_title">Высота в вертикальном положении</string>
-    <string name="land_vert_title">Ширина в горизонтальном положении</string>
-    <string name="land_hor_title">Высота в горизонтальном положении</string>
+    <string name="navigation_bar_size_title">Размер панели навигации</string>
+    <string name="portrait_title">Высота в вертикальной ориентации</string>
+    <string name="land_vert_title">Ширина в горизонтальной ориентации</string>
+    <string name="land_hor_title">Высота в горизонтальной ориентации</string>
     <string name="positive_done">Готово</string>
 
     <!-- SmartBar -->
     <string name="smartbar_category">«Умная панель»</string>
     <string name="smartbar_settings_title">Настройки «умной панели»</string>
-    <string name="smartbar_editor_title">Режим редактирования кнопок</string>
-    <string name="smartbar_editor_summary">Недолго удерживайте кнопку и перетаскивайте, чтобы сменить её расположение. Долгое касание вызовет меню. Расположение кнопки можно менять во время отображения меню.</string>
-    <string name="smartbar_context_menu_position_title">Расположение контекстных кнопок</string>
-    <string name="smartbar_context_menu_position_summary">Настройка расположения контекстных кнопок, таких как «Меню» и «Выбор способа ввода»</string>
+    <string name="smartbar_editor_title">Режим редактированияк</string>
+    <string name="smartbar_editor_summary">Недолго удерживайте кнопку и перетаскивайте, для изменения её расположения. Долго удерживайте кнопку для отображения меню. Положение кнопки может быть изменено во время отображения меню.</string>
+    <string name="smartbar_context_menu_position_title">Позиция контекстных кнопок</string>
+    <string name="smartbar_context_menu_position_summary">Настройка положения контекстных кнопок, таких как «Меню» и «Выбор способа ввода»</string>
     <string name="smartbar_right">Справа</string>
     <string name="smartbar_left">Слева</string>
-    <string name="smartbar_button_animation_title">Анимация касания кнопок</string>
-    <string name="smartbar_button_animation_summary">Настройка стиля анимации при касании на основные кнопки</string>
-    <string name="smartbar_button_animation_ripple">Волна</string>
+    <string name="smartbar_button_animation_title">Анимация нажатия кнопок</string>
+    <string name="smartbar_button_animation_summary">Настройка стиля анимации основных кнопок при нажатии</string>
+    <string name="smartbar_button_animation_ripple">Пульсация</string>
     <string name="smartbar_button_animation_spring">Пружина</string>
+    <string name="smartbar_button_animation_flip">Переворот</string>
     <string name="smartbar_button_animation_pixel">Точки (все кнопки)</string>
     <string name="smartbar_button_animation_pixel_home">Точки (только кнопка «Домой»)</string>
-    <string name="smartbar_button_animation_pixel_home_ripple">Точки (только кнопка «Домой») и волна</string>
-    <string name="qs_tile_animation_style_flip">Переворот</string>
+    <string name="smartbar_button_animation_pixel_home_ripple">Точки (только кнопка «Домой») и пульсация</string>
     <string name="smartbar_factory_reset_title">Сброс к настройкам по умолчанию</string>
-    <string name="smartbar_factory_reset_confirm">Вы уверены, что вы хотите сбросить «Умную панель» к настройкам по умолчанию?</string>
+    <string name="smartbar_factory_reset_confirm">Вы уверены, что вы хотите сбросить настройки «Умнуй панели» по умолчанию?</string>
     <string name="smartbar_ime_action_title">Параметры метода ввода и действия медиа</string>
-    <string name="smartbar_ime_action_summary">Какие кнопки будут при отображении клавиатуры или когда играет музыка</string>
+    <string name="smartbar_ime_action_summary">Какие кнопки будут показаны при отображении клавиатуры или когда играет музыка</string>
     <string name="smartbar_ime_action_none">Ни каких</string>
     <string name="smartbar_ime_action_arrows">Стрелки управления курсором</string>
     <string name="smartbar_ime_action_switcher">Выбор раскладки</string>
-    <string name="smartbar_ime_action_dynamic">Стрелки курсора/Управление медиа</string>
-    <string name="smartbar_backup_current_config_title">Сохранить профиль панели</string>
-    <string name="smartbar_restore_config_title">Восстановить профиль панели</string>
+    <string name="smartbar_ime_action_dynamic">Стрелки курсора/управление медиа</string>
+    <string name="smartbar_backup_current_config_title">Сохранить профиль</string>
+    <string name="smartbar_restore_config_title">Восстановить профиль</string>
     <string name="smartbar_config_name_edit_dialog_title">Имя профиля</string>
     <string name="smartbar_config_name_edit_dialog_message">Введите название или оставьте поле пустым</string>
     <string name="smartbar_config_dialog_title">Список профилей</string>
@@ -232,9 +231,9 @@
     <string name="smartbar_config_restore_error_toast">Ошибка при восстановлении профиля панели</string>
     <string name="navbar_buttons_alpha_title">Прозрачность кнопок</string>
     <string name="smartbar_doubletap_sleep_title">Выключать экран при двойном касании</string>
-    <string name="smartbar_doubletap_sleep_summary">Дважды коснитесь панели, чтобы перевести устройство в спящий режим</string>
+    <string name="smartbar_doubletap_sleep_summary">Дважды коснитесь панели для перехода в спящий режим</string>
     <string name="one_handed_mode_title">Режим «Управление одной рукой»</string>
-    <string name="one_handed_mode_summary">Позволяет росчерком на панеле навигации включать режим «Управление одной рукой»</string>
+    <string name="one_handed_mode_summary">Позволяет росчерком на панели навигации включать режим «Управление одной рукой»</string>
 
     <string name="link_volume_option_title">Связать громкость рингтона и уведомлений</string>
 
@@ -247,7 +246,7 @@
     <string name="volume_steps_ring_title">Звонок</string>
     <string name="volume_steps_system_title">Система</string>
     <string name="volume_steps_voice_call_title">Голосовой вызов</string>
-    <string name="volume_steps_reset">Сбросить</string>
+    <string name="volume_steps_reset">Сброс</string>
 
     <!-- Manage applications: show substratum overlays -->
     <string name="filter_substratum_apps">Слои Substratum</string>
@@ -265,7 +264,7 @@
 
     <!-- setting: show CPU info-->
     <string name="show_cpu_info">Показывать информацию о процессоре</string>
-    <string name="show_cpu_info_summary">На экране будет показываться текущая информация о процессоре</string>
+    <string name="show_cpu_info_summary">На экране будет отображена текущая информация о процессоре</string>
 
     <!-- setting: show CPU info-->
     <string name="aicp_hwinfo_title">Информация об оборудовании</string>
@@ -318,24 +317,24 @@
     <string name="dashboard_conditions_title">Уведомления</string>
     <string name="summary_dashboard_conditions_enabled">Уведомления в главном меню включены</string>
     <string name="summary_dashboard_conditions_disabled">Уведомления в главном меню выключены</string>
-    <string name="dashboard_columns_portrait_title">Колонок в вертикальном режиме</string>
-    <string name="dashboard_columns_landscape_title">Колонок в горизонтальном режиме</string>
+    <string name="dashboard_columns_portrait_title">Колонок в вертикальной ориентации</string>
+    <string name="dashboard_columns_landscape_title">Колонок в горизонтальной ориентации</string>
 
     <!-- Dashboard columns -->
     <string name="dashboard_columns_title">Количество колонок в настройках</string>
     <string name="dashboard_columns_summary">Изменение количества колонок в настройках</string>
     <string name="dashboard_columns_dialog_title">Выберите количество колонок</string>
-    <string name="dashboard_columns_default">Одна (две для горизонтального режима)</string>
-    <string name="dashboard_columns_two">Две (три для горизонтального режима)</string>
-    <string name="dashboard_columns_three">Три (четыре для горизонтального режима)</string>
+    <string name="dashboard_columns_default">Одна (две для горизонтального ориентации)</string>
+    <string name="dashboard_columns_two">Две (три для горизонтального ориентации)</string>
+    <string name="dashboard_columns_three">Три (четыре для горизонтального ориентации)</string>
     <string name="dashboard_summary_double_lines_title">Количество строк описания пунктов меню</string>
     <string name="dashboard_summary_double_lines_summary_on">Показывать описание в несколько строк</string>
     <string name="dashboard_summary_double_lines_summary_off">Показывать описание в одну строку</string>
 
     <!-- Doze pulse options -->
     <string name="doze_settings">Режим экономии батареи</string>
-    <string name="summary_doze_enabled">Включена</string>
-    <string name="summary_doze_disabled">Выключена</string>
+    <string name="summary_doze_enabled">Включен</string>
+    <string name="summary_doze_disabled">Выключен</string>
     <string name="doze_overwrite_value_title">Перезаписать значения по умолчанию</string>
     <string name="doze_overwrite_value_summary">Разрешить изменение пользователем настроек по умолчанию</string>
     <string name="doze_pulse_title">Параметры, настраиваемые пользователем</string>
@@ -345,8 +344,8 @@
     <string name="doze_pulse_duration_visible_summary"></string>
     <string name="doze_pulse_duration_out_title">Затухание</string>
     <string name="doze_pulse_duration_out_summary"></string>
-    <string name="doze_trigger_pickup_title">Показ уведомлений при срабатывании датчика</string>
-    <string name="doze_trigger_pickup_summary_on">Показ уведомлений при срабатывании датчика приближения включено</string>
+    <string name="doze_trigger_pickup_title">Уведомления при срабатывании датчика</string>
+    <string name="doze_trigger_pickup_summary_on">Отображение уведомлений при срабатывании датчика приближения включено</string>
     <string name="doze_trigger_pickup_summary_off">Датчик приближения не будет использоваться для показа уведомлений</string>
     <string name="doze_trigger_notification_title">Срабатывание при уведомлениях</string>
     <string name="doze_trigger_notification_summary_on">Показывать уведомления при получении</string>
@@ -369,8 +368,8 @@
     <string name="doze_notification_color_invert_summary_off">Уведомления не будут инвертированы. Используйте для темных тем.</string>
     <string name="doze_notification_color_invert_summary_on">Уведомления будут инвертированы. Используйте для светлых/стоковых тем.</string>
 
-    <string name="double_tap_wake_doze_title">Двойное касание, чтобы проснуться в режиме экономии</string>
-    <string name="double_tap_wake_doze_summary">Необходимо дважды коснуться экрана, для вывода устройства из режима экономии</string>
+    <string name="double_tap_wake_doze_title">Двойное касание для пробуждения</string>
+    <string name="double_tap_wake_doze_summary">Необходимо дважды коснуться экрана, для пробуждения при получении уведомлений</string>
 
     <!-- Advanced night mode brightness -->
     <string name="night_brightness_category">Яркость</string>
@@ -382,10 +381,10 @@
     <string name="night_bright_medium">Средняя яркость</string>
 
     <string name="magisk_title">Менеджер Magisk</string>
-    <string name="magisk_summary">Управление суперпользователем</string>
+    <string name="magisk_summary">Управление правами суперпользователя</string>
 
     <!-- Top Level Substratum settings -->
-    <string name="substratum_title">Темы Substratum</string>
+    <string name="substratum_title">Темы оформления</string>
     <string name="substratum_summary">Установка тем</string>
 
     <!-- Force authorize substratum packages -->
@@ -406,7 +405,7 @@
     <string name="navbar_button_custom_icon_switch_title">Добавить цветовой фильтр к кнопкам приложения</string>
 
     <!-- Slim lockscreen shortcuts -->
-    <string name="shortcut_action_none">Ни чего</string>
+    <string name="shortcut_action_none">Пусто</string>
     <string name="shortcut_action_longpress">Долгое касание:</string>
     <string name="shortcut_action_select_action_longpress">Действие при долгом касании:</string>
     <string name="shortcut_action_select_action">Выберите действие:</string>
@@ -435,6 +434,7 @@
     <string name="shortcuts_icon_custom">Галерея</string>
     <string name="shortcuts_icon_picker_choose_icon_title">Выберите значок</string>
     <string name="shortcuts_icon_picker_alarm">Будильник</string>
+    <string name="shortcuts_icon_picker_andy">Энди</string>
     <string name="shortcuts_icon_picker_battery">Батарея</string>
     <string name="shortcuts_icon_picker_browser">Браузер</string>
     <string name="shortcuts_icon_picker_calendar">Календарь</string>
@@ -498,22 +498,22 @@
 
     <!-- Pixel Animation Duration -->
     <string name="pixel_anim_title">Настройка анимации «Точки»</string>
-    <string name="pixel_anim_summary">Различные настройки длительности анимации кнопок - «Точки»</string>
-    <string name="pixel_anim_warning">Различные настройки длительности анимации кнопок - «Точки». ВНИМАНИЕ! Изменение значений по умолчанию может привести к падению производительности в анимации. Делайте на свой риск!</string>
-    <string name="pixel_anim_x_title">Горизонтальная длительности</string>
-    <string name="pixel_anim_y_title">Вертикальная длительности</string>
-    <string name="collapse_anim_duration_ry_title">Длительност сворачивания</string>
+    <string name="pixel_anim_summary">Настройка элементов анимации кнопок «Точки» на панели навигации</string>
+    <string name="pixel_anim_warning">Различные настройки продолжительности анимации «Точки». ВНИМАНИЕ! Изменение значений по умолчанию может привести к падению производительности в анимации. Продолжайте на свой страх и риск!</string>
+    <string name="pixel_anim_x_title">Горизонтальная длительность</string>
+    <string name="pixel_anim_y_title">Вертикальная длительность</string>
+    <string name="collapse_anim_duration_ry_title">Продолжительность сворачивания</string>
     <string name="collapse_anim_duration_bg_title">Сворачивание фона</string>
-    <string name="retract_anim_duration_title">Длительность для отмены</string>
-    <string name="diamond_anim_duration_title">Длительность анимации ромба</string>
-    <string name="dots_anim_duration_title">Длительность для точек</string>
-    <string name="home_resize_anim_duration_title">Длительность изменения размера кнопки «Домой»</string>
+    <string name="retract_anim_duration_title">Продолжительность отмены</string>
+    <string name="diamond_anim_duration_title">Продолжительность анимации ромба</string>
+    <string name="dots_anim_duration_title">Продолжительность для точек</string>
+    <string name="home_resize_anim_duration_title">Продолжительность изменения размера кнопки «Домой»</string>
 
     <!-- Translating strings from strings.xml -->
     <!-- -->
 
     <!-- Sound: Other sounds: Title for the option enabling charging sounds. [CHAR LIMIT=30] -->
-    <string name="charging_sounds_title">Сигналы состояния батареи</string>
+    <string name="charging_sounds_title">Звук при зарядке</string>
 
     <!-- Настройки -> Звук -> Отключить уведомления -->
     <string name="interruptions_ignore_while_media_title">Не приглушать звук</string>
