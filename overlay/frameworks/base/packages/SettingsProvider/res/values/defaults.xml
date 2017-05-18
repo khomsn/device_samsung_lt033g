@@ -31,4 +31,5 @@
     <string name="airplane_mode_toggleable_radios" translatable="false">bluetooth,wifi,nfc,ant</string>
 
     <bool name="def_bluetooth_on">false</bool>
+    <bool name="def_wifi_on">true</bool>
 </resources>
