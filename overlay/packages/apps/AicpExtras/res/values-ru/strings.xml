@@ -296,7 +296,12 @@
 
     <!-- Launch music player when headset is connected -->
     <string name="headset_connect_player_title">Автозапуск плеера</string>
-    <string name="headset_connect_player_summary">Запускать плеер при подключении наушников</string>
+    <string name="headset_connect_player_disabled">Отключено</string>
+    <string name="headset_connect_player_wired">При подключении проводной гарнитуры</string>
+    <string name="headset_connect_player_bt_no_carkit">При подключении BT гарнитуры (не автомобиль)</string>
+    <string name="headset_connect_player_bt">При подключении BT гарнитуры</string>
+    <string name="headset_connect_player_both_no_carkit">При подключении проводной или BT (не автомобиль) гарнитуры</string>
+    <string name="headset_connect_player_both">При подключении проводной или BT гарнитуры</string>
 
     <!-- Camera shutter sound -->
     <string name="camera_sounds_title">Звук затвора камеры</string>
@@ -963,15 +968,19 @@
 
     <!-- OmniJaws -->
     <string name="weather_title">Погода</string>
-    <string name="weather_config_title">Настройка плитки «Погода»</string>
+    <string name="weather_config_title">Основные настройки погоды</string>
 
     <!-- Header Weather -->
-    <string name="header_weather_enabled_title">Погода</string>
-    <string name="header_weather_enabled_summary">Показывать погоду в развёрнутом заголовке панели быстрых настроек</string>
-    <string name="header_weather_image_enabled_title">Значок погоды</string>
-    <string name="header_weather_image_enabled_summary">Показывать значок погоды в заголовке панели быстрых настроек</string>
+    <string name="header_weather_category_title">Заголовок</string>
+    <string name="header_weather_enabled_title">Отображение погоды</string>
+    <string name="header_weather_enabled_summaryOn">Погода в развёрнутом заголовке панели быстрых настроек отображается</string>
+    <string name="header_weather_enabled_summaryOff">Погода в развёрнутом заголовке панели быстрых настроек скрыта</string>
+    <string name="header_weather_image_enabled_title">Значок состояния погоды</string>
+    <string name="header_weather_image_enabled_summaryOn">Значок погоды в заголовке панели быстрых настроек отображается</string>
+    <string name="header_weather_image_enabled_summaryOff">Значок погоды в заголовке панели быстрых настроек скрыт</string>
 
     <!-- StatusBar weather settings -->
+    <string name="statusbar_weather_category_title">Строка состояния</string>
     <string name="statusbar_weather_title">Погода в строке состояния</string>
     <string name="statusbar_weather_summary">Настройки находятся в: «Панель быстрых настроек» → «Настройка плитки «Погода».</string>
     <string name="statusbar_weather_dialog_title">Стиль погоды в строке состояния</string>
@@ -1017,7 +1026,7 @@
     <string name="device_info_default">Неизвестно</string>
 
     <!-- Lockscreen Weather -->
-    <string name="lock_screen_weather_category_title">Погода</string>
+    <string name="lock_screen_weather_category_title">Экран блокировки</string>
     <string name="lock_screen_show_weather_title">Показывать погоду</string>
     <string name="lock_screen_show_weather_summaryOn">Погода отображается на экране блокировки</string>
     <string name="lock_screen_show_weather_summaryOff">Погода скрыта на экране блокировки</string>
@@ -1031,4 +1040,13 @@
     <!-- QS footer warnings -->
     <string name="qs_footer_warnings_title">Предупреждения панели быстрых настроек</string>
     <string name="qs_footer_warnings_summary">Показывать предупреждение в нижней части панели быстрых настроек, если сеть используется приложением или VPN</string>
+
+    <!-- Misc Weather -->
+    <string name="misc_weather_category_title">Прочие настройки</string>
+    <string name="weather_windspeed_metric_units">Скорость ветра (метрическая)</string>
+    <string name="weather_windspeed_metric_units_summaryOn">Скорость ветра - метров в секунду (м/с)</string>
+    <string name="weather_windspeed_metric_units_summaryOff">Скорость ветра - километров в час (км/ч)</string>
+    <string name="weather_winddirection_display_title">Направление ветра</string>
+    <string name="weather_winddirection_display_summaryOn">В градусах</string>
+    <string name="weather_winddirection_display_summaryOff">Географические стороны света</string>
 </resources>
