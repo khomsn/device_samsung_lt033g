@@ -73,10 +73,6 @@ PRODUCT_PACKAGES += \
     e2fsck \
     setup_fs
 
-# Gello
-PRODUCT_PACKAGES += \
-    Gello
-
 # AquaMail
 PRODUCT_PACKAGES += \
     AquaMail
