@@ -48,8 +48,8 @@ on early-init
     write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 20000
 
     # Exynos Thermal throttling
-    write /sys/class/thermal/thermal_zone0/oneshot_trip_temp "70 80 85 90"
-    write /sys/class/thermal/thermal_zone0/oneshot_trip_freq "1800 1600 1100 800"
+    write /sys/class/thermal/thermal_zone0/oneshot_trip_temp "70 80 85 95"
+    write /sys/class/thermal/thermal_zone0/oneshot_trip_freq "1800 1600 1200 600"
 
     # PowerBoard: Input and Charging Currents Tuning
     write /sys/devices/platform/sec-battery/ac_input_curr 3000
