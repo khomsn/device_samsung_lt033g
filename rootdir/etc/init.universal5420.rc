@@ -4,7 +4,7 @@ import init.baseband.rc
 import init.universal5420.wifi.rc
 
 on init
-    export LD_SHIM_LIBS "/system/bin/gpsd|libdmitry.so"
+    export LD_SHIM_LIBS "/system/bin/gpsd|libshim_gpsd.so"
 
     # Support legacy paths
     symlink /sdcard /storage/sdcard0

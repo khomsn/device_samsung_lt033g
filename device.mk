@@ -79,7 +79,7 @@ PRODUCT_PACKAGES += \
 
 # SHIM LIBS
 PRODUCT_PACKAGES += \
-    libdmitry
+    libshim_gpsd
 
 # __popcountsi2 method, for the r7p0 egl blob
 PRODUCT_PACKAGES += \
