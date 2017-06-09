@@ -89,6 +89,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     AquaMail
 
+PRODUCT_PACKAGES += \
+    AdvancedDisplay
+
 # SHIM LIBS
 PRODUCT_PACKAGES += \
     libshim_gpsd
