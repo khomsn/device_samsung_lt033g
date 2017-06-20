@@ -24,4 +24,7 @@
 // MINOR CLASS: LAPTOP
 #define BTA_DM_COD {0x1A, 0x01, 0x0C}
 
+#define BTM_WBS_INCLUDED TRUE       /* Enable WBS */
+#define BTIF_HF_WBS_PREFERRED TRUE  /* Use WBS    */
+
 #endif
