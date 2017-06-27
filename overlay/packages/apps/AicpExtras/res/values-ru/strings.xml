@@ -50,6 +50,7 @@
     <string name="quick_settings_title">Панель быстрых настроек</string>
     <string name="design_title">Оформление</string>
     <string name="various_title">Различное</string>
+    <string name="root_extras_title">root инструментарий</string>
 
     <string name="nothing_title">Здесь ещё ни чего нет. Двигаемся дальше...</string>
 
@@ -227,12 +228,12 @@
     <string name="cannot_get_su_start">Не удалось получить права суперпользователя</string>
 
     <!-- Aicp logcat -->
-    <string name="logcat_title">Logcat</string>
-    <string name="kmesg_title">Kmesg</string>
-    <string name="dmesg_title">Dmesg</string>
+    <string name="logcat_title">Журнал Logcat</string>
+    <string name="kmesg_title">Журнал Kmesg</string>
+    <string name="dmesg_title">Журнал Dmesg</string>
     <string name="log_it_title">Сбор данных</string>
     <string name="log_it_dialog_title">Занимаюсь</string>
-    <string name="log_that_shit_title">Логи</string>
+    <string name="log_that_shit_title">Системные журналы</string>
     <string name="logcat_warning">Поделись ими или иди нахрен!</string>
     <string name="share_title">Поделиться...</string>
     <string name="log_it_share_subject">Логи AICP</string>
@@ -831,7 +832,7 @@
     <string name="recent_panel_show_topmost_title">Показывать последнее приложение</string>
     <string name="recent_panel_show_topmost_summary">Не исключать последнее приложение из списка недавних</string>
     <string name="recent_panel_bg_color_title">Цвет фона панели</string>
-    <string name="recent_card_bg_color_title">Цвет фона карточки</string>
+    <string name="recent_card_bg_color_title">Цвет фона миниатюры</string>
     <string name="slim_recents_mem_display_long_click_clear_title">Долгое нажатие на панель памяти</string>
     <string name="slim_recents_mem_display_long_click_clear_summary">Очищать список приложений долгим нажатием на панель использования памяти</string>
     <string name="slim_icon_pack_title">Набор значков</string>
@@ -839,6 +840,7 @@
     <string name="no_iconpacks_summary">Наборы значков не установлены</string>
     <string name="dialog_pick_iconpack_title">Выберите набор значков</string>
     <string name="default_iconpack_title">Значки по умолчанию</string>
+    <string name="slim_recents_corner_radius_title">Радиус закругления углов миниатюры</string>
 
     <!-- ATTENTION: RTL languages need to replace left with right -->
     <string name="recent_panel_lefty_mode_title">Показывать слева</string>
@@ -921,19 +923,6 @@
     <string name="notification_guts_kill_app_button_title">Кнопка закрытия приложения</string>
     <string name="notification_guts_kill_app_button_summary">Показывать кнопку закрытия приложения при долгом нажатии на уведомление</string>
 
-    <!-- Custom bootanim -->
-    <string name="custom_bootanimation_title">Анимация зарузки</string>
-    <string name="custom_bootanimation_select_title">Выбор анимации загрузки</string>
-    <string name="custom_bootanimation_summary">При каждом изменении текущая анимация будет скопирована в папку хранения/AICP_ota с текущей датой. Копии удаляются вручную, если больше не требуются.</string>
-    <string name="bootanimation_preview">Предварительный просмотр</string>
-    <string name="set_custom_bootanimation">Выбрать свою...</string>
-    <string name="creating_preview">Создаю предварительный просмотр...</string>
-    <string name="error_reading_zip_file">Ошибка чтения zip файла</string>
-    <string name="error_creating_preview">Ошибка создания предварительного просмотра</string>
-    <string name="install_file_manager_error">Не найдено приложение для выбора zip-файла. Пожалуйста, установите файловый менеджер.</string>
-    <string name="apply">Применить</string>
-    <string name="bootanim_install_successful">Новая анимация загрузки успешно установлена</string>
-
     <!-- Circle app bar -->
     <string name="category_app_circle_bar_title">Запуск приложений</string>
     <string name="app_circle_bar_title">Круговая панель приложений</string>
@@ -1013,7 +1002,7 @@
     <string name="screen_state_on_delay_summary">Отложить действия при включении экрана на указанное количество секунд</string>
 
     <!-- Show camera intent on secure lock screen -->
-    <string name="show_camera_intent_title">Показывать ярлык камеры при безопасной блокировке экрана</string>
+    <string name="show_camera_intent_title">Показывать ярлык камеры на безопасно заблокированном экране</string>
 
     <!-- Media art -->
     <string name="media_art_title">Обложка альбома</string>
@@ -1049,4 +1038,40 @@
     <string name="weather_winddirection_display_title">Направление ветра</string>
     <string name="weather_winddirection_display_summaryOn">В градусах</string>
     <string name="weather_winddirection_display_summaryOff">Географические стороны света</string>
+
+    <!-- Battery tile style-->
+    <string name="battery_tile_style_title">Вид плитки батареи</string>
+
+    <!-- Battery strings -->
+    <string name="status_bar_battery_style_icon_portrait">Вертикальный значок</string>
+    <string name="status_bar_battery_style_icon_landscape">Горизонтальный значок</string>
+    <string name="status_bar_battery_style_circle">Круг</string>
+    <string name="status_bar_battery_style_solid">Сплошной круг</string>
+    <string name="status_bar_battery_style_aicp">Батарея AICP</string>
+
+    <!-- Root extras -->
+    <string name="root_extras_msg">Чтобы использовать эти функции, вам необходим root; Поэтому убедитесь, что у вас установлено root/su дополнение, прежде чем пытаться использовать это!</string>
+
+    <!-- Selinux Switch -->
+    <string name="selinux_switch_title">Переключатель SELinux</string>
+    <string name="selinux_switch_summary">SELinux это набор модификаций ядра и инструментов пользовательского пространства. Изменение режимов может привести к нежелательным последствиям. Используйте на свой риск.</string>
+    <string name="selinux_title">Режим SELinux</string>
+    <string name="selinux_permissive_title">Только предупреждение</string>
+    <string name="selinux_enforcing_title">Блокировка</string>
+    <string name="selinux_permissive_toast_title">Режим SELinux - только предупреждение!</string>
+    <string name="selinux_persistence_title">Сохранять после перезагрузки</string>
+    <string name="selinux_persistence_summary">Восстанавливать выбранный режим SELinux после перезагрузки</string>
+
+    <!-- Custom bootanim -->
+    <string name="custom_bootanimation_title">Анимация зарузки</string>
+    <string name="custom_bootanimation_select_title">Выбор анимации загрузки</string>
+    <string name="custom_bootanimation_summary">При каждом изменении текущая анимация будет скопирована в папку хранения/AICP_ota с текущей датой. Копии удаляются вручную, если больше не требуются.</string>
+    <string name="bootanimation_preview">Предварительный просмотр</string>
+    <string name="set_custom_bootanimation">Выбрать свою...</string>
+    <string name="creating_preview">Создаю предварительный просмотр...</string>
+    <string name="error_reading_zip_file">Ошибка чтения zip файла</string>
+    <string name="error_creating_preview">Ошибка создания предварительного просмотра</string>
+    <string name="install_file_manager_error">Не найдено приложение для выбора zip-файла. Пожалуйста, установите файловый менеджер.</string>
+    <string name="apply">Применить</string>
+    <string name="bootanim_install_successful">Новая анимация загрузки успешно установлена</string>
 </resources>
