@@ -25,7 +25,7 @@
     <string name="label_action_screen_off">Выключить экран</string>
     <string name="label_action_force_close_app">Принудительно закрыть приложение</string>
     <string name="label_action_search_assistant">Поисковый помощник</string>
-    <string name="label_action_google_now_on_tap">Google Now</string>
+    <string name="label_action_google_now_on_tap">Google помощник</string>
     <string name="label_action_voice_search">Голосовой поиск</string>
     <string name="label_action_in_app_search">Поиск в приложении</string>
     <string name="label_action_flashlight">Фонарик</string>

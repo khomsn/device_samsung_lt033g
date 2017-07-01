@@ -15,6 +15,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
     <!--Status bar date -->
     <string name="status_bar_clock_category">Часы</string>
     <string name="status_bar_date_title">Дата</string>
@@ -39,7 +40,7 @@
     <string name="menu_cancel">Отменить</string>
 
     <!-- Pa Battery -->
-    <string name="status_bar_battery_style_solid">Сплошний</string>
+    <string name="status_bar_battery_style_solid">Сплошной</string>
 
     <!-- Aicp Battery -->
     <string name="status_bar_battery_style_aicp">Батарея AICP</string>
@@ -62,51 +63,4 @@
     <string name="battery_light_blend_color_reverse_summary_off">Полный &#8594; пустой: красный &#8592; зеленый &#8592; синий &#8592; красный</string>
     <string name="battery_light_blend_color_reverse_summary_on">Полный &#8594; пустой: красный &#8594; зеленый &#8594; синий &#8594; красный</string>
 
-    <!-- Translating strings from strings.xml -->
-    <!-- -->
-    <!-- Button settings -->
-    <string name="volbtn_music_controls_summary">Переключать музыкальные треки долгим нажатием кнопок громкости при выключенном экране</string>
-
-    <!-- Sounds: Charging sounds -->
-    <string name="charging_sounds_settings_title">Звук при зарядке</string>
-    <string name="charging_sounds_enabled_title">Включить</string>
-    <string name="charging_sounds_enabled_summary">Воспроизводить звук при подключении или отключении источника питания</string>
-    <string name="power_notifications_vibrate_title">Вибросигнал</string>
-    <string name="charging_sounds_ringtone_title">Звук уведомления</string>
-    <string name="charging_sounds_ringtone_silent">Без звука</string>
-
-    <!-- Power menu -->
-    <string name="power_menu_screenrecord_title">Запись экрана</string>
-
-    <!-- Status bar - Battery charging color -->
-    <string name="battery_charging_color_title">Цвет значка во время зарядки</string>
-
-    <!-- Statusbar clock font style -->
-    <string name="clock_font_style_title">Шрифт</string>
-    <string name="clock_font_normal">Обычный</string>
-    <string name="clock_font_italic">Курсив</string>
-    <string name="clock_font_bold">Жирный</string>
-    <string name="clock_font_bold_italic">Жирный курсив</string>
-    <string name="clock_font_light">Лёгкий</string>
-    <string name="clock_font_light_italic">Лёгкий курсив</string>
-    <string name="clock_font_thin">Тонкий</string>
-    <string name="clock_font_thin_italic">Тонкий курсив</string>
-    <string name="clock_font_condensed">Уплотнённый</string>
-    <string name="clock_font_condensed_italic">Уплотнённый курсив</string>
-    <string name="clock_font_condensed_light">Уплотнённый лёгкий</string>
-    <string name="clock_font_condensed_light_italic">Уплотнённый лёгкий курсив</string>
-    <string name="clock_font_condensed_bold">Уплотнённый жирный</string>
-    <string name="clock_font_condensed_bold_italic">Уплотнённый жирный курсив</string>
-    <string name="clock_font_medium">Средний</string>
-    <string name="clock_font_medium_italic">Средний курсив</string>
-    <string name="clock_font_black">Очень жирный</string>
-    <string name="clock_font_black_italic">Очень жирный курсив</string>
-    <string name="clock_font_dancingscript">DancingScript</string>
-    <string name="clock_font_dancingscript_bold">DancingScript жирный</string>
-    <string name="clock_font_comingsoon">ComingSoon</string>
-    <string name="clock_font_notoserif">NotoSerif обычный</string>
-    <string name="clock_font_notoserif_italic">NotoSerif курсив</string>
-    <string name="clock_font_notoserif_bold">NotoSerif жирный</string>
-    <string name="clock_font_notoserif_bold_italic">NotoSerif жирный курсив</string>
-    <string name="clock_font_size_title">Размер шрифта</string>
 </resources>

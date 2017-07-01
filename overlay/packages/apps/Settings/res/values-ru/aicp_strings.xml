@@ -290,14 +290,6 @@
     <string name="show_enter_key_title">Показывать кнопку «Ввод»</string>
     <string name="show_enter_key_summary">Принудительно показывать кнопку ввода вместо кнопки смайликов</string>
 
-    <!-- Selinux Switch -->
-    <string name="selinux_switch_title">Переключатель SELinux</string>
-    <string name="selinux_switch_summary">SELinux это набор модификаций ядра и инструментов пользовательского пространства. Изменение режимов может привести к нежелательным последствиям. Используйте на свой риск</string>
-    <string name="selinux_title">Режим SELinux</string>
-    <string name="selinux_permissive_title">Только предупреждение</string>
-    <string name="selinux_enforcing_title">Блокировка</string>
-    <string name="selinux_permissive_toast_title">SELinux установлен в режим «Только предупреждение!»</string>
-
     <!-- EdgeGesture service -->
     <string name="edge_gesture_service_title">Подавлять события жестов</string>
     <string name="edge_gesture_service_summary">Не передавать приложениям жесты строки состояния и панели навигации</string>
@@ -382,6 +374,10 @@
 
     <string name="magisk_title">Менеджер Magisk</string>
     <string name="magisk_summary">Управление правами суперпользователя</string>
+
+     <!-- Top Level SuperSU settings -->
+    <string name="supersu_title">SuperSU</string>
+    <string name="supersu_summary">Root management</string>
 
     <!-- Top Level Substratum settings -->
     <string name="substratum_title">Темы оформления</string>
@@ -508,6 +504,19 @@
     <string name="diamond_anim_duration_title">Продолжительность анимации ромба</string>
     <string name="dots_anim_duration_title">Продолжительность для точек</string>
     <string name="home_resize_anim_duration_title">Продолжительность изменения размера кнопки «Домой»</string>
+
+    <!-- Fingerprint Gestures -->
+    <string name="quick_pulldown_fp_title">Быстрые настройки с помощью сканера отпечатка пальца</string>
+    <string name="quick_pulldown_fp_summary">Разворачивать панель быстрых настроек с помощью проведения по сканеру отпечатка пальцев</string>
+    <string name="fp_swipe_call_actions_title">Жесты сканера отпечатков пальцев во время вызова</string>
+    <string name="fp_swipe_call_actions_disabled">Выключено</string>
+    <string name="fp_swipe_call_actions_updown_answer_call">Провести пальцем вверх или вниз для ответа на входящие вызовы</string>
+    <string name="fp_swipe_call_actions_up_answer_down_silence">Провести вверх для ответа на входящие вызовы, вниз - чтобы выключить звук</string>
+
+    <!-- Reset battery stats -->
+    <string name="ok">Да</string>
+    <string name="menu_stats_reset">Сброс статистики</string>
+    <string name="reset_stats_msg">История статистики батареи будет сброшена</string>
 
     <!-- Translating strings from strings.xml -->
     <!-- -->
