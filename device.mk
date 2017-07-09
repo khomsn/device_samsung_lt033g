@@ -92,6 +92,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     AdvancedDisplay
 
+# Samsung Doze
+PRODUCT_PACKAGES += \
+    SamsungDoze
+
 # SHIM LIBS
 PRODUCT_PACKAGES += \
     libshim_gpsd
