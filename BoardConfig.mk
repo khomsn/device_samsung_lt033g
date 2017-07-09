@@ -68,9 +68,6 @@ BOARD_NO_CHARGER_LED := true
 # Enable real time lockscreen charging current values
 BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
-# We use our lights hal
-TARGET_PROVIDES_LIBLIGHT := true
-
 # Bootloader
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
