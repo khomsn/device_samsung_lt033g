@@ -17,7 +17,20 @@
 #ifndef SAMSUNG_POWER_H
 #define SAMSUNG_POWER_H
 
-#define CPU0_SYSFS_PATH "/sys/devices/system/cpu/cpu0"
-#define CPU0_INTERACTIVE_PATH "/sys/devices/system/cpu/cpufreq/interactive"
+/*
+ * Board specific nodes
+ *
+ * If your kernel exposes these controls in another place, you can either
+ * symlink to the locations given here, or override this header in your
+ * device tree.
+ */
+
+static const char* CPU_SYSFS_PATHS[] = {
+    "/sys/devices/system/cpu/cpu0"
+};
+
+static const char* CPU_INTERACTIVE_PATHS[] = {
+    "/sys/devices/system/cpu/cpufreq/interactive"
+};
 
 #endif // SAMSUNG_POWER_H
