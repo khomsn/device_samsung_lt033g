@@ -9,13 +9,6 @@ on init
     chown system system /proc/avc_msg
     chmod 0660 /proc/avc_msg
 
-    # Vibetonz
-    export VIBE_PIPE_PATH /dev/pipes
-    mkdir /dev/pipes 0771 vibe vibe
-    chmod 0771 /dev/pipes
-    chown vibe vibe /dev/pipes
-    restorecon /dev/pipes
-
     # reset_reason
     chown system system /proc/reset_reason
     chmod 0600 /proc/reset_reason
