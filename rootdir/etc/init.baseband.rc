@@ -18,8 +18,8 @@ on fs
 
 on post-fs-data
     # Remove symlinks to avoid issues with migrate after nandroid restores
-    rm -r -d /data/data/com.android.providers.telephony/databases
-    rm -r -d /data/data/com.android.providers.telephony/shared_prefs
+    rm /data/data/com.android.providers.telephony/databases
+    rm /data/data/com.android.providers.telephony/shared_prefs
 
     # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
     symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
