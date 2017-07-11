@@ -160,11 +160,11 @@ on boot
     chmod 0660 /sys/class/input/input3/enabled
     chown system system /sys/class/input/input2/enabled
     chmod 0660 /sys/class/input/input2/enabled
+    chown system system /sys/class/input/input1/enabled
+    chmod 0660 /sys/class/input/input1/enabled
 
 # Permissions for TouchScreen
     chown system radio /sys/class/sec/tsp/cmd
-    chown system system /sys/class/input/input1/enabled
-    chmod 0660 /sys/class/input/input1/enabled
     chown system radio /sys/class/sec/sec_touchscreen/set_tsp_for_inputmethod
 
 # Permissions for Touchkey
