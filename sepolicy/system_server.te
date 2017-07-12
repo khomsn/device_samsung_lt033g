@@ -43,3 +43,6 @@ allow system_server kernel:process setsched;
 
 # fimg2d
 allow system_server fimg2d_device:chr_file rw_file_perms;
+
+# themes
+allow system_server theme_data_file:file r_file_perms;
