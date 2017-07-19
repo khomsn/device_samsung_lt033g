@@ -1074,4 +1074,12 @@
     <string name="install_file_manager_error">Не найдено приложение для выбора zip-файла. Пожалуйста, установите файловый менеджер.</string>
     <string name="apply">Применить</string>
     <string name="bootanim_install_successful">Новая анимация загрузки успешно установлена</string>
+
+    <!-- Lineage extras stuff -->
+    <string name="lineage_extras_title">Страница дополнений LineageOS</string>
+    <string name="lineage_extras_title_summary">Поддержка root, удаление root, поставщики погоды...</string>
+
+    <!-- Center Time + Date in header -->
+    <string name="qs_date_time_center_title">Дата и время по центру</string>
+    <string name="qs_date_time_center_summary">Требуется отключить многопользовательский режим и значки запущенных сервисов</string>
 </resources>
