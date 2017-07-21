@@ -1082,4 +1082,9 @@
     <!-- Center Time + Date in header -->
     <string name="qs_date_time_center_title">Дата и время по центру</string>
     <string name="qs_date_time_center_summary">Требуется отключить многопользовательский режим и значки запущенных сервисов</string>
+
+    <!-- WakeBlock app -->
+    <string name="wakeblock_app_title">Блокировка пробуждений</string>
+    <string name="wakeblock_app_installed_summary">Блокировка процессов пробуждающих систему</string>
+    <string name="wakeblock_app_not_installed_summary">Установите приложение из маркета, чтобы блокировать пробуждения!</string>
 </resources>
