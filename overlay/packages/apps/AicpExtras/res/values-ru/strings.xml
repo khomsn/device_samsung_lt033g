@@ -271,8 +271,6 @@
     <!-- Power menu Animations  -->
     <string name="power_menu_animation_title">Анимация меню кнопки питания</string>
     <string name="power_menu_animation_style_title">Выбранная анимация</string>
-    <string name="power_menu_animation_style_summary">Изменение анимации появления/исчезновения окна «Vеню кнопки питания»</string>
-    <string name="power_menu_animation_dialog_title">Выберите анимацию</string>
     <string name="power_menu_animation_aosp">AOSP (по умолчанию)</string>
     <string name="power_menu_animation_bottom">Снизу</string>
     <string name="power_menu_animation_top">Сверху</string>
