@@ -136,8 +136,8 @@ BOARD_USE_VP8ENC_SUPPORT := true
 # Modem
 BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := xmm6360
-# RIL java overwrite
-BOARD_RIL_CLASS := ../../../device/samsung/lt033g/ril
+BOARD_USES_SAMSUNGEXYNOS_RIL_CLASS := true
+BOARD_RIL_CLASS := ../../../hardware/samsung/ril/rilj
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
