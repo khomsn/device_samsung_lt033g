@@ -12,6 +12,5 @@ allow untrusted_app sysfs:dir { open read };
 allow untrusted_app unlabeled:dir getattr;
 
 # exFAT
-allow untrusted_app exfat:dir rw_dir_perms;
-allow untrusted_app exfat:file rw_file_perms;
-allow untrusted_app exfat:file { getattr link rename };
+allow untrusted_app exfat:dir { rw_dir_perms setattr };
+allow untrusted_app exfat:file { rw_file_perms getattr link rename };
