@@ -20,13 +20,13 @@
   <!-- Long-press back kill application -->
   <string name="app_killed_message">Приложение закрыто</string>
   <!-- label for item that screenshots in phone options dialog -->
-  <string name="global_action_screenshot">Скриншот</string>
+  <string name="global_action_screenshot">Снимок экрана</string>
   <!-- label for item that restarts the phone in phone options dialog -->
   <string name="global_action_reboot">Перезапуск</string>
   <!-- label for current user in phone options dialog -->
   <string name="global_action_current_user">Текущий</string>
   <!-- status message in phone options dialog for screenshot action -->
-  <string name="global_actions_screenshot_status">Удерживайте, чтобы выделить область для скриншота</string>
+  <string name="global_actions_screenshot_status">Удерживайте, чтобы выделить область для снимка экрана</string>
   <!-- Restart menu -->
   <!-- Button to restart the phone, within the Restart Options dialog -->
   <string name="reboot_reboot">Перезапуск</string>
@@ -118,7 +118,7 @@
   <string name="app_ops_scan_wifi">выполнить сканирование сетей Wi-Fi</string>
   <string name="app_ops_change_wallpaper">изменить обои</string>
   <string name="app_ops_assist_structure">использовать структуру ассистента</string>
-  <string name="app_ops_assist_screenshot">сделать скриншот</string>
+  <string name="app_ops_assist_screenshot">сделать снимок экрана</string>
   <string name="app_ops_use_body_sensors">использовать нательные датчики</string>
   <string name="app_ops_read_cell_broadcasts">прочитать сообщения оповещения населения</string>
   <string name="app_ops_mock_location">предоставить фиктивные сведения о местоположении</string>

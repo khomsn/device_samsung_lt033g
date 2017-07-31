@@ -19,9 +19,7 @@
     <!-- Quick Settings tiles -->
     <string name="quick_settings_screenshot_label">Снимок экрана</string>
     <string name="quick_settings_region_screenshot_label">Снимок выбранной области экрана</string>
-    <string name="quick_settings_adb_network">ADB по сети</string>
-    <string name="quick_settings_network_adb_enabled_label">Включено</string>
-    <string name="quick_settings_network_adb_disabled_label">Отключено</string>
+    <string name="quick_settings_network_adb_label">ADB по сети</string>
     <string name="quick_settings_sync_label">Синхронизация</string>
     <string name="accessibility_quick_settings_sync_off">Синхрон. выкл</string>
     <string name="accessibility_quick_settings_sync_on">Синхрон. вкл</string>
@@ -64,34 +62,21 @@
     <string name="quick_settings_sound_ring">Звонок</string>
     <string name="quick_settings_sound_vibrate">Вибросигнал</string>
     <string name="quick_settings_sound_silent">Без звука</string>
-    <string name="accessibility_quick_settings_location_battery_saving">Определение местоположения: по координатам сети (экономия батареи)</string>
-    <string name="accessibility_quick_settings_location_gps_only">Определение местоположения: по спутникам GPS</string>
-    <string name="accessibility_quick_settings_location_high_accuracy">Определение местоположения: по всем источникам</string>
-    <string name="accessibility_quick_settings_location_changed_battery_saving">Служба определения местоположения переключена в режим - «по координатам сети»</string>
-    <string name="accessibility_quick_settings_location_changed_gps_only">Служба определения местоположения переключена в режим - «по спутникам GPS»</string>
-    <string name="accessibility_quick_settings_location_changed_high_accuracy">Служба отправки местоположения переключена в режим - «по всем источникам»</string>
-    <string name="quick_settings_location_detail_title">Режим местоположения</string>
-    <string name="quick_settings_location_battery_saving_label">По координатам сети</string>
-    <string name="quick_settings_location_gps_only_label">По спутникам GPS</string>
-    <string name="quick_settings_location_high_accuracy_label">По всем источникам</string>
-    <string name="quick_settings_location_off_label">Местоположение выкл</string>
 
     <!-- Screenshot Delete Toast -->
-    <string name="delete_screenshot_toast">Скриншот удалён</string>
+    <string name="delete_screenshot_toast">Снимок экрана удалён</string>
 
     <!-- Navigation bar Tile -->
     <string name="quick_settings_navigation_bar">Панель навигации</string>
     <string name="quick_settings_smartbar">Умная панель вкл.</string>
-    <string name="quick_settings_smartbar_off">Умная панель выкл.</string>
     <string name="quick_settings_fling">Росчерк</string>
-    <string name="quick_settings_fling_off">Росчерк выкл.</string>
 
     <!-- Heads up snooze toast -->
     <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> Всплывающие уведомления выключены на одну минуту.</string>
     <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Всплывающие уведомления выключены на <xliff:g id="number">%d</xliff:g> минут.</string>
 
     <!-- Screenshot action -->
-    <string name="screenshot_abort_title">Скриншот не был создан</string>
+    <string name="screenshot_abort_title">Снимок экрана не был создан</string>
     <string name="screenshot_abort_text">Операция прервана</string>
 
     <!-- Aicp Extras Tile -->
@@ -168,7 +153,7 @@
     <string name="app_float_item_title">Плавающий вид</string>
     <string name="app_stop_item_title">«Убить» приложение</string>
 
-    <!-- Slim recents membar -->
+    <!-- recents membar -->
     <string name="recents_free_ram">RAM: %1$d MB свободно</string>
 
     <!-- OmniJAWS -->
@@ -192,7 +177,7 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
 
-    <!-- Slim Shortcut Actions -->
+    <!-- Aicp Shortcut Actions -->
     <string name="shortcut_picker">Ярлыки Aicp</string>
     <string name="shortcut_rotation">Поворот</string>
     <string name="shortcut_reboot">Перезагрузка</string>

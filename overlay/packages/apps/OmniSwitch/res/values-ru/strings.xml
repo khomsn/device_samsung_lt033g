@@ -17,7 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="hide_app">Скрыть значок приложения</string>
-    <string name="package_stop_task_title">Остановить</string>
+    <string name="package_remove_task_title">Удалить</string>
     <string name="package_inspect_item_title">Информация о приложении</string>
     <string name="start_on_boot_title">Запускать при загрузке</string>
     <string name="start_on_boot_summary">Запускать при загрузке устройства</string>
@@ -174,4 +174,9 @@
     <string name="swipe_thumb_update_title">Асинхронная загрузка миниатюр</string>
     <string name="dim_action_buttons_summary">Добавить дополнительное затемнение для панели кнопок</string>
     <string name="dim_action_buttons_title">Затемнение фона панели кнопок</string>
+    <string name="package_force_stop_title">Остановить принудительно</string>
+    <string name="package_lock_app_title">Заблокировать приложение</string>
+    <string name="package_unlock_app_title">Разблокировать приложение</string>
+    <string name="locked_apps_sort_summary">Заблокированные приложения будут отображаться в начале списка</string>
+    <string name="locked_apps_sort_title">Сортировка заблокированных приложений</string>
 </resources>

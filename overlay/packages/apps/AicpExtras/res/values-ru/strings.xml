@@ -93,7 +93,6 @@
     <string name="disable_immersive_message_summary">Будет отключен вывод всех сообщений о том, что программа запущена в полноэкранном режиме</string>
 
     <!-- Color Picker -->
-    <string name="dialog_color_picker">Выбор цвета</string>
     <string name="press_color_to_apply">Нажмите на цвет, чтобы выбрать его</string>
     <string name="set">Выбрать</string>
     <string name="color_default">По умолчанию</string>
@@ -307,8 +306,8 @@
     <string name="camera_sounds_summary">Отключение может не работать в сторонних приложениях камеры и в режиме HDR+</string>
 
     <!-- Screenshot sound -->
-    <string name="screenshot_sound_title">Звук скриншота</string>
-    <string name="screenshot_sound_summary">Воспроизводить звуковой сигнал при снятии скриншота</string>
+    <string name="screenshot_sound_title">Звук снимка экрана</string>
+    <string name="screenshot_sound_summary">Воспроизводить звуковой сигнал при снятии снимка экрана</string>
 
     <string name="brightness_icon_title">Значок авто-яркости</string>
     <string name="brightness_icon_summary">Показывать значок авто-яркости рядом с регулятором яркости</string>
@@ -470,12 +469,12 @@
     <string name="ticker_media_enabled">Для уведомлений и музыки</string>
 
     <!-- Optional screenshot type -->
-    <string name="screenshot_type_title">Тип скриншота</string>
+    <string name="screenshot_type_title">Тип снимка экрана</string>
     <string name="screenshot_type_fullscreen">Снимок всего экрана</string>
     <string name="screenshot_type_partial">Снимок выделеной области экрана</string>
 
     <!-- Screenshot delay -->
-    <string name="powermenu_screenshot_delay_title">Задержка скриншота</string>
+    <string name="powermenu_screenshot_delay_title">Задержка снимка экрана</string>
     <string name="powermenu_screenshot_delay_message">Текущая задержка снимка %1$s сек.</string>
 
     <!-- Lock screen Am/Pm switch -->
@@ -617,7 +616,7 @@
 
     <!-- Three-fingers-swipe to screenshot -->
     <string name="three_finger_gesture">Жест тремя пальцами</string>
-    <string name="three_finger_gesture_summary">Проведите по экрану тремя пальцами вниз для создания скриншота</string>
+    <string name="three_finger_gesture_summary">Проведите по экрану тремя пальцами вниз для создания снимка экрана</string>
 
     <!-- Blur UI -->
     <string name="nav_blur_ui_title">Размытый интерфейс</string>
@@ -750,8 +749,8 @@
     <string name="pa_pie_notifications_summary">Добавить кнопку уведомлений</string>
     <string name="pa_pie_settings_panel_title">Панель быстрых настроек</string>
     <string name="pa_pie_settings_panel_summary">Добавить кнопку для открытия панели быстрых настроек</string>
-    <string name="pa_pie_screenshot_title">Скриншот</string>
-    <string name="pa_pie_screenshot_summary">Добавить кнопку скриншота</string>
+    <string name="pa_pie_screenshot_title">Снимок экрана</string>
+    <string name="pa_pie_screenshot_summary">Добавить кнопку снимка экрана</string>
     <string name="pa_pie_color_title">Настройки цветов PIE</string>
     <string name="pa_pie_color_style_title">Цветовой стиль PIE</string>
     <string name="pa_pie_background_title">Цвет фона</string>

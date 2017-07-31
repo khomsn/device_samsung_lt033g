@@ -67,7 +67,6 @@
     <string name="density_category">Настройки плотности</string>
 
     <!-- Color Picker -->
-    <string name="dialog_color_picker">Выбор цвета</string>
     <string name="press_color_to_apply">Нажмите на цвет для применения</string>
     <string name="set">Установить</string>
     <string name="color_default">По умолчанию</string>
@@ -234,6 +233,12 @@
     <string name="smartbar_doubletap_sleep_summary">Дважды коснитесь панели для перехода в спящий режим</string>
     <string name="one_handed_mode_title">Режим «Управление одной рукой»</string>
     <string name="one_handed_mode_summary">Позволяет росчерком на панели навигации включать режим «Управление одной рукой»</string>
+    <string name="smartbar_longpress_delay_title">Время долгого нажатия кнопки</string>
+    <string name="smartbar_longpress_delay_summary">Настройка времени реакции системы на долгое нажатие кнопки</string>
+    <string name="smartbar_longpress_delay_default">Задержка по умолчанию (быстро)</string>
+    <string name="smartbar_longpress_delay_normal">Нормальная задержка</string>
+    <string name="smartbar_longpress_delay_long">Длинная задержка</string>
+    <string name="smartbar_custom_icon_size_title">Настройка масштабирования значков</string>
 
     <string name="link_volume_option_title">Связать громкость рингтона и уведомлений</string>
 
@@ -520,9 +525,6 @@
 
     <!-- Translating strings from strings.xml -->
     <!-- -->
-
-    <!-- Sound: Other sounds: Title for the option enabling charging sounds. [CHAR LIMIT=30] -->
-    <string name="charging_sounds_title">Звук при зарядке</string>
 
     <!-- Настройки -> Звук -> Отключить уведомления -->
     <string name="interruptions_ignore_while_media_title">Не приглушать звук</string>
