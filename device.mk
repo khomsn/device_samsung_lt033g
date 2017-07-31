@@ -298,7 +298,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Enable SDCard fs
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sdcardfs.enable=true
+    ro.sys.sdcardfs=true
 
 # Samsung Specific Properties
 PRODUCT_PROPERTY_OVERRIDES += \
