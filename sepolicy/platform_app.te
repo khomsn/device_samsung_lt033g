@@ -1,9 +1,3 @@
-allow platform_app exfat:dir rw_dir_perms;
-allow platform_app exfat:dir create_dir_perms;
-allow platform_app exfat:file rw_file_perms;
-allow platform_app exfat:file { getattr link unlink rename };
-allow platform_app exfat:file create_file_perms;
-
 # fimg2d
 allow platform_app fimg2d_device:chr_file rw_file_perms;
 
