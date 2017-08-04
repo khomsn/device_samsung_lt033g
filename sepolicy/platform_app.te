@@ -12,3 +12,7 @@ allow platform_app bootanim_exec:file getattr;
 allow platform_app device:dir { read open };
 allow platform_app efs_file:dir getattr;
 allow platform_app unlabeled:dir getattr;
+
+# For NTFS
+allow platform_app ntfs:dir create_dir_perms;
+allow platform_app ntfs:file create_file_perms;
