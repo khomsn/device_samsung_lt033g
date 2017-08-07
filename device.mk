@@ -236,10 +236,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
-# for off charging mode
-PRODUCT_PACKAGES += \
-    charger_res_images
-
 # Radio
 ADDITIONAL_DEFAULT_PROPERTIES += \
     keyguard.no_require_sim=true \
