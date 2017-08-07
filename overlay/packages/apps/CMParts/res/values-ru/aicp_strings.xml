@@ -64,4 +64,6 @@
 
     <string name="status_bar_pulse_charging_battery_title">Пульсировать во время зарядки</string>
     <string name="status_bar_pulse_charging_battery_summary">Во время зарядки, значок батареи будет периодически пульсировать</string>
+
+    <string name="battery_light_allow_on_dnd_title">Индикатор батареи в режиме «Не беспокоить»</string>
 </resources>

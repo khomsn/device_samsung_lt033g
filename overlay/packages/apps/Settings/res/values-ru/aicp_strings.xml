@@ -523,6 +523,10 @@
     <string name="menu_stats_reset">Сброс статистики</string>
     <string name="reset_stats_msg">История статистики батареи будет сброшена</string>
 
+    <string name="background_processes_settings_title">Фоновые процессы</string>
+
+    <string name="vibration_mode_indication_title">Вибрация при включении виброрежима</string>
+
     <!-- Translating strings from strings.xml -->
     <!-- -->
 

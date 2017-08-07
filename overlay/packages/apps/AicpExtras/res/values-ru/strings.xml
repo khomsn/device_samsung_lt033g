@@ -431,8 +431,8 @@
     <string name="ae_header_bg_image_opacity_title">Прозрачность изображения в заголовке панели навигации</string>
     <string name="ae_nav_drawer_checked_text_title">Цвет текста выбранного элемента</string>
     <string name="ae_nav_drawer_unchecked_text_title">Цвет текста элементов</string>
-    <string name="ae_settings_summary_title">Свой текст описания AICP Extras в настройках системы</string>
-    <string name="custom_summary_title">Своё описание AICP Extras</string>
+    <string name="ae_settings_summary_title">Свой текст описания AICP Extras</string>
+    <string name="custom_summary_title">Своё описание AICP Extras в настройках системы</string>
     <string name="custom_summary_explain">Пожалуйста, введите новое описание. Пустое поле вернёт описание по умолчанию.</string>
     <string name="custom_summary_notset">Свои персональные настройки прошивки</string>
     <string name="ae_moderate_language_title">Ненормативная лексика</string>
@@ -1084,4 +1084,8 @@
     <string name="wakeblock_app_title">Блокировка пробуждений</string>
     <string name="wakeblock_app_installed_summary">Блокировка процессов пробуждающих систему</string>
     <string name="wakeblock_app_not_installed_summary">Установите приложение из маркета, чтобы блокировать пробуждения!</string>
+
+    <!-- Sensor block per-package -->
+    <string name="sensor_block_title">Блокировка датчиков для приложений</string>
+    <string name="sensor_block_summary">Блокировка доступа к датчикам для некоторых приложений для экономии заряда батареи.</string>
 </resources>
