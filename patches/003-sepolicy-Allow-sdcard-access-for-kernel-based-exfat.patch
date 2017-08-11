@@ -1,0 +1,30 @@
+sepolicy: Allow sdcard access for kernel based exfat driver
+
+Based on https://review.lineageos.org/#/c/144355/
+
+project system/sepolicy/
+diff --git a/system/sepolicy/app.te b/system/sepolicy/app.te
+index 93fe3a4..bca20c5 100644
+--- a/system/sepolicy/app.te
++++ b/system/sepolicy/app.te
+@@ -185,6 +185,8 @@ allow appdomain mnt_user_file:dir r_dir_perms;
+ allow appdomain mnt_user_file:lnk_file r_file_perms;
+ 
+ # Read/write visible storage
++allow appdomain exfat:dir create_dir_perms;
++allow appdomain exfat:file create_file_perms;
+ allow appdomain fuse:dir create_dir_perms;
+ allow appdomain fuse:file create_file_perms;
+ allow appdomain sdcardfs:dir create_dir_perms;
+diff --git a/system/sepolicy/untrusted_app.te b/system/sepolicy/untrusted_app.te
+index 8dd0f3f..994e024 100644
+--- a/system/sepolicy/untrusted_app.te
++++ b/system/sepolicy/untrusted_app.te
+@@ -188,6 +188,7 @@ neverallow untrusted_app property_type:property_service set;
+ # application un-installation.
+ neverallow untrusted_app {
+   fs_type
++  -exfat                    # sdcard
+   -fuse                     # sdcard
+   -sdcardfs                 # sdcard
+   -vfat
