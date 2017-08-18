@@ -527,6 +527,28 @@
 
     <string name="vibration_mode_indication_title">Вибрация при включении виброрежима</string>
 
+    <!-- Color engine -->
+    <string name="theme_switch_palette">Переключение между настройками цвета фона и элементов</string>
+    <string name="theme_title">Цветовая тема</string>
+    <string name="theme_summary">Выберите цвета для Вашей текущей темы</string>
+    <string name="theme_accent_color">Цвет элементов</string>
+    <string name="theme_primary_color">Цвет фона</string>
+    <string name="theme">Тема</string>
+    <string name="oms_enabled">Изменение темы недоступно, так как в настоящее время установлены наслоения темы Substratum</string>
+    <string name="red">Красный</string>
+    <string name="orange">Янтарный</string>
+    <string name="blue">Голубой</string>
+    <string name="green">Зелёный</string>
+    <string name="yellow">Жёлтый</string>
+    <string name="purple">Пурпурный</string>
+    <string name="pink">Розовый</string>
+    <string name="dark">Чёрный</string>
+    <string name="pixel">Пиксель</string>
+    <string name="teal">По умолчанию</string>
+    <string name="cyan">Циан</string>
+    <string name="grey">Серый</string>
+    <string name="default_string">По умолчанию</string>
+
     <!-- Translating strings from strings.xml -->
     <!-- -->
 

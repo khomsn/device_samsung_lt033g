@@ -235,8 +235,12 @@
     <string name="log_that_shit_title">Системные журналы</string>
     <string name="logcat_warning">Поделись ими или иди нахрен!</string>
     <string name="share_title">Поделиться...</string>
-    <string name="log_it_share_subject">Логи AICP</string>
-    <string name="log_it_summary">Будьте терпеливы, логи создаются</string>
+    <string name="log_it_share_subject">Журналы AICP</string>
+    <string name="log_it_summary">Будьте терпеливы, журналы в процессе создания</string>
+    <string name="log_it_logs_in_progress">Журналы в процессе создания&#8230;</string>
+    <string name="log_it_share_type_title">Метод отправки</string>
+    <string name="log_it_share_type_zip">ZIP-файл</string>
+    <string name="log_it_share_type_haste">Загрузить в AICP</string>
 
     <!-- AOKP custom system animations -->
     <string name="animation_duration_default">По умолчанию</string>
@@ -474,8 +478,7 @@
     <string name="screenshot_type_partial">Снимок выделеной области экрана</string>
 
     <!-- Screenshot delay -->
-    <string name="powermenu_screenshot_delay_title">Задержка снимка экрана</string>
-    <string name="powermenu_screenshot_delay_message">Текущая задержка снимка %1$s сек.</string>
+    <string name="screenshot_delay_title">Задержка снимка экрана</string>
 
     <!-- Lock screen Am/Pm switch -->
     <string name="lock_screen_hide_ampm_title">Скрывать AM/PM</string>
@@ -587,25 +590,12 @@
     <string name="media_scanner_on_boot_ask">По запросу (уведомление)</string>
     <string name="media_scanner_on_boot_disabled">Не сканировать медиа</string>
 
-    <!-- SlimSizer  -->
-    <string name="listsystem">Список</string>
-    <string name="sizer_title">Удаление приложений</string>
-    <string name="caution">Внимание!</string>
-    <string name="sizer_message_startup">Этот инструмент позволяет удалять системные приложения. Используйте с осторожностью и удаляйте только те приложения, которые знаете.</string>
-    <string name="cancel">Отмена</string>
-    <string name="sizer_message_delete">Вы уверены, что хотите удалить это приложение?</string>
-    <string name="btn_delete">Удалить выбранные приложения сейчас!</string>
-    <string name="delete_progress_title">Удаление</string>
-    <string name="delete_progress">Выбранные файлы удаляются...</string>
-    <string name="delete_success">Удалено</string>
-    <string name="delete_fail">Не удается удалить</string>
-    <string name="btn_profile">Профиль</string>
-    <string name="sizer_message_sdnowrite">Невозможно записать на SD-карту</string>
-    <string name="sizer_message_sdnoread">Невозможно прочитать SD-карту</string>
-    <string name="sizer_message_filesuccess">Профиль создан.</string>
-    <string name="sizer_message_filefail">Не удалось создать профиль</string>
-    <string name="sizer_message_noselect">Ничего не выбрано</string>
+    <!-- App Remover -->
     <string name="system_app_remover">Удаление системных приложений</string>
+    <string name="listsystem">Список</string>
+    <string name="cancel">Отмена</string>
+    <string name="message_delete">Вы уверены, что хотите удалить это приложение?</string>
+    <string name="message_noselect">Ни чего не выбрано</string>
 
     <!-- Extensions settings -->
     <string name="extensions_title">Системные расширения</string>
@@ -926,12 +916,6 @@
     <string name="app_circle_bar_summary">Показывать круговую панель приложений после касания правой стороны экрана</string>
     <string name="app_circle_bar_included_apps_title">Приложения</string>
     <string name="app_circle_bar_included_apps_summary">Приложения будут отображены в круговой панели приложений</string>
-    <string name="trigger_width_title">Ширина области вызова</string>
-    <string name="trigger_width_summary">Установите ширину области вызова</string>
-    <string name="trigger_top_title">Позиция области вызова</string>
-    <string name="trigger_top_summary">Установите вертикальное расположение области вызова</string>
-    <string name="trigger_bottom_title">Высота области вызова</string>
-    <string name="trigger_bottom_summary">Установите высоту области вызова</string>
 
     <!-- Disabling FC notifications -->
     <string name="disable_fc_notifications_title">Отключить уведомления о принудительном закрытии</string>
@@ -1088,4 +1072,12 @@
     <!-- Sensor block per-package -->
     <string name="sensor_block_title">Блокировка датчиков для приложений</string>
     <string name="sensor_block_summary">Блокировка доступа к датчикам для некоторых приложений для экономии заряда батареи.</string>
+
+    <!-- QS Tiles single tap to add/remove -->
+    <string name="qs_tile_single_tap_title">Плитка в одно касание</string>
+    <string name="qs_tile_single_tap_summary">Добавление/Удаление плиток быстрых настроек одним касанием, в настройках плиток</string>
+
+    <!-- Grid recents -->
+    <string name="grid_recents_title">Сетка недавних приложений</string>
+    <string name="grid_recents_summary">Показывать недавние приложения в виде сетки</string>
 </resources>

@@ -66,4 +66,13 @@
     <string name="status_bar_pulse_charging_battery_summary">Во время зарядки, значок батареи будет периодически пульсировать</string>
 
     <string name="battery_light_allow_on_dnd_title">Индикатор батареи в режиме «Не беспокоить»</string>
+
+    <!-- ANBI -->
+    <string name="buttons_misc_cat">Разное</string>
+    <string name="anbi_title">Случайное касание</string>
+    <string name="anbi_summary">Отключать взаимодействие с навигационными кнопками во время касания экрана</string>
+
+    <!-- Pocket judge -->
+    <string name="pocket_judge_title">Режим «в кармане»</string>
+    <string name="pocket_judge_summary">Блокировать экран и кнопки когда устройство находится в кармане</string>
 </resources>
