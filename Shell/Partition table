@@ -1,0 +1,58 @@
+major minor  #blocks  name
+
+ 179        0   30535680 mmcblk0
+ 179        1       4096 mmcblk0p1
+ 179        2       4096 mmcblk0p2
+ 179        3      20480 mmcblk0p3
+ 179        4       4096 mmcblk0p4
+ 179        5       4096 mmcblk0p5
+ 179        6       4096 mmcblk0p6
+ 179        7       4096 mmcblk0p7
+ 179        8       8192 mmcblk0p8
+ 179        9       8192 mmcblk0p9
+ 179       10      12288 mmcblk0p10
+ 179       11       4096 mmcblk0p11
+ 259        0       4096 mmcblk0p12
+ 259        1      20480 mmcblk0p13
+ 259        2       4096 mmcblk0p14
+ 259        3       4096 mmcblk0p15
+ 259        4      20480 mmcblk0p16
+ 259        5      12288 mmcblk0p17
+ 259        6       4096 mmcblk0p18
+ 259        7     204800 mmcblk0p19
+ 259        8    2465792 mmcblk0p20
+ 259        9   27709440 mmcblk0p21
+ 179       36        512 mmcblk0rpmb
+ 179       24       4096 mmcblk0boot1
+ 179       12       4096 mmcblk0boot0
+ 179       48  500072448 mmcblk1
+ 179       49  500069376 mmcblk1p1
+major       minor  #blocks  dev         name
+                                                                                                                                                         
+Model: MMC MBG4GC (sd/mmc)
+Disk /dev/block/mmcblk0: 31268536kB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+
+Number  Start      End         Size        File system  Name        Flags
+ 1      4194kB     8389kB      4194kB                   BOTA0
+ 2      8389kB     12583kB     4194kB                   BOTA1
+ 3      12583kB    33554kB     20972kB     ext4         EFS
+ 4      33554kB    37749kB     4194kB                   m9kefs1
+ 5      37749kB    41943kB     4194kB                   m9kefs2
+ 6      41943kB    46137kB     4194kB                   m9kefs3
+ 7      46137kB    50332kB     4194kB                   CARRIER
+ 8      50332kB    58720kB     8389kB                   PARAM
+ 9      58720kB    67109kB     8389kB                   BOOT
+10      67109kB    79692kB     12583kB                  RECOVERY
+11      79692kB    83886kB     4194kB                   OTA
+12      83886kB    88080kB     4194kB                   CDMA-RADIO
+13      88080kB    109052kB    20972kB                  RADIO
+14      109052kB   113246kB    4194kB                   TOMBSTONES
+15      113246kB   117441kB    4194kB                   TDATA
+16      117441kB   138412kB    20972kB     ext4         HIDDEN
+17      138412kB   150995kB    12583kB     ext2         PERSDATA
+18      150995kB   155189kB    4194kB                   RESERVED2
+19      155189kB   364904kB    209715kB    ext4         CACHE
+20      364904kB   2889875kB   2524971kB   ext2         SYSTEM
+21      2889875kB  31264342kB  28374467kB  ext4         USERDATA

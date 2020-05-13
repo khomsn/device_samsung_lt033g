@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,17 +16,21 @@
 
 LOCAL_PATH := device/samsung/lt033g
 
+# Include path
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+
 # Platform
 BOARD_VENDOR := samsung
+TARGET_SOC := exynos5420
 TARGET_BOARD_PLATFORM := exynos5
 TARGET_SLSI_VARIANT := cm
-TARGET_SOC := exynos5420
 
 # Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a15
 
 # Bluetooth
@@ -38,52 +42,47 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Bootloader
 TARGET_OTA_ASSERT_DEVICE := lt033g,lt03wifi,lt03wifiue,n1awifi,n1a3g
+TARGET_BOOTLOADER_BOARD_NAME := universal5420
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
 # Camera
-BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
 BOARD_NEEDS_MEMORYHEAPION := true
+BOARD_GLOBAL_CFLAGS += -DSAMSUNG_DVFS
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-
-# Force the screenshot path to CPU consumer
-BOARD_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
+BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
+BOARD_GLOBAL_CFLAGS += -DWIDEVINE_PLUGIN_PRE_NOTIFY_ERROR
 
 # Kernel
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
-TARGET_KERNEL_CONFIG := lineageos_lt033g_defconfig
-TARGET_KERNEL_SOURCE := kernel/samsung/lt033g
+TARGET_KERNEL_CONFIG := lineageos_deathly_Khomsn_V1_lt033g_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/v1a3g
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-linux-eabi-UB-5.3/bin
 KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 LZMA_RAMDISK_TARGETS := recovery
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
+BOARD_CUSTOM_BOOTIMG := true
 
-# Linker
-LINKER_FORCED_SHIM_LIBS := /system/vendor/lib/egl/libGLES_mali.so|libpopcountsi2.so
-
-# Charger/Healthd
-BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+# Charging mode
 BOARD_CHARGER_SHOW_PERCENTAGE := true
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+BOARD_BATTERY_DEVICE_NAME := battery
 BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
 BOARD_NO_CHARGER_LED := true
 # Enable real time lockscreen charging current values
 BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
-# Bootloader
-TARGET_NO_BOOTLOADER := true
-TARGET_NO_RADIOIMAGE := true
-TARGET_BOOTLOADER_BOARD_NAME := universal5420
-
-# Releasetools
-TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/lt033g/releasetools
-TARGET_BOARD_INFO_FILE ?= device/samsung/lt033g/board-info.txt
-
 # FIMG2D
 BOARD_USES_SKIA_FIMGAPI := true
 BOARD_USES_NEON_BLITANTIH := true
 
-# Graphics
+# Graphics+SurfaceFlinger
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
+VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 
 # Mixer
 BOARD_USE_BGRA_8888 := true
@@ -110,17 +109,11 @@ BOARD_USES_GSC_VIDEO := true
 # SCALER
 BOARD_USES_SCALER := true
 
-# Include path
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
-
 # Hardware
-BOARD_HARDWARE_CLASS := device/samsung/lt033g/cmhw
+BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw
+BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
 
-# Media
-BOARD_GLOBAL_CFLAGS += -DWIDEVINE_PLUGIN_PRE_NOTIFY_ERROR
-TARGET_OMX_LEGACY_RESCALING := true
-
-# Samsung OpenMAX Video
+# # Samsung OpenMAX Video
 BOARD_USE_STOREMETADATA := true
 BOARD_USE_METADATABUFFERTYPE := true
 BOARD_USE_DMA_BUF := true
@@ -132,12 +125,14 @@ BOARD_USE_CSC_HW := true
 BOARD_USE_QOS_CTRL := false
 BOARD_USE_S3D_SUPPORT := true
 BOARD_USE_VP8ENC_SUPPORT := true
+TARGET_OMX_LEGACY_RESCALING := true
 
-# Modem
+# Modem 6262---------------------------------------------
+BOARD_MODEM_TYPE := xmm6262
 BOARD_PROVIDES_LIBRIL := true
-BOARD_MODEM_TYPE := xmm6360
-BOARD_USES_SAMSUNGEXYNOS_RIL_CLASS := true
-BOARD_RIL_CLASS := ../../../hardware/samsung/ril/rilj
+# RIL java overwrite
+BOARD_RIL_CLASS := ../../../device/samsung/lt033g/ril
+#--------------------------------------------------------
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
@@ -155,11 +150,14 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # Extended filesystem support
 TARGET_KERNEL_HAVE_EXFAT := true
+TARGET_EXFAT_DRIVER := sdfat
+TARGET_VFAT_DRIVER := sdfat
 
 # Disable journaling on system.img to save space
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 
 # Enable dex-preoptimization to speed up first boot sequence
+# Lower filesize by limiting dex-preoptimization
 WITH_DEXPREOPT := true
 WITH_DEXPREOPT_BOOT_IMG_ONLY := true
 
@@ -167,12 +165,11 @@ WITH_DEXPREOPT_BOOT_IMG_ONLY := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5420
-
-# SurfaceFlinger
-SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
-VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
-TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.universal5420
+#have no ref
+BOARD_RECOVERY_SWIPE := true
+# Fix too large recovery
+TARGET_RECOVERY_DENSITY := hdpi
 
 # WFD
 BOARD_USES_WFD := true
@@ -187,6 +184,10 @@ USE_MINIKIN := true
 TARGET_AUDIOHAL_VARIANT := samsung
 # Advanced Low Power audio support
 BOARD_USE_ALP_AUDIO := true
+# Camera HAL from hardware/samsung_slsi-cm/exynos5420/libcamera
+#TARGET_CAMERAHAL_VARIANT := exynos5420
+# We use our lights hal
+TARGET_PROVIDES_LIBLIGHT := true
 
 # Power HAL from hardware/samsung
 TARGET_POWERHAL_VARIANT := samsung
@@ -197,24 +198,46 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 # Allow to use baseline profile for AVC recording
 TARGET_USE_AVC_BASELINE_PROFILE := true
 
-# IR
+# IR HAL from hardware/samsung
 IR_HAL_SUFFIX := universal5420
+# IR Blaster
+IR_HAS_ONE_FREQ_RANGE := true
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
 BOARD_WLAN_DEVICE                := bcmdhd
+WIFI_BAND                        := 802_11_ABG
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/dhd/parameters/firmware_path"
+WIFI_DRIVER_NVRAM_PATH           := "/system/etc/wifi/nvram_net.txt"
 WIFI_DRIVER_FW_PATH_STA          := "/system/etc/wifi/bcmdhd_sta.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/system/etc/wifi/bcmdhd_apsta.bin"
 
-# Fix too large recovery
-TARGET_RECOVERY_DENSITY := hdpi
+# Force the screenshot path to CPU consumer
+TARGET_FORCE_SCREENSHOT_CPU_PATH := true
 
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/lt033g/sepolicy
+# Samsung Gralloc
+TARGET_SAMSUNG_GRALLOC_EXTERNAL_USECASES := true
+
+# Webkit
+ENABLE_WEBGL := true
+
+# Audio blobs
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+
+# SELinux put absolute path only for sepolicy dir!!!
+BOARD_SEPOLICY_DIRS += device/samsung/lt033g/sepolicy
+##BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
+
+# Bionic
+#TARGET_LD_SHIM_LIBS := \
+    /system/vendor/lib/libwvm.so|libwvm_shim.so
+
+# Linker
+LINKER_FORCED_SHIM_LIBS := /system/vendor/lib/egl/libGLES_mali.so|libpopcountsi2.so
+#LINKER_FORCED_SHIM_LIBS += /system/vendor/lib/libwvm.so|libwvm_shim.so
+#############################################################################################################
